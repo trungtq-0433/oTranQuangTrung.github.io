@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Trung Tran's Blog</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 06 Jan 2018 23:47:30 +0700</pubDate>
+    <lastBuildDate>Sat, 06 Jan 2018 23:47:30 +0700</lastBuildDate>
+    <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Hello world!</title>
+        <description>
+</description>
+        <pubDate>Thu, 04 Jan 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/01/04/hello-world/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/01/04/hello-world/</guid>
+        
+        
+        <category>Common</category>
+        
+      </item>
+    
+  </channel>
+</rss>
