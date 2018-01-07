@@ -5,14 +5,31 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 07 Jan 2018 12:47:40 +0700</pubDate>
-    <lastBuildDate>Sun, 07 Jan 2018 12:47:40 +0700</lastBuildDate>
+    <pubDate>Sun, 21 Jan 2018 22:36:58 +0700</pubDate>
+    <lastBuildDate>Sun, 21 Jan 2018 22:36:58 +0700</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
-        <title>Hello world</title>
+        <title>Awesome methods in Ruby on rails</title>
         <description>
-Hello world, my name is Trung!
+Làm việc với ngôn ngữ ruby và framework RubyOnRails một thời gian. Tôi nhận thấy những đoạn code xử lý ngày đầu vào nghề có vấn đề và thấy mình cần phải cải tiến…
+
+</description>
+        <pubDate>Sat, 13 Jan 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
+        
+        
+        <category>Awesome</category>
+        
+      </item>
+    
+      <item>
+        <title>Hello world!</title>
+        <description>
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello world, my name is Trung!&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 </description>
         <pubDate>Thu, 04 Jan 2018 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/2018/01/04/hello-world/</link>
