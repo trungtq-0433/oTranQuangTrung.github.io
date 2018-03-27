@@ -18,7 +18,7 @@ Làm việc với ngôn ngữ ruby và framework RubyOnRails một thời gian. 
 ## `Hash#dig`
 require: ruby2.3
 
-Ví dụ: 
+Ví dụ:
 ```ruby
 if params[:user] && params[:user][:location] && params[:user][:location][:province]
   do_something
@@ -90,12 +90,12 @@ Song khá lằng nhằng và rối rắm. Ta giải quyết bài toán này bằ
 
 ```ruby
 user = User.new
- 
+
 user.name = "buffalo"
-  
+
 user
 ```
-Việc sử dụng biến tạm ta thấy code không đẹp. 
+Việc sử dụng biến tạm ta thấy code không đẹp.
 ```ruby
 User.new.tap { |user| user.name = "buffalo" }
 ```

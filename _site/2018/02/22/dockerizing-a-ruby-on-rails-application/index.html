@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dockerizing a ruby on rails application</title>
-    <meta name="description" content="Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng bắt đầu sử dụng docker thì mình cũng đua ...">
+    <meta name="description" content="Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi n...">
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -128,18 +128,300 @@
         </div>
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
-        
-<p>Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng bắt đầu sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một
+        <ul id="markdown-toc">
+  <li><a href="#setup" id="markdown-toc-setup"><code class="highlighter-rouge">Setup</code></a></li>
+  <li><a href="#prepare" id="markdown-toc-prepare"><code class="highlighter-rouge">Prepare</code></a></li>
+  <li><a href="#dockerizing" id="markdown-toc-dockerizing"><code class="highlighter-rouge">Dockerizing</code></a>    <ul>
+      <li><a href="#1dockerfile" id="markdown-toc-1dockerfile">1.Dockerfile</a></li>
+      <li><a href="#2docker-compose" id="markdown-toc-2docker-compose">2.Docker compose</a></li>
+    </ul>
+  </li>
+  <li><a href="#using" id="markdown-toc-using"><code class="highlighter-rouge">Using</code></a></li>
+</ul>
+
+<p>Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một
 cái gì ra hồn hết cả, bẵng đi một thời gian đến giữa năm 2017 thì được làm một dự án từ đầu nên mình đã quyết định sử
-dụng docker vào dự án. Khoảng thời gian bỏ phí</p>
+dụng docker vào dự án. Cứ mỗi khoảng thời gian bỏ phí mình lại thấy tiếc nuối =))</p>
+
+<h2 id="setup"><code class="highlighter-rouge">Setup</code></h2>
+<p>Chúng ta cần cài đặt 2 thứ đó là <code class="highlighter-rouge">docker</code> và <code class="highlighter-rouge">docker-compose</code>
+Cách cài đặt  chúng ta cứ theo hướng dẫn từ trang chủ của docker chứ mình sẽ không nói lại ở đây.
+<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">document docker</a>
+<a href="https://docs.docker.com/compose/install/#install-compose">docker-compose</a></p>
+
+<p>Sau khi cài đặt thì <code class="highlighter-rouge">docker</code> được liên kết qua <code class="highlighter-rouge">Unix socket</code>. Mặc định thì <code class="highlighter-rouge">Unix socket</code> được sở hữu bởi user <code class="highlighter-rouge">roor</code>. Thế
+nên 1 user khác chỉ có thể truy cập <code class="highlighter-rouge">docker</code> bằng quyền <code class="highlighter-rouge">sudo</code>.
+Nếu không muốn sử dụng <code class="highlighter-rouge">sudo</code> khi xài <code class="highlighter-rouge">docker command</code> thì chúng ta tạo một <code class="highlighter-rouge">Unix group</code> là <code class="highlighter-rouge">docker</code>, sau đó chúng ta thêm user
+vào group. Khi <code class="highlighter-rouge">docker</code> khởi động thì quyền truy cập <code class="highlighter-rouge">Unix socket</code> được phân quyền cho <code class="highlighter-rouge">docker</code> group.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.Create the docker group.
+$ sudo groupadd docker
+
+2.Add your user to the docker group.
+$ sudo usermod -aG docker $USER
+
+3.Log out and log back in so that your group membership is re-evaluated.
+
+4.Verify that you can run docker commands without sudo.
+$ docker run hello-world
+</code></pre></div></div>
+
+<h2 id="prepare"><code class="highlighter-rouge">Prepare</code></h2>
+<ul>
+  <li>
+    <p>Rails application: Tất nhiên là phải có mới dockerizing được.
+Có thể sử dụng rails app sẵn có hoặc tạo new rails app bằng bằng docker và docker composer như
+<a href="https://docs.docker.com/compose/rails/#build-the-project">tutorial</a></p>
+  </li>
+  <li>
+    <p>Dockerfile</p>
+  </li>
+  <li>
+    <p>docker-compose.yml</p>
+  </li>
+</ul>
+
+<h2 id="dockerizing"><code class="highlighter-rouge">Dockerizing</code></h2>
+
+<h5 id="1dockerfile">1.Dockerfile</h5>
+
+<p><code class="highlighter-rouge">touch Dockerfile</code></p>
+
+<p>Đầu tiên ta tạo 1 file Dockerfile tại thư mục root rails app.
+Chỉnh sửa nội dung như sau.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FROM</span> <span class="n">ruby</span><span class="p">:</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span> 
+<span class="no">MAINTAINER</span> <span class="n">buffalo</span> <span class="o">&lt;</span><span class="n">tqtrung09</span><span class="vi">@gmail</span><span class="p">.</span><span class="nf">com</span><span class="o">&gt;</span>
+
+<span class="no">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">-</span><span class="n">qq</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libpq</span><span class="o">-</span><span class="n">dev</span> <span class="n">nodejs</span> <span class="n">vim</span> <span class="n">cron</span>
+
+<span class="no">ENV</span> <span class="no">APP_HOME</span> <span class="sr">/Lab
+
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+ADD Gemfile $APP_HOME/</span><span class="no">Gemfile</span>
+<span class="no">ADD</span> <span class="no">Gemfile</span><span class="p">.</span><span class="nf">lock</span> <span class="vg">$APP_HOME</span><span class="o">/</span><span class="no">Gemfile</span><span class="p">.</span><span class="nf">lock</span>
+<span class="no">RUN</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">bundler</span>
+<span class="no">RUN</span> <span class="n">bundle</span> <span class="n">install</span>
+<span class="no">ADD</span> <span class="o">.</span> <span class="vg">$APP_HOME</span>
+</code></pre></div></div>
+
+<p>Mình sẽ giải thích qua các lệnh trên:</p>
+
+<p><code class="highlighter-rouge">FROM ruby:2.4.2</code>: Đây là image base của mình, nó sẽ được tải từ docker hub khi mình build.</p>
+
+<p><code class="highlighter-rouge">RUN apt-get update -qq &amp;&amp; apt-get install -y build-essential libpq-dev nodejs vim cron</code>: Đây là các gói cài đặt thêm
+vào image. Trên đây có <code class="highlighter-rouge">vim</code> và <code class="highlighter-rouge">cron</code> là 2 package optional mình cài thêm để sử dụng vim và cronjob trong ứng dụng.</p>
+
+<p><code class="highlighter-rouge">ENV APP_HOME /LouisVLab</code>: Set biến thư mục dự án trong remote docker, giống với folder rails app của máy host.</p>
+
+<p><code class="highlighter-rouge">RUN mkdir $APP_HOME</code>: Tạo thư mục trong remote.</p>
+
+<p><code class="highlighter-rouge">WORKDIR $APP_HOME</code>: Set thư mục làm việc.</p>
+
+<p><code class="highlighter-rouge">ADD Gemfile $APP_HOME/Gemfile</code>: Copy Gemfile từ host vào remote.</p>
+
+<p><code class="highlighter-rouge">ADD Gemfile.lock $APP_HOME/Gemfile.lock</code>: Copy Gemfile.lock từ host vào remote.</p>
+
+<p><code class="highlighter-rouge">RUN gem install bundler</code>: Cài gem bundler cho remote.</p>
+
+<p><code class="highlighter-rouge">RUN bundle install</code>: Chạy bundle</p>
+
+<p><code class="highlighter-rouge">ADD . $APP_HOME</code>: Bind thư mục từ remote ra host</p>
+
+<h5 id="2docker-compose">2.Docker compose</h5>
+
+<p><code class="highlighter-rouge">touch docker-compose.yml</code></p>
+
+<p>Chỉnh sửa file với nội dung như sau.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">version: </span><span class="s2">"3"</span>
+<span class="ss">services:
+  database:
+    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mf">5.7</span>
+    <span class="ss">restart: </span><span class="n">always</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">mysql</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mysql</span>
+    <span class="ss">ports: 
+      </span><span class="o">-</span> <span class="s2">"3306:3306"</span>
+    <span class="ss">environment:
+      </span><span class="no">MYSQL_ROOT_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span>
+  <span class="ss">redis:
+    image: </span><span class="n">redis</span><span class="p">:</span><span class="mf">3.2</span><span class="o">-</span><span class="n">alpine</span>
+    <span class="ss">ports:
+      </span><span class="o">-</span> <span class="s2">"6379:6379"</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">redis</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">redis</span><span class="o">/</span><span class="n">data</span>
+  <span class="ss">sidekiq:
+    build: </span><span class="p">.</span>
+    <span class="nf">command</span><span class="p">:</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">sidekiq</span> <span class="o">-</span><span class="n">q</span> <span class="n">default</span> <span class="o">-</span><span class="n">q</span> <span class="n">mailers</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="o">.</span><span class="ss">:/</span><span class="no">Lab</span>
+    <span class="ss">depends_on:
+      </span><span class="o">-</span> <span class="n">database</span>
+      <span class="o">-</span> <span class="n">redis</span>
+    <span class="ss">environment: </span><span class="o">&amp;</span><span class="n">environment</span>
+      <span class="no">RAILS_ENV</span><span class="p">:</span> <span class="s2">"development"</span>
+      <span class="no">LV_DATABASE_HOST</span><span class="p">:</span> <span class="s2">"database"</span>
+      <span class="no">LV_DATABASE_USER</span><span class="p">:</span> <span class="s2">"root"</span>
+      <span class="no">LV_DATABASE_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span> 
+      <span class="no">REDIS_URL</span><span class="p">:</span> <span class="s2">"redis://redis:6379/0"</span>
+  <span class="ss">web:
+    build: </span><span class="p">.</span>
+    <span class="nf">environment</span><span class="p">:</span>
+      <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">environment</span>
+    <span class="ss">command: </span><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rails</span> <span class="n">s</span> <span class="o">-</span><span class="nb">p</span> <span class="mi">3000</span> <span class="o">-</span><span class="n">b</span> <span class="s2">"0.0.0.0"</span>
+    <span class="ss">restart: </span><span class="n">always</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="o">.</span><span class="ss">:/</span><span class="no">Lab</span>
+    <span class="ss">ports:
+      </span><span class="o">-</span> <span class="s2">"3000:3000"</span>
+    <span class="ss">tty: </span><span class="kp">true</span>
+    <span class="ss">stdin_open: </span><span class="kp">true</span>
+    <span class="ss">depends_on: 
+      </span><span class="o">-</span> <span class="n">database</span>
+      <span class="o">-</span> <span class="n">redis</span>
+</code></pre></div></div>
+
+<p>Ở đây mình dùng version 3 của docker-compose
+Trong services, chúng ta cần chú ý các service chính sau: <code class="highlighter-rouge">database</code>, <code class="highlighter-rouge">redis</code>, <code class="highlighter-rouge">sidekiq</code>, <code class="highlighter-rouge">web</code></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="ss">database:
+    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mf">5.7</span> <span class="c1"># Là image được tải từ docker hub</span>
+    <span class="ss">restart: </span><span class="n">always</span> <span class="c1"># Option khi service bị tắt bới nguyên nhân gì đó sẽ được khởi động lại luôn.</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">mysql</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mysql</span> <span class="c1"># mapping dữ liệu từ remote ra máy host.</span>
+      <span class="c1"># cú pháp &lt;thư mục máy host&gt;:&lt;thư mục remote&gt;</span>
+    <span class="ss">ports: 
+      </span><span class="o">-</span> <span class="s2">"3306:3306"</span> <span class="c1"># Bind cổng 3306 từ remote ra cổng 3306 máy host.</span>
+    <span class="ss">environment:
+      </span><span class="no">MYSQL_ROOT_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span> <span class="c1"># Set password user root của mysql.</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">redis:
+    image: </span><span class="n">redis</span><span class="p">:</span><span class="mf">3.2</span><span class="o">-</span><span class="n">alpine</span>
+    <span class="ss">ports:
+      </span><span class="o">-</span> <span class="s2">"6379:6379"</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">redis</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">redis</span><span class="o">/</span><span class="n">data</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">sidekiq:
+    build: </span><span class="o">.</span> <span class="c1"># Chạy tại thư mục root rail app</span>
+    <span class="ss">command: </span><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">sidekiq</span> <span class="o">-</span><span class="n">q</span> <span class="n">default</span> <span class="o">-</span><span class="n">q</span> <span class="n">mailers</span> <span class="c1"># command khi chạy sidekiq</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="o">.</span><span class="ss">:/</span><span class="no">Lab</span> 
+    <span class="ss">depends_on: </span><span class="c1"># chỗ này là mình thiết lập sidekiq chạy được khi khởi động được 2 services database và redis</span>
+      <span class="o">-</span> <span class="n">database</span> 
+      <span class="o">-</span> <span class="n">redis</span>
+    <span class="ss">environment: </span><span class="o">&amp;</span><span class="n">environment</span> <span class="c1"># Đây là tạo các biết môi trường và đưa nó vào dictionary với key là environment.</span>
+      <span class="no">RAILS_ENV</span><span class="p">:</span> <span class="s2">"development"</span>
+      <span class="no">LV_DATABASE_HOST</span><span class="p">:</span> <span class="s2">"database"</span>
+      <span class="no">LV_DATABASE_USER</span><span class="p">:</span> <span class="s2">"root"</span>
+      <span class="no">LV_DATABASE_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span> 
+      <span class="no">REDIS_URL</span><span class="p">:</span> <span class="s2">"redis://redis:6379/0"</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">web:
+    build: </span><span class="p">.</span>
+    <span class="nf">environment</span><span class="p">:</span>
+      <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">environment</span>
+    <span class="ss">command: </span><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rails</span> <span class="n">s</span> <span class="o">-</span><span class="nb">p</span> <span class="mi">3000</span> <span class="o">-</span><span class="n">b</span> <span class="s2">"0.0.0.0"</span>
+    <span class="ss">restart: </span><span class="n">always</span>
+    <span class="ss">volumes:
+      </span><span class="o">-</span> <span class="o">.</span><span class="ss">:/</span><span class="no">Lab</span>
+    <span class="ss">ports:
+      </span><span class="o">-</span> <span class="s2">"3000:3000"</span>
+    <span class="ss">tty: </span><span class="kp">true</span> <span class="c1"># option được sử dụng cho việc debug code</span>
+    <span class="ss">stdin_open: </span><span class="kp">true</span><span class="c1"># option được sử dụng cho việc debug code</span>
+    <span class="ss">depends_on: 
+      </span><span class="o">-</span> <span class="n">database</span>
+      <span class="o">-</span> <span class="n">redis</span>
+</code></pre></div></div>
+
+<p>Vậy là đã xong phần dockerizing. Tiếp theo chúng ta sẽ đến phần sử dụng.</p>
+
+<h2 id="using"><code class="highlighter-rouge">Using</code></h2>
+<p>Để chạy được ứng dụng, chúng ta cần chỉnh sửa config <code class="highlighter-rouge">database.yml</code></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">default: </span><span class="o">&amp;</span><span class="n">default</span>
+  <span class="ss">adapter: </span><span class="n">mysql2</span>
+  <span class="ss">encoding: </span><span class="n">utf8mb4</span>
+  <span class="ss">collation: </span><span class="n">utf8mb4_bin</span>
+  <span class="ss">pool: </span><span class="o">&lt;</span><span class="sx">%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %&gt;
+  username: &lt;%=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"LV_DATABASE_USER"</span><span class="p">]</span> <span class="o">%&gt;</span>
+  <span class="ss">password: </span><span class="o">&lt;</span><span class="sx">%= ENV["LV_DATABASE_PASSWORD"] %&gt;
+  host: &lt;%=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"LV_DATABASE_HOST"</span><span class="p">]</span> <span class="o">%&gt;</span>
+  <span class="c1"># socket: /var/run/mysqld/mysqld.sock</span>
+
+<span class="ss">development:
+  </span><span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">default</span>
+  <span class="ss">database: </span><span class="no">LouisVLab_development</span>
+
+<span class="c1"># Warning: The database defined as "test" will be erased and</span>
+<span class="c1"># re-generated from your development database when you run "rake".</span>
+<span class="c1"># Do not set this db to the same as development or production.</span>
+<span class="ss">test:
+  </span><span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">default</span>
+  <span class="ss">database: </span><span class="no">LouisVLab_test</span>
+</code></pre></div></div>
+
+<p>Chú ý: Các biến <code class="highlighter-rouge">username</code>, <code class="highlighter-rouge">password</code>, <code class="highlighter-rouge">host</code> được gán bằng các biến môi trường mình khai báo trong
+<code class="highlighter-rouge">docker-compose.yml</code></p>
+
+<p>Tại thư mục root rails app chạy các lệnh sau và truy cập localhost:3000 để xem thành quả:</p>
+
+<p><code class="highlighter-rouge">docker-compose build</code></p>
+
+<p><code class="highlighter-rouge">docker-compose up -d </code></p>
+
+<p>Dưới đây là các lệnh cơ bản khi thao tác với docker:</p>
+
+<p>1.<code class="highlighter-rouge">docker-compose build</code></p>
+
+<p>Lệnh trên để setup môi trường với những cài đặt của chúng ta khai báo trong docker-compose.yml</p>
+
+<p>2.<code class="highlighter-rouge">docker-compose up -d </code></p>
+
+<p>Lệnh này để start environment.</p>
+
+<p>3.<code class="highlighter-rouge">docker-compose down</code></p>
+
+<p>Lệnh này để shutdown environment.</p>
+
+<p>4.<code class="highlighter-rouge">docker-compose ps</code></p>
+
+<p>Liệt kê các container đang chạy.</p>
+
+<p>5.<code class="highlighter-rouge">docker-compose up -d --build</code></p>
+
+<p>Khi chỉnh sửa trong Gemfile thì chúng ta chạy lại lệnh này để build lại môi trường.</p>
+
+<p>6.<code class="highlighter-rouge">docker exec -it containerId /bin/bash</code></p>
+
+<p>Sử dụng để truy cập vào 1 container đang hoạt động.</p>
+
+<p>7.<code class="highlighter-rouge">exit</code></p>
+
+<p>Sử dụng để thoát khỏi container.</p>
+
+<p>Khi chúng ta có sử dụng <code class="highlighter-rouge">gem pry</code> hoặc byebug để debug thì chúng ta sử dụng lệnh sau attach vào container để debug.</p>
+
+<p>8.<code class="highlighter-rouge">docker attach containerId</code></p>
+
+<p>9.<code class="highlighter-rouge">Ctrl+p</code> + <code class="highlighter-rouge">Ctrl+q</code></p>
+
+<p>Sử dụng khi chúng ta muốn thoát khỏi mode debug. Chú ý không sử dụng <code class="highlighter-rouge">Ctrl+c</code> để thoát.</p>
+
+<p>Thỉnh thoảng chúng ta sẽ gặp lỗi và chúng ta sử dụng lệnh sau để đọc log docker.</p>
+
+<p>10.<code class="highlighter-rouge">docker logs containerId</code></p>
+
 
         </article>
         <hr>
 
         
-        
-            
-            
         
             
             
@@ -157,8 +439,6 @@ dụng docker vào dự án. Khoảng thời gian bỏ phí</p>
     </div>
     <div class="nex">
 
-        
-        <p><strong>Next</strong> <a href="/2018/02/28/custom-predicates-ransack-gem/">Custom Predicates Ransack Gem</a></p>
         
     </div>
 </div>
