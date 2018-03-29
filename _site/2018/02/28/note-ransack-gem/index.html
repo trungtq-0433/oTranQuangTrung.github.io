@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ghi chép gem Ransack</title>
+    <meta name="description" content="Gem Ransack đã trở nên quen thuộc với RoR developer khi mà nó có mặt hầu như trong các project, bởi vì tính dễdàng cài đặt, sử dụng, dễ custom và tiết kiệm c...">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!link rel="stylesheet" href="/css/font-awesome.min.css ">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2018/02/28/note-ransack-gem/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-109981126-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+  <div class="wrapper">
+    <a href="/" class="brand">Trung Tran's Blog</a>
+    <small>Back-end Dev Engineer</small>
+    <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+    <nav id="headerNav">
+      <ul>
+        <li>
+          
+          <a href="/">
+          
+            <i class="fa fa-home"></i>Home
+          </a>
+        </li>
+
+        
+          
+          <li>
+            
+            <a href="/archive/">
+            
+              <i class="fa fa-archive"></i>Archives
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/category/">
+            
+              <i class="fa fa-th-list"></i>Categories
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/about/">
+            
+              <i class="fa fa-play"></i>About
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Ghi chép gem Ransack</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2018-02-28
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>tqtrung09
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Gem" title="Category: Gem" rel="category">Gem</a>
+    
+  
+
+</span>
+
+
+            </div>
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#customs-predicates" id="markdown-toc-customs-predicates"><code class="highlighter-rouge">Customs Predicates</code></a></li>
+  <li><a href="#to-be-continued" id="markdown-toc-to-be-continued"><code class="highlighter-rouge">To be continued</code></a></li>
+</ul>
+
+<p><a href="https://github.com/activerecord-hackery/ransack">Gem Ransack</a> đã trở nên quen thuộc với <code class="highlighter-rouge">RoR developer</code> khi mà nó có mặt hầu như trong các project, bởi vì tính dễ
+dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.
+Sau đây là một số ghi chép của mình về gem này…</p>
+
+<h2 id="customs-predicates"><code class="highlighter-rouge">Customs Predicates</code></h2>
+
+<p>Trên <a href="https://github.com/activerecord-hackery/ransack/wiki/Custom-Predicates">wiki gem</a> cũng có bài biết về vấn đề này.</p>
+
+<p>Trong ghi chép này của mình thì mình sẽ ghi chép, hướng dẫn cụ thể hơn.</p>
+
+<p>Trong dự án mình làm, phần tìm kiếm <code class="highlighter-rouge">user</code> mục tìm kiếm theo attribute name, mình đang implement với <a href="https://github.com/activerecord-hackery/ransack#search-matchers">search matchers</a> là <code class="highlighter-rouge">_cont</code>.</p>
+
+<p>Câu query được sinh ra như sau:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">SELECT</span> <span class="sb">`users`</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="sb">`users`</span> <span class="no">WHERE</span> <span class="sb">`users`</span><span class="p">.</span><span class="nf">`</span><span class="nb">name</span><span class="sb">` LIKE '%xxx%'
+</span></code></pre></div></div>
+
+<p>Với câu query trên thì các bản ghi có name chứa ký tự <code class="highlighter-rouge">xxx</code> thì sẽ được liệt kê ra.</p>
+
+<p>Kết quả vẫn đúng theo mình nghĩ tới ngày KH vào test thì mong muốn nhập nội dung <code class="highlighter-rouge">xxx</code> cũng ra các bản ghi kiểu:
+<code class="highlighter-rouge">XXX</code>, <code class="highlighter-rouge">XxX</code>, <code class="highlighter-rouge">xxX</code> …</p>
+
+<p>Ý tưởng: Mình sẽ upper case hoặc lower case ký tự tìm kiếm và tập giá trị tìm kiếm, sau đó mới thực hiện tim kiếm.</p>
+
+<p>Cũng có nhiều hướng để xử lý trường hợp này, nhưng mình muốn tìm cách nào tổng quát và có thể sử dụng lại đơn giản nhất.</p>
+
+<p>Mình chọn cách là custom thêm 1 cái search matchers. Sau đây là cách làm của mình.</p>
+
+<p>Tại user model ta sử dụng <a href="https://github.com/activerecord-hackery/ransack/wiki/using-ransackers">ranksacker</a> để định nghĩa lại giá trị cuả thuộc tính name thành chữ viết hoa toàn bộ.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ransacker</span> <span class="ss">:name</span> <span class="k">do</span> 
+  <span class="no">Arel</span><span class="p">.</span><span class="nf">sql</span><span class="p">(</span><span class="s2">"UPPER(name)"</span><span class="p">)</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>Tại <code class="highlighter-rouge">config/initializers/ransack.rb</code> chúng ta sẽ định nghĩa thêm một search matchers từ các predicate sẵn có của
+<a href="http://www.rubydoc.info/github/rails/arel/master/Arel/Predications">Arel</a>
+Ở đây mình sử dụng predicate là <a href="http://www.rubydoc.info/github/rails/arel/master/Arel%2FPredications:matches">matchers</a></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Ransack</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">add_predicate</span> <span class="s2">"icont"</span><span class="p">,</span> <span class="c1"># Đặt tên cho matcher</span>
+    <span class="ss">arel_predicate: </span><span class="s2">"matches"</span><span class="p">,</span> <span class="c1"># Sử dụng base là matchers của Arel</span>
+    <span class="ss">formatter: </span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="s2">"%</span><span class="si">#{</span><span class="n">v</span><span class="p">.</span><span class="nf">upcase</span><span class="si">}</span><span class="s2">%"</span> <span class="p">},</span> <span class="c1"># Đây là đoạn string mình truyền vào câu query của Arel matchers.</span>
+    <span class="ss">validator: </span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="n">v</span><span class="p">.</span><span class="nf">present?</span> <span class="p">},</span> <span class="c1"># Yêu cầu attributes sử dụng matcher phải có giá trị.</span>
+    <span class="ss">type: :string</span> <span class="c1"># Định nghĩa kiểu dữ liệu sử dụng matcher</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Bây giờ ta có thể sử dụng matcher này như bao matchers khác của gem ranksack như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">=</span> <span class="n">search_form_for</span> <span class="vi">@q</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">search_field</span> <span class="ss">:name_icont</span>
+  <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="s2">"Submit"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="to-be-continued"><code class="highlighter-rouge">To be continued</code></h2>
+
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>Previous</strong> <a href="/2018/02/22/dockerizing-a-ruby-on-rails-application/">Dockerizing a ruby on rails application</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2018/02/28/note-ransack-gem/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2018/02/28/note-ransack-gem/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//tqtrung09.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p class="description">
+       © Copyright 2017 All rights reserved. 
+    </p>
+    <p class="contact">
+      Contact me at: 
+      <a href="https://github.com/oTranQuangTrung" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+      <a href="mailto:tqtrung09@gmail.com" target="_blank" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>   
+      <a href="https://www.facebook.com/tqtrung09" target="_blank" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  
+      <a href="https://www.linkedin.com/in/tqtrung09" target="_blank" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+    </p>
+  </div>
+</footer>
+
+    <div class="back-to-top">
+  <a href="#top" data-scroll>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 1000, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>
