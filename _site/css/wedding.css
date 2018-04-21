@@ -9284,3 +9284,7 @@ body {
 .btn-outline-primary:hover {
   color: #fff;
 }
+
+.border-radius-oval {
+  border-radius: 300px;
+}
