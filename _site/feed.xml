@@ -5,9 +5,30 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 21 Apr 2018 23:53:58 +0700</pubDate>
-    <lastBuildDate>Sat, 21 Apr 2018 23:53:58 +0700</lastBuildDate>
+    <pubDate>Thu, 10 May 2018 14:57:28 +0700</pubDate>
+    <lastBuildDate>Thu, 10 May 2018 14:57:28 +0700</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>How to avoid !important in css</title>
+        <description>
+&lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;: Đây là từ khóa không lạ lẫm gì đối với 1 backend-developer.
+Bạn đã có bao giờ gặp phải trường hợp cố gắng style cho một hoặc nhiều html element mà nó không có tác dụng?
+
+Có vẻ như trang web đang bỏ qua style của bạn mà bạn không tìm được nguyên nhân?
+
+Và bạn đã sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;, cú pháp theo mình gọi thì nó là huyền thoại của các backend-developer khi cố gắng thiết kế giao
+diện.
+
+</description>
+        <pubDate>Wed, 09 May 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/05/09/important-in-css/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/09/important-in-css/</guid>
+        
+        
+        <category>Css</category>
+        
+      </item>
     
       <item>
         <title>Ghi chép gem Ransack</title>
