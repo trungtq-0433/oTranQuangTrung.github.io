@@ -5,9 +5,29 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 10 May 2018 14:57:28 +0700</pubDate>
-    <lastBuildDate>Thu, 10 May 2018 14:57:28 +0700</lastBuildDate>
+    <pubDate>Mon, 18 Jun 2018 15:03:46 +0700</pubDate>
+    <lastBuildDate>Mon, 18 Jun 2018 15:03:46 +0700</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>Regular Expression</title>
+        <description>
+&lt;code class=&quot;highlighter-rouge&quot;&gt;RegEx&lt;/code&gt; hay còn gọi &lt;code class=&quot;highlighter-rouge&quot;&gt;Regular Expression&lt;/code&gt; là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà &lt;code class=&quot;highlighter-rouge&quot;&gt;Biểu thức chính quy&lt;/code&gt;.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Regex&lt;/code&gt; là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
+chuỗi nào đó.
+Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt;. Khi có vấn đề thì google
+test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên
+mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.
+
+</description>
+        <pubDate>Wed, 06 Jun 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/06/06/regular-expression/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/06/regular-expression/</guid>
+        
+        
+        <category>Common</category>
+        
+      </item>
     
       <item>
         <title>How to avoid !important in css</title>

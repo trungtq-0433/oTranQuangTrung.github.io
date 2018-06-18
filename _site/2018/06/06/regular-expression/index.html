@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Regular Expression</title>
+    <meta name="description" content="RegEx hay còn gọi Regular Expression là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà Biểu thức chính quy.Regex là một chuỗi ký tự có quy tắc đặ...">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!link rel="stylesheet" href="/css/font-awesome.min.css ">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2018/06/06/regular-expression/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-109981126-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+  <div class="wrapper">
+    <a href="/" class="brand">Trung Tran's Blog</a>
+    <small>Back-end Dev Engineer</small>
+    <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+    <nav id="headerNav">
+      <ul>
+        <li>
+          
+          <a href="/">
+          
+            <i class="fa fa-home"></i>Home
+          </a>
+        </li>
+
+        
+          
+          <li>
+            
+            <a href="/archive/">
+            
+              <i class="fa fa-archive"></i>Archives
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/category/">
+            
+              <i class="fa fa-th-list"></i>Categories
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/about/">
+            
+              <i class="fa fa-play"></i>About
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li>
+            
+            <a href="/our-wedding/">
+            
+              <i class="fa fa-heart"></i>Our Wedding
+            </a>
+          </li>
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Regular Expression</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2018-06-06
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>tqtrung09
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Common" title="Category: Common" rel="category">Common</a>
+    
+  
+
+</span>
+
+
+            </div>
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#regex-in-js" id="markdown-toc-regex-in-js"><code class="highlighter-rouge">Regex in JS</code></a></li>
+  <li><a href="#cú-pháp" id="markdown-toc-cú-pháp"><code class="highlighter-rouge">Cú pháp</code></a></li>
+  <li><a href="#quy-tắc-pattern" id="markdown-toc-quy-tắc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></a>    <ul>
+      <li><a href="#brackets" id="markdown-toc-brackets"><code class="highlighter-rouge">Brackets</code></a></li>
+      <li><a href="#metacharacters" id="markdown-toc-metacharacters"><code class="highlighter-rouge">Metacharacters</code></a></li>
+      <li><a href="#quantifiers" id="markdown-toc-quantifiers"><code class="highlighter-rouge">Quantifiers</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#references" id="markdown-toc-references"><code class="highlighter-rouge">References</code></a></li>
+</ul>
+
+<p><code class="highlighter-rouge">RegEx</code> hay còn gọi <code class="highlighter-rouge">Regular Expression</code> là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà <code class="highlighter-rouge">Biểu thức chính quy</code>.
+<code class="highlighter-rouge">Regex</code> là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
+chuỗi nào đó.
+Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về <code class="highlighter-rouge">regex</code>. Khi có vấn đề thì google
+test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên
+mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.</p>
+
+<h2 id="regex-in-js"><code class="highlighter-rouge">Regex in JS</code></h2>
+<p>Regex được hỗ trợ bởi hầu hết các ngôn ngữ lập trình và tương ứng với mỗi ngôn ngữ thì cú pháp của regex có khác nhau. Tuy nhiên cơ bản là giống nhau, những phần khác nhau không nhiều. Ở bài viết này mình lựa chọn regex trong JS để học.</p>
+
+<p>Trong JS thì <code class="highlighter-rouge">Regex</code> là một chuỗi tuy nhiên không được bọc bởi cặp <code class="highlighter-rouge">"</code>, hoặc <code class="highlighter-rouge">'</code> mà được bọc bởi cặp <code class="highlighter-rouge">/</code>.</p>
+
+<h2 id="cú-pháp"><code class="highlighter-rouge">Cú pháp</code></h2>
+<p><code class="highlighter-rouge">/pattern/modifiers</code></p>
+
+<p><code class="highlighter-rouge">pattern</code>: là một chuỗi có quy tắc, quy tắc như nào mình sẽ đề cập ở dưới.</p>
+
+<p><code class="highlighter-rouge">modifiers</code>: là cấu hình cho chuỗi pattern.</p>
+<ul>
+  <li><code class="highlighter-rouge">i</code>:  So sánh không phân biệt chữ hoa chữ thường (case-insensitive)</li>
+  <li><code class="highlighter-rouge">g</code>:  So khợp toàn bộ chuỗi cần tìm</li>
+  <li><code class="highlighter-rouge">m</code>:  So khớp luôn cả các dữ liệu xuống dòng (multiline)</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/xxx/igm</span><span class="p">;</span>
+
+<span class="nl">pattern</span><span class="p">:</span> <span class="nx">xxx</span>
+<span class="nx">modifiers</span><span class="p">:</span> <span class="nx">igm</span>
+</code></pre></div></div>
+
+<h2 id="quy-tắc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></h2>
+<p>Mình sẽ chia các quy tắc theo các loại và giải thích như sau. Cái nào khó hình dung thì mình sẽ có thêm ví dụ ngay dưới.
+Khó dễ là ý kiến chủ quan của mình.</p>
+
+<h4 id="brackets"><code class="highlighter-rouge">Brackets</code></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]     Tìm các ký tự a, b hoặc c
+[^abc]    Tìm các ký tự không phải a, b và c
+[0-9]     Tìm các ký tự là chữ số từ 0-9
+[a-z]     Tìm các ký tự là chữ cái từ a-z
+[^a-z]    Tìm các ký tự không phải là chữ cái từ a-z
+[a-zA-Z]  Tìm các ký tự chữ cái từ a-z hoặc A-Z
+[^0-9]    Tìm các ký tự không phải chữ số từ 0-9
+(x|y)     Tìm ký tự x hoặc y
+
+</code></pre></div></div>
+
+<h4 id="metacharacters"><code class="highlighter-rouge">Metacharacters</code></h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.         Tìm ký tự bất kì
+\w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi)
+\W        Tìm các ký tự không phải là trong bảng chữ cái và chữ số
+\d        Tìm ký tự là chữ số
+\D        Tìm ký tự không phải là chữ số
+\s        Tìm ký tự là khoảng trắng
+\S        Tìm ký tự không phải khoảng trắng
+\b        Tìm so khớp bắt đầu hoặc kết thúc chuỗi
+\B        Tìm so khớp không phải bắt đầu hoặc kết thúc chuỗi
+\n        Tìm ký tự xuống hàng
+\t        Tìm ký tự tab   
+</code></pre></div></div>
+
+<h4 id="quantifiers"><code class="highlighter-rouge">Quantifiers</code></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+         Kiểm tra ký tự xuất hiện một hoặc nhiều lần(Đặt sau ký tự muốn kiểm tra)
+*         Kiểm tra ký tự xuất hiện không hoặc nhiều lần
+?         Kiểm tra ký tự xuất hiện không hoặc một lần
+{X}       Kiểm tra ký tự xuất hiện đúng X lần liên tiếp
+  =&gt; x{2}
+{X,Y}     Kiểm tra ký tự xuất hiện tối thiểu X lần và tối đa Y lần liên tiếp
+  =&gt; x{1,2}
+{X,}      Kiểm tra ký tự xuất hiện ít nhất X lần liên tiếp
+  =&gt; x{3,}
+^         Kiểm tra ký tự bắt đầu chuỗi (đặt trước ký tự cần kiểm tra)
+  =&gt; ^x 
+$         Kiểm tra ký tự kết thúc chuỗi (đặt sau ký tự cần kiểm tra))
+  =&gt; x$
+</code></pre></div></div>
+
+<p>Với cú pháp và quy tắc ở trên, chỉ cần dành thời gian ra để thực hành thường xuyên thì mình có thể sử dụng <code class="highlighter-rouge">regex</code> thành
+thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì đòi hỏi sự am hiểu sâu và vận dụng đúng chỗ đúng quy tắc của
+<code class="highlighter-rouge">regex</code>.</p>
+
+<h2 id="references"><code class="highlighter-rouge">References</code></h2>
+<blockquote>
+  <p><a href="https://freetuts.net/bang-bieu-thuc-regular-expression-trong-javascript-418.html">Freetuts</a></p>
+</blockquote>
+
+<blockquote>
+  <p><a href="https://regex101.com/">Regex101</a></p>
+</blockquote>
+
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>Previous</strong> <a href="/2018/05/09/important-in-css/">How to avoid !important in css</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2018/06/06/regular-expression/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2018/06/06/regular-expression/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//tqtrung09.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p class="description">
+       © Copyright 2017 All rights reserved. 
+    </p>
+    <p class="contact">
+      Contact me at: 
+      <a href="https://github.com/oTranQuangTrung" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+      <a href="mailto:tqtrung09@gmail.com" target="_blank" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>   
+      <a href="https://www.facebook.com/tqtrung09" target="_blank" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  
+      <a href="https://www.linkedin.com/in/tqtrung09" target="_blank" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+    </p>
+  </div>
+</footer>
+
+    <div class="back-to-top">
+  <a href="#top" data-scroll>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 1000, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>
