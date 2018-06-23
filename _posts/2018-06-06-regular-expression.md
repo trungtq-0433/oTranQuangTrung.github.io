@@ -8,7 +8,7 @@ author: tqtrung09
 * content
 {:toc}
 
-`RegEx` hay còn gọi `Regular Expression` là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà `Biểu thức chính quy`.
+`RegEx` hay còn gọi `Regular Expression` là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là `Biểu thức chính quy`.
 `Regex` là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
 chuỗi nào đó.
 Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về `regex`. Khi có vấn đề thì google
@@ -61,7 +61,7 @@ Khó dễ là ý kiến chủ quan của mình.
 #### `Metacharacters`
 ```
 .         Tìm ký tự bất kì
-\w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi)
+\w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi này)
 \W        Tìm các ký tự không phải là trong bảng chữ cái và chữ số
 \d        Tìm ký tự là chữ số
 \D        Tìm ký tự không phải là chữ số
@@ -94,6 +94,39 @@ $         Kiểm tra ký tự kết thúc chuỗi (đặt sau ký tự cần ki�
 Với cú pháp và quy tắc ở trên, chỉ cần dành thời gian ra để thực hành thường xuyên thì mình có thể sử dụng `regex` thành
 thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì đòi hỏi sự am hiểu sâu và vận dụng đúng chỗ đúng quy tắc của
 `regex`.
+
+## `Practices`
+Tiếp theo chúng ta luyện tập 1 số ví dụ cơ bản.
+
+**VD1:** Kiểm tra 1 chuỗi là số.
+
+Pattern số là `\d` hoặc [0-9]
+
+1 chuỗi thì có nghĩa Quantifier là `+`: Xuất hiện 1 hoặc nhiều lần.
+
+Đảm bảo cả chuỗi đó là số thì chuỗi đó bắt đầu và kết thúc đều là chuỗi số `^`, `$`
+
+Từ các dữ kiện trên ta đưa ra đc regex như sau: `^[0-9]+$` hoặc `^\d+$`
+
+**VD2:** Kiểm tra 1 chuỗi là số có 8 chữ số.
+
+Tương tự pattern số là `\d` hoặc `[0-9]`
+
+Có 8 chữ số có nghĩa là số các số trong chuỗi xuất hiện đúng 8 lần `{}`.
+
+Đảm bảo cả chuỗi đó là số thì chuỗi đó bắt đầu và kết thúc đều là chuỗi số `^`, `$`
+
+Regex: `^\d{8}$` hoặc `^[0-9]{8}$`
+
+**VD3:** Kiểm tra 1 chuỗi là số điện thoại di động.
+
+Số di động bắt đầu bằng 0 `^0`
+
+1 chuỗi dài 9-10 ký tự số bất kỳ tiếp theo `\d{9,10}`
+
+Và kết thúc là 1 số. `$`
+
+Regex: `^0\d{9,10}$`
 
 ## `References`
 >[Freetuts](https://freetuts.net/bang-bieu-thuc-regular-expression-trong-javascript-418.html)

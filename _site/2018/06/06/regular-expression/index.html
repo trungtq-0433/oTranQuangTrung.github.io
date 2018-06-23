@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Regular Expression</title>
-    <meta name="description" content="RegEx hay còn gọi Regular Expression là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà Biểu thức chính quy.Regex là một chuỗi ký tự có quy tắc đặ...">
+    <meta name="description" content="RegEx hay còn gọi Regular Expression là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là Biểu thức chính quy.Regex là một chuỗi ký tự có quy tắc đ...">
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -147,10 +147,11 @@
       <li><a href="#quantifiers" id="markdown-toc-quantifiers"><code class="highlighter-rouge">Quantifiers</code></a></li>
     </ul>
   </li>
+  <li><a href="#practices" id="markdown-toc-practices"><code class="highlighter-rouge">Practices</code></a></li>
   <li><a href="#references" id="markdown-toc-references"><code class="highlighter-rouge">References</code></a></li>
 </ul>
 
-<p><code class="highlighter-rouge">RegEx</code> hay còn gọi <code class="highlighter-rouge">Regular Expression</code> là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà <code class="highlighter-rouge">Biểu thức chính quy</code>.
+<p><code class="highlighter-rouge">RegEx</code> hay còn gọi <code class="highlighter-rouge">Regular Expression</code> là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là <code class="highlighter-rouge">Biểu thức chính quy</code>.
 <code class="highlighter-rouge">Regex</code> là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
 chuỗi nào đó.
 Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về <code class="highlighter-rouge">regex</code>. Khi có vấn đề thì google
@@ -199,7 +200,7 @@ Khó dễ là ý kiến chủ quan của mình.</p>
 
 <h4 id="metacharacters"><code class="highlighter-rouge">Metacharacters</code></h4>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.         Tìm ký tự bất kì
-\w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi)
+\w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi này)
 \W        Tìm các ký tự không phải là trong bảng chữ cái và chữ số
 \d        Tìm ký tự là chữ số
 \D        Tìm ký tự không phải là chữ số
@@ -231,6 +232,39 @@ $         Kiểm tra ký tự kết thúc chuỗi (đặt sau ký tự cần ki�
 <p>Với cú pháp và quy tắc ở trên, chỉ cần dành thời gian ra để thực hành thường xuyên thì mình có thể sử dụng <code class="highlighter-rouge">regex</code> thành
 thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì đòi hỏi sự am hiểu sâu và vận dụng đúng chỗ đúng quy tắc của
 <code class="highlighter-rouge">regex</code>.</p>
+
+<h2 id="practices"><code class="highlighter-rouge">Practices</code></h2>
+<p>Tiếp theo chúng ta luyện tập 1 số ví dụ cơ bản.</p>
+
+<p><strong>VD1:</strong> Kiểm tra 1 chuỗi là số.</p>
+
+<p>Pattern số là <code class="highlighter-rouge">\d</code> hoặc [0-9]</p>
+
+<p>1 chuỗi thì có nghĩa Quantifier là <code class="highlighter-rouge">+</code>: Xuất hiện 1 hoặc nhiều lần.</p>
+
+<p>Đảm bảo cả chuỗi đó là số thì chuỗi đó bắt đầu và kết thúc đều là chuỗi số <code class="highlighter-rouge">^</code>, <code class="highlighter-rouge">$</code></p>
+
+<p>Từ các dữ kiện trên ta đưa ra đc regex như sau: <code class="highlighter-rouge">^[0-9]+$</code> hoặc <code class="highlighter-rouge">^\d+$</code></p>
+
+<p><strong>VD2:</strong> Kiểm tra 1 chuỗi là số có 8 chữ số.</p>
+
+<p>Tương tự pattern số là <code class="highlighter-rouge">\d</code> hoặc <code class="highlighter-rouge">[0-9]</code></p>
+
+<p>Có 8 chữ số có nghĩa là số các số trong chuỗi xuất hiện đúng 8 lần <code class="highlighter-rouge">{}</code>.</p>
+
+<p>Đảm bảo cả chuỗi đó là số thì chuỗi đó bắt đầu và kết thúc đều là chuỗi số <code class="highlighter-rouge">^</code>, <code class="highlighter-rouge">$</code></p>
+
+<p>Regex: <code class="highlighter-rouge">^\d{8}$</code> hoặc <code class="highlighter-rouge">^[0-9]{8}$</code></p>
+
+<p><strong>VD3:</strong> Kiểm tra 1 chuỗi là số điện thoại di động.</p>
+
+<p>Số di động bắt đầu bằng 0 <code class="highlighter-rouge">^0</code></p>
+
+<p>1 chuỗi dài 9-10 ký tự số bất kỳ tiếp theo <code class="highlighter-rouge">\d{9,10}</code></p>
+
+<p>Và kết thúc là 1 số. <code class="highlighter-rouge">$</code></p>
+
+<p>Regex: <code class="highlighter-rouge">^0\d{9,10}$</code></p>
 
 <h2 id="references"><code class="highlighter-rouge">References</code></h2>
 <blockquote>

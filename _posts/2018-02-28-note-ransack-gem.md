@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ghi chép gem Ransack"
+title:  "Ransack gem"
 categories: Gem
 author: tqtrung09
 ---

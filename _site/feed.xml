@@ -5,14 +5,14 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 18 Jun 2018 15:03:46 +0700</pubDate>
-    <lastBuildDate>Mon, 18 Jun 2018 15:03:46 +0700</lastBuildDate>
+    <pubDate>Sat, 23 Jun 2018 17:43:53 +0700</pubDate>
+    <lastBuildDate>Sat, 23 Jun 2018 17:43:53 +0700</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
         <title>Regular Expression</title>
         <description>
-&lt;code class=&quot;highlighter-rouge&quot;&gt;RegEx&lt;/code&gt; hay còn gọi &lt;code class=&quot;highlighter-rouge&quot;&gt;Regular Expression&lt;/code&gt; là khái niệm khá quen thuộc với lập trình viên. Hay còn gọilà &lt;code class=&quot;highlighter-rouge&quot;&gt;Biểu thức chính quy&lt;/code&gt;.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;RegEx&lt;/code&gt; hay còn gọi &lt;code class=&quot;highlighter-rouge&quot;&gt;Regular Expression&lt;/code&gt; là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là &lt;code class=&quot;highlighter-rouge&quot;&gt;Biểu thức chính quy&lt;/code&gt;.
 &lt;code class=&quot;highlighter-rouge&quot;&gt;Regex&lt;/code&gt; là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
 chuỗi nào đó.
 Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt;. Khi có vấn đề thì google
@@ -51,7 +51,7 @@ diện.
       </item>
     
       <item>
-        <title>Ghi chép gem Ransack</title>
+        <title>Ransack gem</title>
         <description>
 &lt;a href=&quot;https://github.com/activerecord-hackery/ransack&quot;&gt;Gem Ransack&lt;/a&gt; đã trở nên quen thuộc với &lt;code class=&quot;highlighter-rouge&quot;&gt;RoR developer&lt;/code&gt; khi mà nó có mặt hầu như trong các project, bởi vì tính dễ
 dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.
