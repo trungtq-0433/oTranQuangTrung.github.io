@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Awesome methods in Ruby on rails"
-categories: Awesome
+categories: RoR
 author: tqtrung09
 ---
 

@@ -13,8 +13,8 @@
     <!link rel="stylesheet" href="/css/font-awesome.min.css ">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
     <link rel="stylesheet" href="/css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/2018/06/06/regular-expression/">
-    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+    <link rel="canonical" href="https://otranquangtrung.github.io/2018/06/06/regular-expression/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="https://otranquangtrung.github.io/feed.xml ">
 
     <script>
     // google analytics
@@ -95,6 +95,8 @@
           </li>
           
         
+          
+        
       </ul>
     </nav>
   </div>
@@ -140,8 +142,8 @@
         <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
   <li><a href="#regex-in-js" id="markdown-toc-regex-in-js"><code class="highlighter-rouge">Regex in JS</code></a></li>
-  <li><a href="#cú-pháp" id="markdown-toc-cú-pháp"><code class="highlighter-rouge">Cú pháp</code></a></li>
-  <li><a href="#quy-tắc-pattern" id="markdown-toc-quy-tắc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></a>    <ul>
+  <li><a href="#c-php" id="markdown-toc-c-php"><code class="highlighter-rouge">Cú pháp</code></a></li>
+  <li><a href="#quy-tc-pattern" id="markdown-toc-quy-tc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></a>    <ul>
       <li><a href="#brackets" id="markdown-toc-brackets"><code class="highlighter-rouge">Brackets</code></a></li>
       <li><a href="#metacharacters" id="markdown-toc-metacharacters"><code class="highlighter-rouge">Metacharacters</code></a></li>
       <li><a href="#quantifiers" id="markdown-toc-quantifiers"><code class="highlighter-rouge">Quantifiers</code></a></li>
@@ -151,11 +153,11 @@
   <li><a href="#references" id="markdown-toc-references"><code class="highlighter-rouge">References</code></a></li>
 </ul>
 
-<p><code class="highlighter-rouge">RegEx</code> hay còn gọi <code class="highlighter-rouge">Regular Expression</code> là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là <code class="highlighter-rouge">Biểu thức chính quy</code>.
-<code class="highlighter-rouge">Regex</code> là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
-chuỗi nào đó.
-Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về <code class="highlighter-rouge">regex</code>. Khi có vấn đề thì google
-test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên
+<p><code class="highlighter-rouge">RegEx</code> hay còn gọi <code class="highlighter-rouge">Regular Expression</code> là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là <code class="highlighter-rouge">Biểu thức chính quy</code>.<br />
+<code class="highlighter-rouge">Regex</code> là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp<br />
+chuỗi nào đó.<br />
+Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về <code class="highlighter-rouge">regex</code>. Khi có vấn đề thì google<br />
+test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên<br />
 mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.</p>
 
 <h2 id="regex-in-js"><code class="highlighter-rouge">Regex in JS</code></h2>
@@ -163,31 +165,30 @@ mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.</p>
 
 <p>Trong JS thì <code class="highlighter-rouge">Regex</code> là một chuỗi tuy nhiên không được bọc bởi cặp <code class="highlighter-rouge">"</code>, hoặc <code class="highlighter-rouge">'</code> mà được bọc bởi cặp <code class="highlighter-rouge">/</code>.</p>
 
-<h2 id="cú-pháp"><code class="highlighter-rouge">Cú pháp</code></h2>
+<h2 id="c-php"><code class="highlighter-rouge">Cú pháp</code></h2>
 <p><code class="highlighter-rouge">/pattern/modifiers</code></p>
 
 <p><code class="highlighter-rouge">pattern</code>: là một chuỗi có quy tắc, quy tắc như nào mình sẽ đề cập ở dưới.</p>
 
-<p><code class="highlighter-rouge">modifiers</code>: là cấu hình cho chuỗi pattern.</p>
-<ul>
-  <li><code class="highlighter-rouge">i</code>:  So sánh không phân biệt chữ hoa chữ thường (case-insensitive)</li>
-  <li><code class="highlighter-rouge">g</code>:  So khợp toàn bộ chuỗi cần tìm</li>
-  <li><code class="highlighter-rouge">m</code>:  So khớp luôn cả các dữ liệu xuống dòng (multiline)</li>
-</ul>
+<p><code class="highlighter-rouge">modifiers</code>: là cấu hình cho chuỗi pattern.<br />
+  - <code class="highlighter-rouge">i</code>:  So sánh không phân biệt chữ hoa chữ thường (case-insensitive) <br />
+  - <code class="highlighter-rouge">g</code>:  So khợp toàn bộ chuỗi cần tìm <br />
+  - <code class="highlighter-rouge">m</code>:  So khớp luôn cả các dữ liệu xuống dòng (multiline)</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/xxx/igm</span><span class="p">;</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/xxx/igm</span><span class="p">;</span>
 
 <span class="nl">pattern</span><span class="p">:</span> <span class="nx">xxx</span>
-<span class="nx">modifiers</span><span class="p">:</span> <span class="nx">igm</span>
-</code></pre></div></div>
+<span class="nl">modifiers</span><span class="p">:</span> <span class="nx">igm</span>
+</code></pre>
+</div>
 
-<h2 id="quy-tắc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></h2>
-<p>Mình sẽ chia các quy tắc theo các loại và giải thích như sau. Cái nào khó hình dung thì mình sẽ có thêm ví dụ ngay dưới.
+<h2 id="quy-tc-pattern"><code class="highlighter-rouge">Quy tắc pattern</code></h2>
+<p>Mình sẽ chia các quy tắc theo các loại và giải thích như sau. Cái nào khó hình dung thì mình sẽ có thêm ví dụ ngay dưới.<br />
 Khó dễ là ý kiến chủ quan của mình.</p>
 
 <h4 id="brackets"><code class="highlighter-rouge">Brackets</code></h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]     Tìm các ký tự a, b hoặc c
+<div class="highlighter-rouge"><pre class="highlight"><code>[abc]     Tìm các ký tự a, b hoặc c
 [^abc]    Tìm các ký tự không phải a, b và c
 [0-9]     Tìm các ký tự là chữ số từ 0-9
 [a-z]     Tìm các ký tự là chữ cái từ a-z
@@ -196,10 +197,11 @@ Khó dễ là ý kiến chủ quan của mình.</p>
 [^0-9]    Tìm các ký tự không phải chữ số từ 0-9
 (x|y)     Tìm ký tự x hoặc y
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="metacharacters"><code class="highlighter-rouge">Metacharacters</code></h4>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.         Tìm ký tự bất kì
+<div class="highlighter-rouge"><pre class="highlight"><code>.         Tìm ký tự bất kì
 \w        Tìm ký tự trong bảng chữ cái và chữ số(các ký tự đặc biệt không nằm trong phạm vi này)
 \W        Tìm các ký tự không phải là trong bảng chữ cái và chữ số
 \d        Tìm ký tự là chữ số
@@ -210,11 +212,12 @@ Khó dễ là ý kiến chủ quan của mình.</p>
 \B        Tìm so khớp không phải bắt đầu hoặc kết thúc chuỗi
 \n        Tìm ký tự xuống hàng
 \t        Tìm ký tự tab   
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="quantifiers"><code class="highlighter-rouge">Quantifiers</code></h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+         Kiểm tra ký tự xuất hiện một hoặc nhiều lần(Đặt sau ký tự muốn kiểm tra)
+<div class="highlighter-rouge"><pre class="highlight"><code>+         Kiểm tra ký tự xuất hiện một hoặc nhiều lần(Đặt sau ký tự muốn kiểm tra)
 *         Kiểm tra ký tự xuất hiện không hoặc nhiều lần
 ?         Kiểm tra ký tự xuất hiện không hoặc một lần
 {X}       Kiểm tra ký tự xuất hiện đúng X lần liên tiếp
@@ -227,10 +230,11 @@ Khó dễ là ý kiến chủ quan của mình.</p>
   =&gt; ^x 
 $         Kiểm tra ký tự kết thúc chuỗi (đặt sau ký tự cần kiểm tra))
   =&gt; x$
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<p>Với cú pháp và quy tắc ở trên, chỉ cần dành thời gian ra để thực hành thường xuyên thì mình có thể sử dụng <code class="highlighter-rouge">regex</code> thành
-thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì đòi hỏi sự am hiểu sâu và vận dụng đúng chỗ đúng quy tắc của
+<p>Với cú pháp và quy tắc ở trên, chỉ cần dành thời gian ra để thực hành thường xuyên thì mình có thể sử dụng <code class="highlighter-rouge">regex</code> thành<br />
+thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì đòi hỏi sự am hiểu sâu và vận dụng đúng chỗ đúng quy tắc của<br />
 <code class="highlighter-rouge">regex</code>.</p>
 
 <h2 id="practices"><code class="highlighter-rouge">Practices</code></h2>
@@ -250,7 +254,7 @@ thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì �
 
 <p>Tương tự pattern số là <code class="highlighter-rouge">\d</code> hoặc <code class="highlighter-rouge">[0-9]</code></p>
 
-<p>Có 8 chữ số có nghĩa là số các số trong chuỗi xuất hiện đúng 8 lần <code class="highlighter-rouge">{}</code>.</p>
+<p>Có 8 chữ số có nghĩa là số các số trong chuỗi xuất hiện đúng 8 lần <code class="highlighter-rouge"><span class="p">{}</span></code>.</p>
 
 <p>Đảm bảo cả chuỗi đó là số thì chuỗi đó bắt đầu và kết thúc đều là chuỗi số <code class="highlighter-rouge">^</code>, <code class="highlighter-rouge">$</code></p>
 
@@ -296,6 +300,9 @@ thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì �
             
             
         
+            
+            
+        
         
 
         <div class="post-recent">
@@ -306,6 +313,8 @@ thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì �
     </div>
     <div class="nex">
 
+        
+        <p><strong>Next</strong> <a href="/2018/08/16/manually-preloading-associations-in-rails/">Manually preloading associations in rails</a></p>
         
     </div>
 </div>
@@ -321,8 +330,8 @@ thục. Tất nhiên là ở mức độ trung bình thôi, đến master thì �
      */
 
     var disqus_config = function() {
-        this.page.url = 'http://localhost:4000/2018/06/06/regular-expression/'; // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://localhost:4000/2018/06/06/regular-expression/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'https://otranquangtrung.github.io/2018/06/06/regular-expression/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'https://otranquangtrung.github.io/2018/06/06/regular-expression/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE

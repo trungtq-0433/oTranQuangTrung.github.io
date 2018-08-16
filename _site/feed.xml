@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Trung Tran's Blog</title>
+    <title>Trung Tran&#39;s Blog</title>
     <description></description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 23 Jun 2018 17:43:53 +0700</pubDate>
-    <lastBuildDate>Sat, 23 Jun 2018 17:43:53 +0700</lastBuildDate>
-    <generator>Jekyll v3.7.3</generator>
+    <link>https://otranquangtrung.github.io/</link>
+    <atom:link href="https://otranquangtrung.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 16 Aug 2018 17:08:29 +0700</pubDate>
+    <lastBuildDate>Thu, 16 Aug 2018 17:08:29 +0700</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Manually preloading associations in rails</title>
+        <description>
+Chúng ta có lẽ đã quen với việc sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;preloading&lt;/code&gt; trong rails thông qua việc sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;includes&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;eager_load&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;preload&lt;/code&gt;&lt;br /&gt;
+trực tiếp trên &lt;code class=&quot;highlighter-rouge&quot;&gt;activerecord&lt;/code&gt; nhằm phục vụ cho mục đích tăng performance cho hệ thống.
+
+Tuy nhiên trong một vài trường hợp hiếm khi xảy ra, chúng ta có 1 tập hợp gồm các bản ghi thuộc nhiều class khác nhau và mỗi class có các preloading khác nhau. Trong trường hợp này chúng ta cần sử dụng đến manually preload associations.
+
+</description>
+        <pubDate>Thu, 16 Aug 2018 00:00:00 +0700</pubDate>
+        <link>https://otranquangtrung.github.io/2018/08/16/manually-preloading-associations-in-rails/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/08/16/manually-preloading-associations-in-rails/</guid>
+        
+        
+        <category>RoR</category>
+        
+      </item>
     
       <item>
         <title>Regular Expression</title>
         <description>
-&lt;code class=&quot;highlighter-rouge&quot;&gt;RegEx&lt;/code&gt; hay còn gọi &lt;code class=&quot;highlighter-rouge&quot;&gt;Regular Expression&lt;/code&gt; là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là &lt;code class=&quot;highlighter-rouge&quot;&gt;Biểu thức chính quy&lt;/code&gt;.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Regex&lt;/code&gt; là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp
-chuỗi nào đó.
-Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt;. Khi có vấn đề thì google
-test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên
+&lt;code class=&quot;highlighter-rouge&quot;&gt;RegEx&lt;/code&gt; hay còn gọi &lt;code class=&quot;highlighter-rouge&quot;&gt;Regular Expression&lt;/code&gt; là khái niệm khá quen thuộc với lập trình viên. Hay còn gọi là &lt;code class=&quot;highlighter-rouge&quot;&gt;Biểu thức chính quy&lt;/code&gt;.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Regex&lt;/code&gt; là một chuỗi ký tự có quy tắc đặc biệt, được dùng làm mẫu (pattern) để phân tích sự trùng khớp của một tập hợp&lt;br /&gt;
+chuỗi nào đó.&lt;br /&gt;
+Cá nhân mình thấy, có khá nhiều lập trình viên đi làm 1-2 năm vẫn còn rất mơ hồ về &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt;. Khi có vấn đề thì google&lt;br /&gt;
+test thử thấy chạy đúng thì copy, paste mà không hiểu bản chất nó xử lý thế nào. Cá nhân mình cũng từng như vậy thế nên&lt;br /&gt;
 mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.
 
 </description>
         <pubDate>Wed, 06 Jun 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/06/06/regular-expression/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/06/06/regular-expression/</guid>
+        <link>https://otranquangtrung.github.io/2018/06/06/regular-expression/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/06/06/regular-expression/</guid>
         
         
         <category>Common</category>
@@ -32,52 +50,52 @@ mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.
       <item>
         <title>How to avoid !important in css</title>
         <description>
-&lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;: Đây là từ khóa không lạ lẫm gì đối với 1 backend-developer.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;: Đây là từ khóa không lạ lẫm gì đối với 1 backend-developer.&lt;br /&gt;
 Bạn đã có bao giờ gặp phải trường hợp cố gắng style cho một hoặc nhiều html element mà nó không có tác dụng?
 
 Có vẻ như trang web đang bỏ qua style của bạn mà bạn không tìm được nguyên nhân?
 
-Và bạn đã sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;, cú pháp theo mình gọi thì nó là huyền thoại của các backend-developer khi cố gắng thiết kế giao
+Và bạn đã sử dụng &lt;code class=&quot;highlighter-rouge&quot;&gt;!important&lt;/code&gt;, cú pháp theo mình gọi thì nó là huyền thoại của các backend-developer khi cố gắng thiết kế giao&lt;br /&gt;
 diện.
 
 </description>
         <pubDate>Wed, 09 May 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/05/09/important-in-css/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/05/09/important-in-css/</guid>
+        <link>https://otranquangtrung.github.io/2018/05/09/important-in-css/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/05/09/important-in-css/</guid>
         
         
-        <category>Css</category>
+        <category>Frontend</category>
         
       </item>
     
       <item>
         <title>Ransack gem</title>
         <description>
-&lt;a href=&quot;https://github.com/activerecord-hackery/ransack&quot;&gt;Gem Ransack&lt;/a&gt; đã trở nên quen thuộc với &lt;code class=&quot;highlighter-rouge&quot;&gt;RoR developer&lt;/code&gt; khi mà nó có mặt hầu như trong các project, bởi vì tính dễ
-dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.
+&lt;a href=&quot;https://github.com/activerecord-hackery/ransack&quot;&gt;Gem Ransack&lt;/a&gt; đã trở nên quen thuộc với &lt;code class=&quot;highlighter-rouge&quot;&gt;RoR developer&lt;/code&gt; khi mà nó có mặt hầu như trong các project, bởi vì tính dễ&lt;br /&gt;
+dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.&lt;br /&gt;
 Sau đây là một số ghi chép của mình về gem này…
 
 </description>
         <pubDate>Wed, 28 Feb 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/02/28/note-ransack-gem/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/02/28/note-ransack-gem/</guid>
+        <link>https://otranquangtrung.github.io/2018/02/28/note-ransack-gem/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/02/28/note-ransack-gem/</guid>
         
         
-        <category>Gem</category>
+        <category>RoR</category>
         
       </item>
     
       <item>
         <title>Dockerizing a ruby on rails application</title>
         <description>
-Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một
-cái gì ra hồn hết cả, bẵng đi một thời gian đến giữa năm 2017 thì được làm một dự án từ đầu nên mình đã quyết định sử
+Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một&lt;br /&gt;
+cái gì ra hồn hết cả, bẵng đi một thời gian đến giữa năm 2017 thì được làm một dự án từ đầu nên mình đã quyết định sử&lt;br /&gt;
 dụng docker vào dự án. Cứ mỗi khoảng thời gian bỏ phí mình lại thấy tiếc nuối =))
 
 </description>
         <pubDate>Thu, 22 Feb 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/</guid>
+        <link>https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/</guid>
         
         
         <category>Docker</category>
@@ -91,24 +109,25 @@ Làm việc với ngôn ngữ ruby và framework RubyOnRails một thời gian. 
 
 </description>
         <pubDate>Sat, 13 Jan 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
+        <link>https://otranquangtrung.github.io/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
         
         
-        <category>Awesome</category>
+        <category>RoR</category>
         
       </item>
     
       <item>
         <title>Hello world!</title>
         <description>
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello world, my name is Trung!&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello world, my name is Trung!&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Thu, 04 Jan 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/01/04/hello-world/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/01/04/hello-world/</guid>
+        <link>https://otranquangtrung.github.io/2018/01/04/hello-world/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/01/04/hello-world/</guid>
         
         
         <category>Common</category>

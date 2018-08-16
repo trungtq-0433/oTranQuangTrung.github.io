@@ -13,8 +13,8 @@
     <!link rel="stylesheet" href="/css/font-awesome.min.css ">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
     <link rel="stylesheet" href="/css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/">
-    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+    <link rel="canonical" href="https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="https://otranquangtrung.github.io/feed.xml ">
 
     <script>
     // google analytics
@@ -95,6 +95,8 @@
           </li>
           
         
+          
+        
       </ul>
     </nav>
   </div>
@@ -142,29 +144,29 @@
   <li><a href="#setup" id="markdown-toc-setup"><code class="highlighter-rouge">Setup</code></a></li>
   <li><a href="#prepare" id="markdown-toc-prepare"><code class="highlighter-rouge">Prepare</code></a></li>
   <li><a href="#dockerizing" id="markdown-toc-dockerizing"><code class="highlighter-rouge">Dockerizing</code></a>    <ul>
-      <li><a href="#1dockerfile" id="markdown-toc-1dockerfile">1.Dockerfile</a></li>
-      <li><a href="#2docker-compose" id="markdown-toc-2docker-compose">2.Docker compose</a></li>
+      <li><a href="#dockerfile" id="markdown-toc-dockerfile">1.Dockerfile</a></li>
+      <li><a href="#docker-compose" id="markdown-toc-docker-compose">2.Docker compose</a></li>
     </ul>
   </li>
   <li><a href="#using" id="markdown-toc-using"><code class="highlighter-rouge">Using</code></a></li>
 </ul>
 
-<p>Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một
-cái gì ra hồn hết cả, bẵng đi một thời gian đến giữa năm 2017 thì được làm một dự án từ đầu nên mình đã quyết định sử
+<p>Mình biết đến docker từ giữa năm 2016. Thời gian đó, thấy người người ca ngợi docker thần thánh, trong công ty cũng đã sử dụng docker thì mình cũng đua đòi nghịch ngợm chứ chưa xây dựng được một<br />
+cái gì ra hồn hết cả, bẵng đi một thời gian đến giữa năm 2017 thì được làm một dự án từ đầu nên mình đã quyết định sử<br />
 dụng docker vào dự án. Cứ mỗi khoảng thời gian bỏ phí mình lại thấy tiếc nuối =))</p>
 
 <h2 id="setup"><code class="highlighter-rouge">Setup</code></h2>
-<p>Chúng ta cần cài đặt 2 thứ đó là <code class="highlighter-rouge">docker</code> và <code class="highlighter-rouge">docker-compose</code>
-Cách cài đặt  chúng ta cứ theo hướng dẫn từ trang chủ của docker chứ mình sẽ không nói lại ở đây.
-<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">document docker</a>
+<p>Chúng ta cần cài đặt 2 thứ đó là <code class="highlighter-rouge">docker</code> và <code class="highlighter-rouge">docker-compose</code><br />
+Cách cài đặt  chúng ta cứ theo hướng dẫn từ trang chủ của docker chứ mình sẽ không nói lại ở đây.<br />
+<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">document docker</a><br />
 <a href="https://docs.docker.com/compose/install/#install-compose">docker-compose</a></p>
 
-<p>Sau khi cài đặt thì <code class="highlighter-rouge">docker</code> được liên kết qua <code class="highlighter-rouge">Unix socket</code>. Mặc định thì <code class="highlighter-rouge">Unix socket</code> được sở hữu bởi user <code class="highlighter-rouge">roor</code>. Thế
-nên 1 user khác chỉ có thể truy cập <code class="highlighter-rouge">docker</code> bằng quyền <code class="highlighter-rouge">sudo</code>.
-Nếu không muốn sử dụng <code class="highlighter-rouge">sudo</code> khi xài <code class="highlighter-rouge">docker command</code> thì chúng ta tạo một <code class="highlighter-rouge">Unix group</code> là <code class="highlighter-rouge">docker</code>, sau đó chúng ta thêm user
+<p>Sau khi cài đặt thì <code class="highlighter-rouge">docker</code> được liên kết qua <code class="highlighter-rouge">Unix socket</code>. Mặc định thì <code class="highlighter-rouge">Unix socket</code> được sở hữu bởi user <code class="highlighter-rouge">roor</code>. Thế<br />
+nên 1 user khác chỉ có thể truy cập <code class="highlighter-rouge">docker</code> bằng quyền <code class="highlighter-rouge">sudo</code>.<br />
+Nếu không muốn sử dụng <code class="highlighter-rouge">sudo</code> khi xài <code class="highlighter-rouge">docker command</code> thì chúng ta tạo một <code class="highlighter-rouge">Unix group</code> là <code class="highlighter-rouge">docker</code>, sau đó chúng ta thêm user<br />
 vào group. Khi <code class="highlighter-rouge">docker</code> khởi động thì quyền truy cập <code class="highlighter-rouge">Unix socket</code> được phân quyền cho <code class="highlighter-rouge">docker</code> group.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.Create the docker group.
+<div class="highlighter-rouge"><pre class="highlight"><code>1.Create the docker group.
 $ sudo groupadd docker
 
 2.Add your user to the docker group.
@@ -174,13 +176,14 @@ $ sudo usermod -aG docker $USER
 
 4.Verify that you can run docker commands without sudo.
 $ docker run hello-world
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="prepare"><code class="highlighter-rouge">Prepare</code></h2>
 <ul>
   <li>
-    <p>Rails application: Tất nhiên là phải có mới dockerizing được.
-Có thể sử dụng rails app sẵn có hoặc tạo new rails app bằng bằng docker và docker composer như
+    <p>Rails application: Tất nhiên là phải có mới dockerizing được.<br />
+Có thể sử dụng rails app sẵn có hoặc tạo new rails app bằng bằng docker và docker composer như<br />
 <a href="https://docs.docker.com/compose/rails/#build-the-project">tutorial</a></p>
   </li>
   <li>
@@ -193,14 +196,14 @@ Có thể sử dụng rails app sẵn có hoặc tạo new rails app bằng bằ
 
 <h2 id="dockerizing"><code class="highlighter-rouge">Dockerizing</code></h2>
 
-<h5 id="1dockerfile">1.Dockerfile</h5>
+<h5 id="dockerfile">1.Dockerfile</h5>
 
 <p><code class="highlighter-rouge">touch Dockerfile</code></p>
 
-<p>Đầu tiên ta tạo 1 file Dockerfile tại thư mục root rails app.
+<p>Đầu tiên ta tạo 1 file Dockerfile tại thư mục root rails app.<br />
 Chỉnh sửa nội dung như sau.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FROM</span> <span class="n">ruby</span><span class="p">:</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span> 
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="no">FROM</span> <span class="n">ruby</span><span class="p">:</span><span class="mi">2</span><span class="o">.</span><span class="mi">4</span><span class="o">.</span><span class="mi">2</span> 
 <span class="no">MAINTAINER</span> <span class="n">buffalo</span> <span class="o">&lt;</span><span class="n">tqtrung09</span><span class="vi">@gmail</span><span class="p">.</span><span class="nf">com</span><span class="o">&gt;</span>
 
 <span class="no">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">-</span><span class="n">qq</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libpq</span><span class="o">-</span><span class="n">dev</span> <span class="n">nodejs</span> <span class="n">vim</span> <span class="n">cron</span>
@@ -214,13 +217,14 @@ ADD Gemfile $APP_HOME/</span><span class="no">Gemfile</span>
 <span class="no">RUN</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">bundler</span>
 <span class="no">RUN</span> <span class="n">bundle</span> <span class="n">install</span>
 <span class="no">ADD</span> <span class="o">.</span> <span class="vg">$APP_HOME</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Mình sẽ giải thích qua các lệnh trên:</p>
 
 <p><code class="highlighter-rouge">FROM ruby:2.4.2</code>: Đây là image base của mình, nó sẽ được tải từ docker hub khi mình build.</p>
 
-<p><code class="highlighter-rouge">RUN apt-get update -qq &amp;&amp; apt-get install -y build-essential libpq-dev nodejs vim cron</code>: Đây là các gói cài đặt thêm
+<p><code class="highlighter-rouge">RUN apt-get update -qq &amp;&amp; apt-get install -y build-essential libpq-dev nodejs vim cron</code>: Đây là các gói cài đặt thêm<br />
 vào image. Trên đây có <code class="highlighter-rouge">vim</code> và <code class="highlighter-rouge">cron</code> là 2 package optional mình cài thêm để sử dụng vim và cronjob trong ứng dụng.</p>
 
 <p><code class="highlighter-rouge">ENV APP_HOME /LouisVLab</code>: Set biến thư mục dự án trong remote docker, giống với folder rails app của máy host.</p>
@@ -239,16 +243,16 @@ vào image. Trên đây có <code class="highlighter-rouge">vim</code> và <code
 
 <p><code class="highlighter-rouge">ADD . $APP_HOME</code>: Bind thư mục từ remote ra host</p>
 
-<h5 id="2docker-compose">2.Docker compose</h5>
+<h5 id="docker-compose">2.Docker compose</h5>
 
 <p><code class="highlighter-rouge">touch docker-compose.yml</code></p>
 
 <p>Chỉnh sửa file với nội dung như sau.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">version: </span><span class="s2">"3"</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="ss">version: </span><span class="s2">"3"</span>
 <span class="ss">services:
   database:
-    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mf">5.7</span>
+    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mi">5</span><span class="o">.</span><span class="mi">7</span>
     <span class="ss">restart: </span><span class="n">always</span>
     <span class="ss">volumes:
       </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">mysql</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mysql</span>
@@ -257,7 +261,7 @@ vào image. Trên đây có <code class="highlighter-rouge">vim</code> và <code
     <span class="ss">environment:
       </span><span class="no">MYSQL_ROOT_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span>
   <span class="ss">redis:
-    image: </span><span class="n">redis</span><span class="p">:</span><span class="mf">3.2</span><span class="o">-</span><span class="n">alpine</span>
+    image: </span><span class="n">redis</span><span class="p">:</span><span class="mi">3</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">alpine</span>
     <span class="ss">ports:
       </span><span class="o">-</span> <span class="s2">"6379:6379"</span>
     <span class="ss">volumes:
@@ -291,13 +295,14 @@ vào image. Trên đây có <code class="highlighter-rouge">vim</code> và <code
     <span class="ss">depends_on: 
       </span><span class="o">-</span> <span class="n">database</span>
       <span class="o">-</span> <span class="n">redis</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<p>Ở đây mình dùng version 3 của docker-compose
+<p>Ở đây mình dùng version 3 của docker-compose<br />
 Trong services, chúng ta cần chú ý các service chính sau: <code class="highlighter-rouge">database</code>, <code class="highlighter-rouge">redis</code>, <code class="highlighter-rouge">sidekiq</code>, <code class="highlighter-rouge">web</code></p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="ss">database:
-    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mf">5.7</span> <span class="c1"># Là image được tải từ docker hub</span>
+<div class="highlighter-rouge"><pre class="highlight"><code> <span class="ss">database:
+    image: </span><span class="n">mysql</span><span class="p">:</span><span class="mi">5</span><span class="o">.</span><span class="mi">7</span> <span class="c1"># Là image được tải từ docker hub</span>
     <span class="ss">restart: </span><span class="n">always</span> <span class="c1"># Option khi service bị tắt bới nguyên nhân gì đó sẽ được khởi động lại luôn.</span>
     <span class="ss">volumes:
       </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">mysql</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">mysql</span> <span class="c1"># mapping dữ liệu từ remote ra máy host.</span>
@@ -306,17 +311,19 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
       </span><span class="o">-</span> <span class="s2">"3306:3306"</span> <span class="c1"># Bind cổng 3306 từ remote ra cổng 3306 máy host.</span>
     <span class="ss">environment:
       </span><span class="no">MYSQL_ROOT_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span> <span class="c1"># Set password user root của mysql.</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">redis:
-    image: </span><span class="n">redis</span><span class="p">:</span><span class="mf">3.2</span><span class="o">-</span><span class="n">alpine</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="ss">redis:
+    image: </span><span class="n">redis</span><span class="p">:</span><span class="mi">3</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">alpine</span>
     <span class="ss">ports:
       </span><span class="o">-</span> <span class="s2">"6379:6379"</span>
     <span class="ss">volumes:
       </span><span class="o">-</span> <span class="p">.</span><span class="nf">/</span><span class="n">data</span><span class="o">/</span><span class="n">redis</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">redis</span><span class="o">/</span><span class="n">data</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">sidekiq:
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="ss">sidekiq:
     build: </span><span class="o">.</span> <span class="c1"># Chạy tại thư mục root rail app</span>
     <span class="ss">command: </span><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">sidekiq</span> <span class="o">-</span><span class="n">q</span> <span class="n">default</span> <span class="o">-</span><span class="n">q</span> <span class="n">mailers</span> <span class="c1"># command khi chạy sidekiq</span>
     <span class="ss">volumes:
@@ -330,9 +337,10 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
       <span class="no">LV_DATABASE_USER</span><span class="p">:</span> <span class="s2">"root"</span>
       <span class="no">LV_DATABASE_PASSWORD</span><span class="p">:</span> <span class="s2">"123456"</span> 
       <span class="no">REDIS_URL</span><span class="p">:</span> <span class="s2">"redis://redis:6379/0"</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">web:
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="ss">web:
     build: </span><span class="p">.</span>
     <span class="nf">environment</span><span class="p">:</span>
       <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">environment</span>
@@ -347,14 +355,15 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
     <span class="ss">depends_on: 
       </span><span class="o">-</span> <span class="n">database</span>
       <span class="o">-</span> <span class="n">redis</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Vậy là đã xong phần dockerizing. Tiếp theo chúng ta sẽ đến phần sử dụng.</p>
 
 <h2 id="using"><code class="highlighter-rouge">Using</code></h2>
 <p>Để chạy được ứng dụng, chúng ta cần chỉnh sửa config <code class="highlighter-rouge">database.yml</code></p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">default: </span><span class="o">&amp;</span><span class="n">default</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="ss">default: </span><span class="o">&amp;</span><span class="n">default</span>
   <span class="ss">adapter: </span><span class="n">mysql2</span>
   <span class="ss">encoding: </span><span class="n">utf8mb4</span>
   <span class="ss">collation: </span><span class="n">utf8mb4_bin</span>
@@ -374,9 +383,10 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
 <span class="ss">test:
   </span><span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">default</span>
   <span class="ss">database: </span><span class="no">LouisVLab_test</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<p>Chú ý: Các biến <code class="highlighter-rouge">username</code>, <code class="highlighter-rouge">password</code>, <code class="highlighter-rouge">host</code> được gán bằng các biến môi trường mình khai báo trong
+<p>Chú ý: Các biến <code class="highlighter-rouge">username</code>, <code class="highlighter-rouge">password</code>, <code class="highlighter-rouge">host</code> được gán bằng các biến môi trường mình khai báo trong<br />
 <code class="highlighter-rouge">docker-compose.yml</code></p>
 
 <p>Tại thư mục root rails app chạy các lệnh sau và truy cập localhost:3000 để xem thành quả:</p>
@@ -448,6 +458,9 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
             
             
         
+            
+            
+        
         
 
         <div class="post-recent">
@@ -475,8 +488,8 @@ Trong services, chúng ta cần chú ý các service chính sau: <code class="hi
      */
 
     var disqus_config = function() {
-        this.page.url = 'http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/'; // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE

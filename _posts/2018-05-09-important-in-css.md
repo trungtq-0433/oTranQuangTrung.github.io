@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to avoid !important in css"
-categories: Css
+categories: Frontend
 author: tqtrung09
 ---
 

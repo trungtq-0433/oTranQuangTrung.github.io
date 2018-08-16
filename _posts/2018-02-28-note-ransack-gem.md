@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Ransack gem"
-categories: Gem
+categories: RoR
 author: tqtrung09
 ---
 
