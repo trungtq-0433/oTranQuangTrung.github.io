@@ -5,9 +5,26 @@
     <description></description>
     <link>https://otranquangtrung.github.io/</link>
     <atom:link href="https://otranquangtrung.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 16 Aug 2018 17:08:29 +0700</pubDate>
-    <lastBuildDate>Thu, 16 Aug 2018 17:08:29 +0700</lastBuildDate>
+    <pubDate>Sun, 23 Sep 2018 22:52:42 +0700</pubDate>
+    <lastBuildDate>Sun, 23 Sep 2018 22:52:42 +0700</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>ActiveRecord&#39;s queries tricks</title>
+        <description>
+Mảng kiến thức yêu thích của tôi trong framework rails đó là ActiveRecord’s scopes.
+
+Trong bài viết này tôi sẽ giới thiệu 5 trick mà tôi thường xuyên sử dụng trong các project của mình.
+
+</description>
+        <pubDate>Sun, 23 Sep 2018 00:00:00 +0700</pubDate>
+        <link>https://otranquangtrung.github.io/2018/09/23/activerecord-query-trick/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/09/23/activerecord-query-trick/</guid>
+        
+        
+        <category>RoR</category>
+        
+      </item>
     
       <item>
         <title>Manually preloading associations in rails</title>
