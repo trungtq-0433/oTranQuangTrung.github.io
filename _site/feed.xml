@@ -5,9 +5,24 @@
     <description></description>
     <link>https://otranquangtrung.github.io/</link>
     <atom:link href="https://otranquangtrung.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 23 Sep 2018 22:52:42 +0700</pubDate>
-    <lastBuildDate>Sun, 23 Sep 2018 22:52:42 +0700</lastBuildDate>
+    <pubDate>Mon, 22 Oct 2018 14:52:00 +0700</pubDate>
+    <lastBuildDate>Mon, 22 Oct 2018 14:52:00 +0700</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Self study javascript, ES6, React</title>
+        <description>Mình là backend-developer, tuy nhiên dạo gần đây mình có tập trung nhiều hơn mảng frontend.&lt;br /&gt;
+Trước làm tay ngang kiểu học mót thì cũng biết được gọi là chút css, javascript, jquery, angularjs các kiểu, tuy nhiên cũng chưa có lần nào học bài bản và  ghi chép lại. Nay mình bắt đầu học về React thì mình cũng có ghi chép lại một phần là để sau này lúc làm có cái lục lại một phần là hy vọng tài liệu của mình có thể giúp ích được một ai đó bắt đầu học từ đầu như mình.
+
+</description>
+        <pubDate>Tue, 09 Oct 2018 00:00:00 +0700</pubDate>
+        <link>https://otranquangtrung.github.io/2018/10/09/learning-react/</link>
+        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/10/09/learning-react/</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
     
       <item>
         <title>ActiveRecord&#39;s queries tricks</title>
