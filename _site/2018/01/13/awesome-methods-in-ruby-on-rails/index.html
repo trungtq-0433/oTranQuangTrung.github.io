@@ -142,7 +142,7 @@
         <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
   <li><a href="#hashdig" id="markdown-toc-hashdig"><code class="highlighter-rouge">Hash#dig</code></a></li>
-  <li><a href="#objectpresencein" id="markdown-toc-objectpresencein"><code class="highlighter-rouge">Object#presence_in</code></a></li>
+  <li><a href="#objectpresence_in" id="markdown-toc-objectpresence_in"><code class="highlighter-rouge">Object#presence_in</code></a></li>
   <li><a href="#arrayzip" id="markdown-toc-arrayzip"><code class="highlighter-rouge">Array#zip</code></a></li>
   <li><a href="#objecttap" id="markdown-toc-objecttap"><code class="highlighter-rouge">Object#tap</code></a></li>
   <li><a href="#arraycount" id="markdown-toc-arraycount"><code class="highlighter-rouge">Array#count</code></a></li>
@@ -154,128 +154,116 @@
 <h2 id="hashdig"><code class="highlighter-rouge">Hash#dig</code></h2>
 <p>require: ruby2.3</p>
 
-<p>Ví dụ:<br />
-<code class="highlighter-rouge">ruby
-if params[:user] &amp;&amp; params[:user][:location] &amp;&amp; params[:user][:location][:province]
-  do_something
-end
-</code><br />
-Đây là đoạn code khá dễ thấy, chúng ta thấy nhiều trong việc kiểm tra tồn tại.</p>
+<p>Ví dụ:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="ss">:user</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">[</span><span class="ss">:user</span><span class="p">][</span><span class="ss">:location</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">params</span><span class="p">[</span><span class="ss">:user</span><span class="p">][</span><span class="ss">:location</span><span class="p">][</span><span class="ss">:province</span><span class="p">]</span>
+  <span class="n">do_something</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Đây là đoạn code khá dễ thấy, chúng ta thấy nhiều trong việc kiểm tra tồn tại.</p>
 
 <p>=&gt; Trông thì rõ nghĩa nhưng rối rắm và không đẹp mắt.</p>
 
-<p>Với việc sử dụng <code class="highlighter-rouge">dig method</code> đoạn code trên sẽ refactor được như sau.<br />
-<code class="highlighter-rouge">ruby
-if params.dig(:user, :location, :province)
-  do_something
-end
-</code><br />
-Method <code class="highlighter-rouge">dig</code> trả về <code class="highlighter-rouge">value</code> của <code class="highlighter-rouge">key</code> hoặc trả về <code class="highlighter-rouge">nil</code> nếu <code class="highlighter-rouge">key</code> không tồn tại.<br />
+<p>Với việc sử dụng <code class="highlighter-rouge">dig method</code> đoạn code trên sẽ refactor được như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">params</span><span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:location</span><span class="p">,</span> <span class="ss">:province</span><span class="p">)</span>
+  <span class="n">do_something</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Method <code class="highlighter-rouge">dig</code> trả về <code class="highlighter-rouge">value</code> của <code class="highlighter-rouge">key</code> hoặc trả về <code class="highlighter-rouge">nil</code> nếu <code class="highlighter-rouge">key</code> không tồn tại.
 Lưu ý: Nếu giá trị kiểm tra của bạn có thể chứa giá trị <code class="highlighter-rouge">""</code> hoặc <code class="highlighter-rouge">" "</code> thì lúc kiểm tra điều kiện if cần thêm <code class="highlighter-rouge">.presence</code></p>
 
-<h2 id="objectpresencein"><code class="highlighter-rouge">Object#presence_in</code></h2>
-<p>Chúng ta xem đoạn code sau.<br />
-```ruby<br />
-settings.yml</p>
+<h2 id="objectpresence_in"><code class="highlighter-rouge">Object#presence_in</code></h2>
+<p>Chúng ta xem đoạn code sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">settings</span><span class="p">.</span><span class="nf">yml</span>
 
-<p>user:<br />
-  types: [:ceo, :magager, :group_leader, :employee]<br />
-```</p>
+<span class="ss">user:
+  types: </span><span class="p">[</span><span class="ss">:ceo</span><span class="p">,</span> <span class="ss">:magager</span><span class="p">,</span> <span class="ss">:group_leader</span><span class="p">,</span> <span class="ss">:employee</span><span class="p">]</span>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">type</span> <span class="o">=</span> <span class="no">Settings</span><span class="p">.</span><span class="nf">user</span><span class="p">.</span><span class="nf">types</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:type</span><span class="p">])</span> <span class="p">?</span> <span class="n">params</span><span class="p">[</span><span class="ss">:type</span><span class="p">]</span> <span class="p">:</span> <span class="ss">:guest</span>
-</code></pre>
-</div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="o">=</span> <span class="no">Settings</span><span class="p">.</span><span class="nf">user</span><span class="p">.</span><span class="nf">types</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:type</span><span class="p">])</span> <span class="p">?</span> <span class="n">params</span><span class="p">[:</span><span class="n">type</span><span class="p">]</span> <span class="p">:</span> <span class="ss">:guest</span>
+</code></pre></div></div>
 <p>Mục đích đoạn code trên là để trả về 1 giá trị thỏa mãn tập cho trước, còn không thì trả về giá trị mặc định.</p>
 
-<p>=&gt; Cũng đã khá rõ ràng rồi, nhưng chúng ta cũng có thể viết lại bằng cách sử dụng method <code class="highlighter-rouge">presence_in</code> như sau.<br />
-<code class="highlighter-rouge">ruby
-type = params[:type].precense_in(Settings.user.types) || :guest
-</code></p>
+<p>=&gt; Cũng đã khá rõ ràng rồi, nhưng chúng ta cũng có thể viết lại bằng cách sử dụng method <code class="highlighter-rouge">presence_in</code> như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="ss">:type</span><span class="p">].</span><span class="nf">precense_in</span><span class="p">(</span><span class="no">Settings</span><span class="p">.</span><span class="nf">user</span><span class="p">.</span><span class="nf">types</span><span class="p">)</span> <span class="o">||</span> <span class="ss">:guest</span>
+</code></pre></div></div>
 
 <h2 id="arrayzip"><code class="highlighter-rouge">Array#zip</code></h2>
-<p>Chúng ta có dữ liệu như sau.<br />
-<code class="highlighter-rouge">ruby
-a = [:a, :b, :c]
-b = [1, 2, 3]
-</code><br />
-Yêu cầu làm sao tạo thành 1 <code class="highlighter-rouge">Hash</code> có cấu trúc như sau:<br />
-<code class="highlighter-rouge">ruby
-{
-  "a": 1,
-  "b": 2,
-  "c": 3
-}
-</code></p>
+<p>Chúng ta có dữ liệu như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+<p>Yêu cầu làm sao tạo thành 1 <code class="highlighter-rouge">Hash</code> có cấu trúc như sau:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="s2">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"c"</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p>Theo lối mòn tư duy, ta có thể giải quyết bài toán như sau.<br />
-<code class="highlighter-rouge">ruby
-hash = Hash.new
-a.each.with_index(0) do |_, i|
-  hash.merge!({a[i] =&gt; b[i]})
-end
-hash
-</code><br />
-Song khá lằng nhằng và rối rắm. Ta giải quyết bài toán này bằng <code class="highlighter-rouge">zip method</code> như sau.<br />
-<code class="highlighter-rouge">ruby
- hash = Hash.new a.zip(b)
-</code></p>
+<p>Theo lối mòn tư duy, ta có thể giải quyết bài toán như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Hash</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">a</span><span class="p">.</span><span class="nf">each</span><span class="p">.</span><span class="nf">with_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span>
+  <span class="nb">hash</span><span class="p">.</span><span class="nf">merge!</span><span class="p">({</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]})</span>
+<span class="k">end</span>
+<span class="nb">hash</span>
+</code></pre></div></div>
+<p>Song khá lằng nhằng và rối rắm. Ta giải quyết bài toán này bằng <code class="highlighter-rouge">zip method</code> như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">hash</span> <span class="o">=</span> <span class="no">Hash</span><span class="p">.</span><span class="nf">new</span> <span class="n">a</span><span class="p">.</span><span class="nf">zip</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h2 id="objecttap"><code class="highlighter-rouge">Object#tap</code></h2>
 <p>Đã bao giờ bạn khởi tạo 1 object, thay đổi object đó và trả về chính đối tượng đó kiểu như thế này?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span>
 
 <span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"buffalo"</span>
 
 <span class="n">user</span>
-</code></pre>
-</div>
-<p>Việc sử dụng biến tạm ta thấy code không đẹp.<br />
-<code class="highlighter-rouge">ruby
-User.new.tap { |user| user.name = "buffalo" }
-</code><br />
-Với <code class="highlighter-rouge">tap method</code> thì đoạn code trên đã trở nên gọn gàng và đẹp hơn rất nhiều.</p>
+</code></pre></div></div>
+<p>Việc sử dụng biến tạm ta thấy code không đẹp.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">tap</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="s2">"buffalo"</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>Với <code class="highlighter-rouge">tap method</code> thì đoạn code trên đã trở nên gọn gàng và đẹp hơn rất nhiều.</p>
 
 <h2 id="arraycount"><code class="highlighter-rouge">Array#count</code></h2>
-<p>Ví dụ chúng ta có.<br />
-<code class="highlighter-rouge">ruby
-array = %w(a b c d d c b a c c d d b)
-</code><br />
-Chúng ta muốn đếm số lần xuất hiện của các ký tự trong mảng, ví dụ ký tự <code class="highlighter-rouge">d</code>.<br />
+<p>Ví dụ chúng ta có.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span> <span class="o">=</span> <span class="sx">%w(a b c d d c b a c c d d b)</span>
+</code></pre></div></div>
+<p>Chúng ta muốn đếm số lần xuất hiện của các ký tự trong mảng, ví dụ ký tự <code class="highlighter-rouge">d</code>.
 Theo cách truyền thống chúng ta thực hiện vòng lặp và so sánh giá trị như sau.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">array</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
   <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">"d"</span>
     <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">end</span>
 <span class="k">end</span>
 <span class="n">count</span>
-</code></pre>
-</div>
-<p>Và sau đây là sử dụng <code class="highlighter-rouge">count method</code><br />
-<code class="highlighter-rouge">ruby
-array.count("d")
-</code><br />
-Quá là đơn giản phải không ạ.</p>
+</code></pre></div></div>
+<p>Và sau đây là sử dụng <code class="highlighter-rouge">count method</code></p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span><span class="p">.</span><span class="nf">count</span><span class="p">(</span><span class="s2">"d"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Quá là đơn giản phải không ạ.</p>
 
-<p>Hoặc 1 cách áp dụng khác với mức độ phức tạp hơn 1 chút: Tìm số chẵn, lẻ<br />
-<code class="highlighter-rouge">ruby
-array = [1,2,3,4,5]
-array.count(&amp;:even?)
-</code></p>
+<p>Hoặc 1 cách áp dụng khác với mức độ phức tạp hơn 1 chút: Tìm số chẵn, lẻ</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">array</span><span class="p">.</span><span class="nf">count</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:even?</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h2 id="conclusion"><code class="highlighter-rouge">Conclusion</code></h2>
-<p>Bài viết là phần tổng hợp các method mình đã rút ra được để áp dụng trong quá trình làm việc. Mình sẽ cập nhật tiếp các<br />
+<p>Bài viết là phần tổng hợp các method mình đã rút ra được để áp dụng trong quá trình làm việc. Mình sẽ cập nhật tiếp các
 method khác vào bài viết này nếu thấy ứng dụng được hay ho.</p>
 
-<p>Mọi người có thể chia sẻ các method thú vị mà các bạn đã sử dụng trong quá trình làm việc ở phần dưới comments để mình<br />
+<p>Mọi người có thể chia sẻ các method thú vị mà các bạn đã sử dụng trong quá trình làm việc ở phần dưới comments để mình
 được học hỏi.</p>
 
         </article>
         <hr>
 
         
+        
+            
+            
         
             
             

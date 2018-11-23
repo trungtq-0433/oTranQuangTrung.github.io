@@ -29,7 +29,7 @@ Rõ hơn thì chúng ta xem ví dụ sau.
 
 ```js
 const XXX = "xxx"
-XXX = "yyy" 
+XXX = "yyy"
 // Uncaught TypeError: Assignment to constant variable.
 
 let XXX = "xxx"
@@ -52,7 +52,7 @@ Value 3 => undefined
 
 ```
 
-### `Arrow function` 
+### `Arrow function`
 Đây là cú pháp mới cho việc định nghĩa function, chúng ta hãy cùng xem các ví dụ sau đây.
 
 ```js
@@ -101,7 +101,7 @@ var a = new App()
 ====
 function App() {
   this.count = 0
-  var self = this // Cần gán reference 
+  var self = this // Cần gán reference
   setInterval(function() {
     console.log(self.count++)
   }, 1000)
@@ -203,7 +203,7 @@ next line
 ```
 
 ### `Object properties`
-ES6 cung cấp cú pháp đơn giản trong việc khởi tạo. 
+ES6 cung cấp cú pháp đơn giản trong việc khởi tạo.
 
 ```js
 let x = 1, y = 2
@@ -311,7 +311,7 @@ var map = new Map();
 map.set('name', 'John');
 map.set('id', 10);
 map.size; // 2. Returns the size of the map.
-map.keys(); // outputs only the keys. 
+map.keys(); // outputs only the keys.
 map.values(); // outputs only the values.
 for (let key of map.keys()) {
    console.log(key);

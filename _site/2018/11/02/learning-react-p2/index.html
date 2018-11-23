@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Self study javascript, ES6, React P2</title>
+    <meta name="description" content="Tiếp nối phần 1 về ES6, phần này chúng ta sẽ tìm hiểu về ReactJS.">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!link rel="stylesheet" href="/css/font-awesome.min.css ">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="https://otranquangtrung.github.io/2018/11/02/learning-react-p2/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="https://otranquangtrung.github.io/feed.xml ">
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-109981126-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+  <div class="wrapper">
+    <a href="/" class="brand">Trung Tran's Blog</a>
+    <small>Back-end Dev Engineer</small>
+    <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+    <nav id="headerNav">
+      <ul>
+        <li>
+          
+          <a href="/">
+          
+            <i class="fa fa-home"></i>Home
+          </a>
+        </li>
+
+        
+          
+          <li>
+            
+            <a href="/archive/">
+            
+              <i class="fa fa-archive"></i>Archives
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/category/">
+            
+              <i class="fa fa-th-list"></i>Categories
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/about/">
+            
+              <i class="fa fa-play"></i>About
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li>
+            
+            <a href="/our-wedding/">
+            
+              <i class="fa fa-heart"></i>Our Wedding
+            </a>
+          </li>
+          
+        
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Self study javascript, ES6, React P2</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2018-11-02
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>tqtrung09
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#javascript" title="Category: javascript" rel="category">javascript</a>
+    
+  
+
+</span>
+
+
+            </div>
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#setup" id="markdown-toc-setup"><code class="highlighter-rouge">Setup</code></a></li>
+  <li><a href="#jsx" id="markdown-toc-jsx"><code class="highlighter-rouge">JSX</code></a></li>
+  <li><a href="#component--props" id="markdown-toc-component--props"><code class="highlighter-rouge">Component &amp; Props</code></a></li>
+  <li><a href="#state--lifecycle" id="markdown-toc-state--lifecycle"><code class="highlighter-rouge">State &amp; Lifecycle</code></a></li>
+  <li><a href="#handling-events" id="markdown-toc-handling-events"><code class="highlighter-rouge">Handling events</code></a></li>
+</ul>
+<p>Tiếp nối phần 1 về ES6, phần này chúng ta sẽ tìm hiểu về ReactJS.</p>
+
+<h3 id="setup"><code class="highlighter-rouge">Setup</code></h3>
+<p>Chúng ta cần chuẩn bị NodeJS và NPM, sau đó install package <code class="highlighter-rouge">create-react-app</code>
+<code class="highlighter-rouge">npm install -g create-react-app</code>
+Tiếp theo ta sử dụng package này để new react app
+<code class="highlighter-rouge">npx create-react-app react-demo</code></p>
+
+<h3 id="jsx"><code class="highlighter-rouge">JSX</code></h3>
+<p>React sử dụng JSX thay thế cho Javascript đơn thuần, mặc dù không phải là bắt buộc tuy nhiên nó được khuyên dùng.
+Cá nhân mình thấy đơn thuần nó cũng chỉ là cú pháp thế nên phần này vừa làm vừa học là hợp lý nhất :v
+Hoặc là đọc qua để biết một số cú pháp cơ bản.</p>
+<blockquote>
+  <p>https://reactjs.org/docs/introducing-jsx.html</p>
+</blockquote>
+
+<h3 id="component--props"><code class="highlighter-rouge">Component &amp; Props</code></h3>
+<p>Chúng ta sử dụng ES6 class để define component.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Welcome.js</span>
+<span class="kd">class</span> <span class="nx">Welcome</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Khai báo defaul props, trường hợp không truyền data vào thì nhận gía trị mặc định.</span>
+<span class="nx">Welcome</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="na">name</span><span class="p">:</span> <span class="s2">"xxx"</span>
+<span class="p">}</span>
+
+<span class="c1">// Validatetion Props</span>
+<span class="nx">Welcome</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+
+  <span class="c1">// Các type mẫu</span>
+  <span class="na">propArray</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">propBool</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">bool</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">propFunc</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">,</span>
+  <span class="na">propNumber</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">,</span>
+  <span class="na">propObject</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span>
+<span class="p">}</span>
+
+<span class="c1">// Export component để import chỗ khác.</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Welcome</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Main.js</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Welcome</span> <span class="k">from</span> <span class="s1">'./Welcome.js'</span><span class="p">;</span>
+
+<span class="c1">// Truyền gía trị props vào cho Welcome component</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">Welcome</span> <span class="nx">name</span><span class="o">=</span><span class="s2">"yyy"</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'root'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Khi định nghĩa 1 component thì chúng ta cần nhớ props là read-only. Với lưu ý này chúng ta có khái niệm pure.
+Pure có nghĩa là không thay đổi gía trị input.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Pure</span>
+<span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Impure</span>
+<span class="kd">function</span> <span class="nx">withdraw</span><span class="p">(</span><span class="nx">account</span><span class="p">,</span> <span class="nx">amount</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">account</span><span class="p">.</span><span class="nx">total</span> <span class="o">-=</span> <span class="nx">amount</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Tất cả react component cần phải hoạt động giống như pure function, không được thay đổi props.</p>
+
+<h3 id="state--lifecycle"><code class="highlighter-rouge">State &amp; Lifecycle</code></h3>
+<p>Khác với props là dữ liệu được truyền từ ngoài vào component thì state là một biến được tạo ra trong component sử dụng để lưu trữ, thao tác dữ liệu trong một component.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Welcome</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="c1">// Khởi tạo state</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s2">"xxx"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Để cập nhật state cho component, chúng ta sử dụng setState() method.
+Ngoài ra còn có forceUpdate(), tuy nhiên method này được khuyến cáo là hạn chế sử dụng, vì nó có thể dẫn tới vòng lặp vô hạn.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Wrong</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">'zzz'</span><span class="p">;</span>
+
+<span class="c1">// Correct</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'zzz'</span><span class="p">});</span>
+</code></pre></div></div>
+<p>setState() không cập nhật tức thì component ngay sau khi gọi. Vì vậy nếu chúng ta sử dụng this.state ngay sau khi gọi setState() thì sẽ không nhận được gía trị mới update.
+Thay vào đó chung ta sửu dụng componentDidUpdate() để lấy gía trị sau khi cập nhật, hoặc sử dụng callback setState(updater, callback)</p>
+
+<p><strong>Lifecycle</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Lifecycle</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/*
+    Đây là hàm khởi tạo của component, thường được sử dụng với 2 mục đích chính đó là khởi tạo state, và binding event handle.
+    this.state = { name: "xxx" };
+    this.handleClick = this.handleClick.bind(this);
+
+    Không sử dụng setState() trong constructor.
+    Không copy props vào state, vì chúng ta có thể sử dụng luôn props, và có thể xảy ra lỗi là cập nhật props nhưng không phản ánh được trong state.
+    this.state = { name: props.name };
+    */</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/*
+    Hàm này được gọi ngay tức thì khi component được mount.
+    Request api thường được định nghĩa ở đây.
+    Có thể sử dụng setState() trong hàm này tuy nhiên việc sử dụng như vậy thì làm cho hàm render() bị gọi 2 lần làm ảnh hưởng đến hiệu suất. Thế nên ta sẽ khởi tạo gía trị state ngay trong hàm constructor.
+    */</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidUpdate</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/*
+    Hàm này được gọi khi có sự kiện update component, còn trong trường hợp khởi tạo thì không được gọi.
+    Đây cũng là nơi tốt để thực hiện request api, tuy nhiên cần lưu ý là cần so sánh gía trị props (trong điều kiện là request api làm thay đổi props)
+    if (this.props.userID !== prevProps.userID) {
+      this.fetchData(this.props.userID);
+    }
+    Trong này cũng có thể sử dụng setState() tuy nhiên, cũng như trên chúng ta cần phải kiểm tra điều kiện của state. Bởi vì, hàm setState() là hàm sẽ tác động cập nhật component, mà component cập nhật thì sẽ gọi hàm componentDidUpdate() thế nên sẽ tạo nên vòng lặp vô hạn.
+    Hàm này sẽ không được gọi nếu shouldComponentUpdate() returns false.
+    */</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/*
+    Hàm được gọi trước khi 1 component unmounted, remove khỏi DOM.
+    Hàm được sử dụng để xử lý các resource của component trước khi nó được unmounted.
+    Không sử dụng setState() ở trong này vì component này sẽ không được render lại. 1 component sau khi unmounted sẽ không thể mounted lại 1 lần nào nữa.
+    */</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/*
+    Là method duy nhất được yêu cầu bắt buộc có trong 1 component.
+    Hàm này sẽ không được gọi nếu shouldComponentUpdate() returns false.
+    */</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Rarely Used Lifecycle Methods</strong></p>
+
+<p>Đây là  một số method cũng nằm trong lifecycle tuy nhiên rất hiếm khi sử dụng đến. Thế nên mình chỉ để cập qua, lúc nào cần sử dụng đến thì search để tìm hiểu kỹ lại.
+https://reactjs.org/docs/react-component.html#rarely-used-lifecycle-methods</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">shouldComponentUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*
+  Hàm chỉ được gọi khi có sự update props hoặc state, mặc định hàm sẽ trả về true, có nghĩa là render lại view, trả về false là sẽ ko render lại view.
+  Phương thức này sẽ không được gọi khi render khởi tạo lần đầu.
+  Nếu return false thì các method componentWillUpdate(), componentDidUpdate(), render() sẽ không được gọi.
+  */</span>
+<span class="p">}</span>
+
+<span class="kr">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">){</span>
+  <span class="c1">// Hàm được gọi trước khi gọi render() method, cả case init và update.</span>
+<span class="p">}</span>
+
+<span class="nx">getSnapshotBeforeUpdate</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p><strong>Legacy Lifecycle Methods</strong>
+Các method được đề cập dưới đây đều được gán mark là “legacy”. Các method này vẫn hoạt động tuy nhiên không được recommend sử dụng.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">UNSAFE_componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+  <span class="cm">/*
+  Hàm được thực hiện 1 lần duy nhất, trước khi thực hiện lần khởi tạo render() đầu tiên, nó sẽ chạy trước khi chạy tới hàm render().
+  Tại đây không được sử dụng setState() mà chuyển vào trong constructor.
+  Method này không được khuyến khích dùng mà thay vào đó là sử dụng componentDidMount().
+  Method này nguyên bản có tên là componentWillMount() sẽ được sử dụng tới bản react v17 sau đó sẽ được đổi tên thành UNSAFE_componentWillMount()
+  */</span>
+<span class="p">}</span>
+
+<span class="nx">UNSAFE_componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*
+  Hàm được gọi liên tục khi 1 component nhận 1 gía trị mới. Thông qua updateParent().
+  setState() sẽ không gọi đến hàm này.
+  Hàm này cũng được khuyến cáo hạn chế sử dụng, thay vào đó thì ta sử dụng componentDidUpdate() để thay thế.
+  Tương tự, ở v17 thì hàm sẽ được đổi tên từ componentWillReceiveProps() =&gt; UNSAFE_componentWillReceiveProps()
+
+  */</span>
+<span class="p">}</span>
+
+<span class="nx">UNSAFE_componentWillUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/*
+  Hàm này được gọi khi props hoặc state nhận gía trị mới. Ví dụ sau khi qua hàm setState() thì hàm này sẽ được gọi.
+  Trong này không được sử dụng setState(), bởi vì khi gọi setState() sẽ chạy lại vào hàm này, dẫn tới vòng lặp vô hạn.
+  Tương tự, ở v17 thì hàm sẽ được đổi tên từ componentWillUpdate() =&gt; UNSAFE_componentWillUpdate().
+  Hàm này cũng được khuyến cáo hạn chế sử dụng, thay vào đó thì ta sử dụng componentDidUpdate() để thay thế.
+  Hàm này sẽ không được chạy nếu componentShouldUpdate() return false
+  */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="handling-events"><code class="highlighter-rouge">Handling events</code></h3>
+
+<p>React events đặt tên theo quy tắc camelCase.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">HandlingEvent</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">isToggleOn</span><span class="p">:</span> <span class="kc">true</span><span class="p">};</span>
+
+    <span class="c1">// Binding this vào hàm</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">isToggleOn</span><span class="p">:</span> <span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">isToggleOn</span>
+    <span class="p">}));</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isToggleOn</span> <span class="p">?</span> <span class="s1">'ON'</span> <span class="p">:</span> <span class="s1">'OFF'</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Nếu sử dụng arrow function thì không cần bind this.</span>
+
+<span class="kd">class</span> <span class="nx">HandlingEvent</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="c1">// This syntax ensures `this` is bound within handleClick.</span>
+  <span class="c1">// Warning: this is *experimental* syntax.</span>
+  <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'this is:'</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="nx">Click</span> <span class="nx">me</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Truyền biến qua handle event.</span>
+
+<span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">deleteRow</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">e</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Delete</span> <span class="nx">Row</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">deleteRow</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">id</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Delete</span> <span class="nx">Row</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>
+</code></pre></div></div>
+
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>Previous</strong> <a href="/2018/10/09/learning-react/">Self study javascript, ES6, React</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'https://otranquangtrung.github.io/2018/11/02/learning-react-p2/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'https://otranquangtrung.github.io/2018/11/02/learning-react-p2/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//tqtrung09.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p class="description">
+       © Copyright 2017 All rights reserved. 
+    </p>
+    <p class="contact">
+      Contact me at: 
+      <a href="https://github.com/oTranQuangTrung" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+      <a href="mailto:tqtrung09@gmail.com" target="_blank" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>   
+      <a href="https://www.facebook.com/tqtrung09" target="_blank" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  
+      <a href="https://www.linkedin.com/in/tqtrung09" target="_blank" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+    </p>
+  </div>
+</footer>
+
+    <div class="back-to-top">
+  <a href="#top" data-scroll>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 1000, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>

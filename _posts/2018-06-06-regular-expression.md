@@ -29,9 +29,9 @@ Trong JS thì `Regex` là một chuỗi tuy nhiên không được bọc bởi c
 `pattern`: là một chuỗi có quy tắc, quy tắc như nào mình sẽ đề cập ở dưới.
 
 `modifiers`: là cấu hình cho chuỗi pattern.
-  - `i`:  So sánh không phân biệt chữ hoa chữ thường (case-insensitive) 
-  - `g`:  So khợp toàn bộ chuỗi cần tìm 
-  - `m`:  So khớp luôn cả các dữ liệu xuống dòng (multiline) 
+  - `i`:  So sánh không phân biệt chữ hoa chữ thường (case-insensitive)
+  - `g`:  So khợp toàn bộ chuỗi cần tìm
+  - `m`:  So khớp luôn cả các dữ liệu xuống dòng (multiline)
 
 ```js
 var regex = /xxx/igm;
@@ -70,7 +70,9 @@ Khó dễ là ý kiến chủ quan của mình.
 \b        Tìm so khớp bắt đầu hoặc kết thúc chuỗi
 \B        Tìm so khớp không phải bắt đầu hoặc kết thúc chuỗi
 \n        Tìm ký tự xuống hàng
-\t        Tìm ký tự tab   
+\t        Tìm ký tự tab
+\(        Ký tự bắt đầu bằng (
+\)        Ký tự bắt đầu bằng )
 ```
 
 #### `Quantifiers`
@@ -86,7 +88,7 @@ Khó dễ là ý kiến chủ quan của mình.
 {X,}      Kiểm tra ký tự xuất hiện ít nhất X lần liên tiếp
   => x{3,}
 ^         Kiểm tra ký tự bắt đầu chuỗi (đặt trước ký tự cần kiểm tra)
-  => ^x 
+  => ^x
 $         Kiểm tra ký tự kết thúc chuỗi (đặt sau ký tự cần kiểm tra))
   => x$
 ```

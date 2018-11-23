@@ -141,43 +141,41 @@
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
-  <li><a href="#join-query-with-condition-on-the-associated-table" id="markdown-toc-join-query-with-condition-on-the-associated-table">1) Join query with condition on the associated table</a></li>
-  <li><a href="#different-nested-joins" id="markdown-toc-different-nested-joins">2) Different nested joins</a></li>
-  <li><a href="#exist-query" id="markdown-toc-exist-query">3) Exist query</a></li>
-  <li><a href="#subqueries" id="markdown-toc-subqueries">4) Subqueries</a></li>
-  <li><a href="#back-to-basics" id="markdown-toc-back-to-basics">5) Back to basics</a></li>
-  <li><a href="#booleans" id="markdown-toc-booleans">6) Booleans</a></li>
+  <li><a href="#1-join-query-with-condition-on-the-associated-table" id="markdown-toc-1-join-query-with-condition-on-the-associated-table">1) Join query with condition on the associated table</a></li>
+  <li><a href="#2-different-nested-joins" id="markdown-toc-2-different-nested-joins">2) Different nested joins</a></li>
+  <li><a href="#3-exist-query" id="markdown-toc-3-exist-query">3) Exist query</a></li>
+  <li><a href="#4-subqueries" id="markdown-toc-4-subqueries">4) Subqueries</a></li>
+  <li><a href="#5-back-to-basics" id="markdown-toc-5-back-to-basics">5) Back to basics</a></li>
+  <li><a href="#6-booleans" id="markdown-toc-6-booleans">6) Booleans</a></li>
 </ul>
 
 <p>Mảng kiến thức yêu thích của tôi trong framework rails đó là ActiveRecord’s scopes.</p>
 
 <p>Trong bài viết này tôi sẽ giới thiệu 5 trick mà tôi thường xuyên sử dụng trong các project của mình.</p>
 
-<h3 id="join-query-with-condition-on-the-associated-table">1) Join query with condition on the associated table</h3>
+<h3 id="1-join-query-with-condition-on-the-associated-table">1) Join query with condition on the associated table</h3>
 <p>Ví dụ ta có bảng <code class="highlighter-rouge">users</code> với quan hệ với bảng <code class="highlighter-rouge">profile</code>. Bây giờ chúng ta muốn query các <code class="highlighter-rouge">users</code> mà <code class="highlighter-rouge">profile</code> đã được <code class="highlighter-rouge">activated</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1"># User model</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># User model</span>
 <span class="n">scope</span> <span class="ss">:activated</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">{</span>
   <span class="n">joins</span><span class="p">(</span><span class="ss">:profile</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">profiles: </span><span class="p">{</span> <span class="ss">activated: </span><span class="kp">true</span> <span class="p">})</span>
 <span class="p">}</span>
-</code></pre>
-</div>
-<p>Tôi nghĩ cách tiếp cận như trên là chưa đúng, logic trong model <code class="highlighter-rouge">Profile</code> được xuất hiện trong <code class="highlighter-rouge">User</code> model.<br />
-Như vậy là không thỏa mãn tính bao đóng trong <code class="highlighter-rouge">OOP</code>.<br />
+</code></pre></div></div>
+<p>Tôi nghĩ cách tiếp cận như trên là chưa đúng, logic trong model <code class="highlighter-rouge">Profile</code> được xuất hiện trong <code class="highlighter-rouge">User</code> model.
+Như vậy là không thỏa mãn tính bao đóng trong <code class="highlighter-rouge">OOP</code>.
 Tôi sẽ đưa ra 1 cách tiếp cận khác.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1"># Profile model</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Profile model</span>
 <span class="n">scope</span> <span class="ss">:activated</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">activated: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
 <span class="c1"># User model</span>
 <span class="n">scope</span> <span class="ss">:activated</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">{</span> <span class="n">joins</span><span class="p">(</span><span class="ss">:profile</span><span class="p">).</span><span class="nf">merge</span><span class="p">(</span><span class="no">Profile</span><span class="p">.</span><span class="nf">activated</span><span class="p">)</span> <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h3 id="different-nested-joins">2) Different nested joins</h3>
+<h3 id="2-different-nested-joins">2) Different nested joins</h3>
 <p>Tương tự ở ví dụ trên, chúng ta có thêm quan hệ <code class="highlighter-rouge">Profile</code> has_many <code class="highlighter-rouge">Skills</code>. Mặc định khi <code class="highlighter-rouge">joins</code> là sẽ sử dụng <code class="highlighter-rouge">INNER
 JOIN</code> tuy nhiên ….</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:profiles</span><span class="p">).</span><span class="nf">merge</span><span class="p">(</span><span class="no">Profile</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:skills</span><span class="p">))</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:profiles</span><span class="p">).</span><span class="nf">merge</span><span class="p">(</span><span class="no">Profile</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:skills</span><span class="p">))</span>
 <span class="o">=&gt;</span> <span class="no">SELECT</span> <span class="n">users</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="n">users</span> 
    <span class="no">INNER</span> <span class="no">JOIN</span> <span class="n">profiles</span>    <span class="no">ON</span> <span class="n">profiles</span><span class="p">.</span><span class="nf">user_id</span>  <span class="o">=</span> <span class="n">users</span><span class="p">.</span><span class="nf">id</span>
    <span class="no">LEFT</span> <span class="no">OUTER</span> <span class="no">JOIN</span> <span class="n">skills</span> <span class="no">ON</span> <span class="n">skills</span><span class="p">.</span><span class="nf">profile_id</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">.</span><span class="nf">id</span>
@@ -187,14 +185,13 @@ JOIN</code> tuy nhiên ….</p>
 <span class="o">=&gt;</span> <span class="no">SELECT</span> <span class="n">users</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="n">users</span> 
    <span class="no">INNER</span> <span class="no">JOIN</span> <span class="n">profiles</span> <span class="no">ON</span> <span class="n">profiles</span><span class="p">.</span><span class="nf">user_id</span>  <span class="o">=</span> <span class="n">users</span><span class="p">.</span><span class="nf">id</span>
    <span class="no">INNER</span> <span class="no">JOIN</span> <span class="n">skills</span>   <span class="no">ON</span> <span class="n">skills</span><span class="p">.</span><span class="nf">profile_id</span> <span class="o">=</span> <span class="n">profiles</span><span class="p">.</span><span class="nf">id</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h3 id="exist-query">3) Exist query</h3>
-<p>Ví dụ chúng ta muốn lấy ra toàn bộ các <code class="highlighter-rouge">User</code> mà các user đó có các post trên 1000 view. <br />
+<h3 id="3-exist-query">3) Exist query</h3>
+<p>Ví dụ chúng ta muốn lấy ra toàn bộ các <code class="highlighter-rouge">User</code> mà các user đó có các post trên 1000 view. 
 Chúng ta có thể sử dụng <code class="highlighter-rouge">EXISTS</code> hoặc <code class="highlighter-rouge">NOT EXISTS</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1"># Post</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Post</span>
 <span class="n">scope</span> <span class="ss">:famous</span><span class="p">,</span> <span class="o">-&gt;</span><span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="s2">"view_count &gt; ?"</span><span class="p">,</span> <span class="mi">1_000</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="c1"># User</span>
@@ -209,42 +206,38 @@ Chúng ta có thể sử dụng <code class="highlighter-rouge">EXISTS</code> ho
 <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">_exists</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
   <span class="s2">"EXISTS(</span><span class="si">#{</span><span class="n">scope</span><span class="p">.</span><span class="nf">to_sql</span><span class="si">}</span><span class="s2">)"</span>
 <span class="k">end</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h3 id="subqueries">4) Subqueries</h3>
-<p>Ví dụ chúng ta muốn lấy các <code class="highlighter-rouge">posts</code> được viết bởi 1 tập các <code class="highlighter-rouge">users</code>.<br />
+<h3 id="4-subqueries">4) Subqueries</h3>
+<p>Ví dụ chúng ta muốn lấy các <code class="highlighter-rouge">posts</code> được viết bởi 1 tập các <code class="highlighter-rouge">users</code>.
 Tôi đã thấy nhiều người sử dụng cách sau.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">user_id: </span><span class="no">User</span><span class="p">.</span><span class="nf">created_last_month</span><span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">))</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">user_id: </span><span class="no">User</span><span class="p">.</span><span class="nf">created_last_month</span><span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">))</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Tuy nhiên với câu truy vấn trên sẽ thực thi 2 câu sql, thứ nhất là lấy ra mảng các user, sau đó là lấy ra các post thỏa mãn yêu cầu.</p>
 
 <p>Chúng ta có thể lấy ra kết quả tương đương chỉ với 1 câu truy vấn.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">user_id: </span><span class="no">User</span><span class="p">.</span><span class="nf">created_last_month</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">user_id: </span><span class="no">User</span><span class="p">.</span><span class="nf">created_last_month</span><span class="p">)</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<h3 id="back-to-basics">5) Back to basics</h3>
-<p>Trong ActiveRecord chúng ta đừng quên là có các phương thức <code class="highlighter-rouge">.sql</code> để tự động sinh ra câu sql.<br />
+<h3 id="5-back-to-basics">5) Back to basics</h3>
+<p>Trong ActiveRecord chúng ta đừng quên là có các phương thức <code class="highlighter-rouge">.sql</code> để tự động sinh ra câu sql.
 Và <code class="highlighter-rouge">.explain</code> để hiển thị chi tiết thông tin câu truy vấn.</p>
 
-<h3 id="booleans">6) Booleans</h3>
-<p>Ví dụ ta mong muốn.<br />
+<h3 id="6-booleans">6) Booleans</h3>
+<p>Ví dụ ta mong muốn.
 <code class="highlighter-rouge">User.where.not(tall: true)</code> sẽ sinh ra câu truy vấn như sau <code class="highlighter-rouge">SELECT users.* FROM users WHERE users.tall &lt;&gt; 't'</code> (postgres version).</p>
 
 <p>Kết quả câu truy vấn trả về những user mà <code class="highlighter-rouge">tall</code> được set là <code class="highlighter-rouge">false</code> tuy nhiên những user nào mà <code class="highlighter-rouge">tall</code> set bằng <code class="highlighter-rouge">NULL</code> thì không được đưa vào tập kết quả.</p>
 
-<p>Chúng ta có thể set <code class="highlighter-rouge">default</code> cho trường <code class="highlighter-rouge">tall</code> trong database hoặc sửa lại câu truy vấn như sau.<br />
-<code class="highlighter-rouge">ruby
-User.where("users.tall IS NOT TRUE") 
-hoặc
-User.where(tall: [false, nil])
-</code></p>
+<p>Chúng ta có thể set <code class="highlighter-rouge">default</code> cho trường <code class="highlighter-rouge">tall</code> trong database hoặc sửa lại câu truy vấn như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"users.tall IS NOT TRUE"</span><span class="p">)</span> 
+<span class="n">ho</span><span class="err">ặ</span><span class="n">c</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">tall: </span><span class="p">[</span><span class="kp">false</span><span class="p">,</span> <span class="kp">nil</span><span class="p">])</span>
+</code></pre></div></div>
 
 <blockquote>
   <p><a href="https://medium.com/rubyinside/active-records-queries-tricks-2546181a98dd">benjamin roth’s post</a></p>
@@ -255,6 +248,9 @@ User.where(tall: [false, nil])
         <hr>
 
         
+        
+            
+            
         
             
             

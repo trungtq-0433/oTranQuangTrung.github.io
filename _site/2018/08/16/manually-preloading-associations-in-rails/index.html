@@ -141,20 +141,19 @@
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
         
-<p>Chúng ta có lẽ đã quen với việc sử dụng <code class="highlighter-rouge">preloading</code> trong rails thông qua việc sử dụng <code class="highlighter-rouge">includes</code>, <code class="highlighter-rouge">eager_load</code>, <code class="highlighter-rouge">preload</code><br />
+<p>Chúng ta có lẽ đã quen với việc sử dụng <code class="highlighter-rouge">preloading</code> trong rails thông qua việc sử dụng <code class="highlighter-rouge">includes</code>, <code class="highlighter-rouge">eager_load</code>, <code class="highlighter-rouge">preload</code>
 trực tiếp trên <code class="highlighter-rouge">activerecord</code> nhằm phục vụ cho mục đích tăng performance cho hệ thống.</p>
 
 <p>Tuy nhiên trong một vài trường hợp hiếm khi xảy ra, chúng ta có 1 tập hợp gồm các bản ghi thuộc nhiều class khác nhau và mỗi class có các preloading khác nhau. Trong trường hợp này chúng ta cần sử dụng đến manually preload associations.</p>
 
 <p>Chúng ta cùng xem ví dụ dưới đây.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Product</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Product</span>
  <span class="n">belongs_to</span> <span class="ss">:item</span><span class="p">,</span> <span class="ss">polymorphic: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">inverse_of: :product</span>
 <span class="k">end</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CreditCard</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CreditCard</span>
   <span class="n">has_one</span> <span class="ss">:product</span><span class="p">,</span> <span class="ss">as: </span><span class="n">item</span><span class="p">,</span> <span class="ss">inverse_of: :item</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>
   <span class="n">has_many</span> <span class="ss">:xxx</span>
 <span class="k">end</span>
@@ -170,16 +169,15 @@ trực tiếp trên <code class="highlighter-rouge">activerecord</code> nhằm p
   <span class="n">has_many</span> <span class="ss">:zzz</span>
 <span class="k">end</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Với kiến trúc như trên chúng ta có 1 bài toán là lấy toàn bộ record của bảng <code class="highlighter-rouge">product</code> nhằm mục đích hiển thị các thông<br />
-tin liên quan đối với mỗi <code class="highlighter-rouge">CreditCard</code> <code class="highlighter-rouge">DebitCard</code> <code class="highlighter-rouge">BitcoinExchange</code> , tuy nhiên với mỗi loại chúng ta có preloading<br />
+<p>Với kiến trúc như trên chúng ta có 1 bài toán là lấy toàn bộ record của bảng <code class="highlighter-rouge">product</code> nhằm mục đích hiển thị các thông
+tin liên quan đối với mỗi <code class="highlighter-rouge">CreditCard</code> <code class="highlighter-rouge">DebitCard</code> <code class="highlighter-rouge">BitcoinExchange</code> , tuy nhiên với mỗi loại chúng ta có preloading
 khác nhau tương ứng là <code class="highlighter-rouge">xxx</code> <code class="highlighter-rouge">yyy</code> <code class="highlighter-rouge">zzz</code>.</p>
 
 <p>Ở đây chúng ta sẽ overider lại class <code class="highlighter-rouge">ActiveRecord::Associations::Preloader</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ProductPreloader</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Associations</span><span class="o">::</span><span class="no">Preloader</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ProductPreloader</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Associations</span><span class="o">::</span><span class="no">Preloader</span>
   <span class="c1"># Định nghĩa các preload associations</span>
   <span class="no">CREDIT_CARD_PRELOAD_ASSOCIATIONS</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:xxx</span><span class="p">].</span><span class="nf">freeze</span>
   <span class="no">DEBIT_CARD_PRELOAD_ASSOCIATIONS</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:yyy</span><span class="p">].</span><span class="nf">freeze</span>
@@ -193,8 +191,7 @@ khác nhau tương ứng là <code class="highlighter-rouge">xxx</code> <code cl
   <span class="k">end</span>
 <span class="k">end</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Như vậy là chúng ta đã hoàn thành việc manual preloading cho từng lọai record trong tập các record.</p>
 
@@ -202,6 +199,9 @@ khác nhau tương ứng là <code class="highlighter-rouge">xxx</code> <code cl
         <hr>
 
         
+        
+            
+            
         
             
             

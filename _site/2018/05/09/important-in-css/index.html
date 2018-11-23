@@ -145,48 +145,47 @@
   <li><a href="#specificity-calculations" id="markdown-toc-specificity-calculations"><code class="highlighter-rouge">Specificity Calculations</code></a></li>
 </ul>
 
-<p><code class="highlighter-rouge">!important</code>: Đây là từ khóa không lạ lẫm gì đối với 1 backend-developer.<br />
+<p><code class="highlighter-rouge">!important</code>: Đây là từ khóa không lạ lẫm gì đối với 1 backend-developer.
 Bạn đã có bao giờ gặp phải trường hợp cố gắng style cho một hoặc nhiều html element mà nó không có tác dụng?</p>
 
 <p>Có vẻ như trang web đang bỏ qua style của bạn mà bạn không tìm được nguyên nhân?</p>
 
-<p>Và bạn đã sử dụng <code class="highlighter-rouge">!important</code>, cú pháp theo mình gọi thì nó là huyền thoại của các backend-developer khi cố gắng thiết kế giao<br />
+<p>Và bạn đã sử dụng <code class="highlighter-rouge">!important</code>, cú pháp theo mình gọi thì nó là huyền thoại của các backend-developer khi cố gắng thiết kế giao
 diện.</p>
 
 <h2 id="nerver-use-important"><code class="highlighter-rouge">Nerver use !important</code></h2>
-<p><code class="highlighter-rouge">!important</code> được các backend-developer sử dụng rất nhiều. Tuy nhiên, việc sử dụng <code class="highlighter-rouge">!important</code> sẽ bị coi là không thế<br />
-chấp nhận được. Bởi vì:<br />
- - Quá trình maintain về sau gặp khó khăn.<br />
- - Làm hỏng nguyên tắc cốt lõi của css đó là specificity.<br />
-Vì vậy chúng ta cần phải loại bỏ suy nghĩ sử dụng <code class="highlighter-rouge">!important!</code>.</p>
+<p><code class="highlighter-rouge">!important</code> được các backend-developer sử dụng rất nhiều. Tuy nhiên, việc sử dụng <code class="highlighter-rouge">!important</code> sẽ bị coi là không thế
+chấp nhận được. Bởi vì:</p>
+<ul>
+  <li>Quá trình maintain về sau gặp khó khăn.</li>
+  <li>Làm hỏng nguyên tắc cốt lõi của css đó là specificity.
+Vì vậy chúng ta cần phải loại bỏ suy nghĩ sử dụng <code class="highlighter-rouge">!important!</code>.</li>
+</ul>
 
 <p>Như bạn thấy, không sử dụng <code class="highlighter-rouge">!important</code> thì chúng ta phải làm như sao để đạt được kết quả tương đương như sử dụng <code class="highlighter-rouge">!important</code>?</p>
 
 <h2 id="specificity-calculations"><code class="highlighter-rouge">Specificity Calculations</code></h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"sidebar"</span><span class="nt">&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"sidebar"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"bio"</span><span class="nt">&gt;</span>text here<span class="nt">&lt;/p&gt;</span>
   <span class="nt">&lt;/div&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Chúng ta cùng xem các ví dụ sau đây ứng với đoạn html trên.</p>
 
-<p>Ví dụ 1:<br />
-<code class="highlighter-rouge">css
-  p {font-size: 12px}
-  p.bio {font-size: 14px}
-</code><br />
-Với đoạn css trên, chúng ta có thể phán đoán được giá trị font-size của thẻ p là 14px, bởi vì <code class="highlighter-rouge">p.bio</code> specific hơn <code class="highlighter-rouge">p</code>.</p>
+<p>Ví dụ 1:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">p</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">12px</span><span class="p">}</span>
+  <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span><span class="p">}</span>
+</code></pre></div></div>
+<p>Với đoạn css trên, chúng ta có thể phán đoán được giá trị font-size của thẻ p là 14px, bởi vì <code class="highlighter-rouge">p.bio</code> specific hơn <code class="highlighter-rouge">p</code>.</p>
 
 <p>Tuy nhiên, trong một số trường hợp khác, <code class="highlighter-rouge">specificity</code> không dễ dàng xác định như ví dụ trong trường hợp sau.</p>
 
 <p>Ví dụ 2:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nt">div</span> <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span><span class="p">}</span>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">div</span> <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span><span class="p">}</span>
   <span class="nf">#sidebar</span> <span class="nt">p</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">12px</span><span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Thọat nhìn, ta sẽ nghĩ <code class="highlighter-rouge">div p.bio</code> sẽ rõ ràng, vì nó được mô tả cụ thể.</p>
 
@@ -194,47 +193,43 @@ Với đoạn css trên, chúng ta có thể phán đoán được giá trị fo
 
 <p>Để trả lời cho vấn đề trên, chúng ta cần xem lại quy tắc tính <code class="highlighter-rouge">specificity</code> trong css.</p>
 
-<p><code class="highlighter-rouge">Specificity</code> được tính toán dựa trên việc đếm các thành phần css khác nhau của element, và biểu diễn chúng dưới dạng<br />
+<p><code class="highlighter-rouge">Specificity</code> được tính toán dựa trên việc đếm các thành phần css khác nhau của element, và biểu diễn chúng dưới dạng
 (a, b, c, d).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  * Element, Pseudo Element: d = 1 – (0,0,0,1)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  * Element, Pseudo Element: d = 1 – (0,0,0,1)
   * Class, Pseudo class, Attribute: c = 1 – (0,0,1,0)
   * Id: b = 1 – (0,1,0,0)
   * Inline Style: a = 1 – (1,0,0,0)
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Theo bảng quy chiếu trên ta có thể thấy <code class="highlighter-rouge">inline style</code> specific hơn <code class="highlighter-rouge">id</code> và <code class="highlighter-rouge">id</code> specific hơn là <code class="highlighter-rouge">class</code>.</p>
 
-<p>Áp dụng chúng ta tính toán specificity bằng cách đếm từng thành phần <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">id</code>, <code class="highlighter-rouge">element</code> … ở bảng trên và +1 vào<br />
+<p>Áp dụng chúng ta tính toán specificity bằng cách đếm từng thành phần <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">id</code>, <code class="highlighter-rouge">element</code> … ở bảng trên và +1 vào
 các vị trí a, b, c, d tương ứng.</p>
 
 <p>Và chúng ta hãy nhớ cách so sánh rằng (0,0,1,0) luôn specific hơn (0,0,0,15).</p>
 
 <p>Chúng ta sẽ hình dung dễ hơn thông qua bảng tính mẫu sau:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nt">p</span><span class="o">:</span> <span class="nt">1</span> <span class="nt">element</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">)</span>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">p</span><span class="o">:</span> <span class="nt">1</span> <span class="nt">element</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">)</span>
   <span class="nt">div</span><span class="o">:</span> <span class="nt">1</span> <span class="nt">element</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">)</span>
   <span class="nf">#sidebar</span><span class="o">:</span> <span class="nt">1</span> <span class="nt">id</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">)</span>
   <span class="nt">div</span><span class="nf">#sidebar</span><span class="o">:</span> <span class="nt">1</span> <span class="nt">element</span><span class="o">,</span> <span class="nt">1</span> <span class="nt">id</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">)</span>
   <span class="nt">div</span><span class="nf">#sidebar</span> <span class="nt">p</span><span class="o">:</span> <span class="nt">2</span> <span class="nt">elements</span><span class="o">,</span> <span class="nt">1</span> <span class="nt">id</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">2</span><span class="o">)</span>
   <span class="nt">div</span><span class="nf">#sidebar</span> <span class="nt">p</span><span class="nc">.bio</span><span class="o">:</span> <span class="nt">2</span> <span class="nt">elements</span><span class="o">,</span> <span class="nt">1</span> <span class="nt">class</span><span class="o">,</span> <span class="nt">1</span> <span class="nt">id</span> <span class="err">–</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">2</span><span class="o">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Áp dụng vào ví dụ ban đầu của chúng ta.<br />
-<code class="highlighter-rouge">css
-  div p.bio {font-size: 14px} - (0,0,1,2)
-  #sidebar p {font-size: 12px} - (0,1,0,1)
-</code><br />
-Specific của <code class="highlighter-rouge">#sidebar p</code> lớn hơn <code class="highlighter-rouge">div p.bio</code> thế nên <code class="highlighter-rouge">font-size</code> sẽ là 12px.</p>
+<p>Áp dụng vào ví dụ ban đầu của chúng ta.</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">div</span> <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span><span class="p">}</span> <span class="nt">-</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">2</span><span class="o">)</span>
+  <span class="nf">#sidebar</span> <span class="nt">p</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">12px</span><span class="p">}</span> <span class="nt">-</span> <span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">1</span><span class="o">)</span>
+</code></pre></div></div>
+<p>Specific của <code class="highlighter-rouge">#sidebar p</code> lớn hơn <code class="highlighter-rouge">div p.bio</code> thế nên <code class="highlighter-rouge">font-size</code> sẽ là 12px.</p>
 
-<p>Tuy nhiên nếu ta sử dụng như sau, thì bất chấp độ specific ở dòng thứ 2 mô tả như nào thì cũng không thể vượt qua đc<br />
+<p>Tuy nhiên nếu ta sử dụng như sau, thì bất chấp độ specific ở dòng thứ 2 mô tả như nào thì cũng không thể vượt qua đc
 <code class="highlighter-rouge">!important</code>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nt">div</span> <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span> <span class="cp">!important</span><span class="p">}</span>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">div</span> <span class="nt">p</span><span class="nc">.bio</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">14px</span> <span class="cp">!important</span><span class="p">}</span>
   <span class="nf">#sidebar</span> <span class="nt">p</span> <span class="p">{</span><span class="nl">font-size</span><span class="p">:</span> <span class="m">12px</span><span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Bây giờ thì chúng ta đã hiểu về <code class="highlighter-rouge">!important</code>, và hãy xóa nó ra khỏi đầu của bạn khi viết css.</p>
 
@@ -243,6 +238,9 @@ Specific của <code class="highlighter-rouge">#sidebar p</code> lớn hơn <cod
         <hr>
 
         
+        
+            
+            
         
             
             

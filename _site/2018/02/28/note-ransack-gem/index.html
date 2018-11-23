@@ -145,8 +145,8 @@
   <li><a href="#to-be-continued" id="markdown-toc-to-be-continued"><code class="highlighter-rouge">To be continued</code></a></li>
 </ul>
 
-<p><a href="https://github.com/activerecord-hackery/ransack">Gem Ransack</a> đã trở nên quen thuộc với <code class="highlighter-rouge">RoR developer</code> khi mà nó có mặt hầu như trong các project, bởi vì tính dễ<br />
-dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.<br />
+<p><a href="https://github.com/activerecord-hackery/ransack">Gem Ransack</a> đã trở nên quen thuộc với <code class="highlighter-rouge">RoR developer</code> khi mà nó có mặt hầu như trong các project, bởi vì tính dễ
+dàng cài đặt, sử dụng, dễ custom và tiết kiệm công sức developer.
 Sau đây là một số ghi chép của mình về gem này…</p>
 
 <h2 id="customs-predicates"><code class="highlighter-rouge">Customs Predicates</code></h2>
@@ -157,14 +157,13 @@ Sau đây là một số ghi chép của mình về gem này…</p>
 
 <p>Trong dự án mình làm, phần tìm kiếm <code class="highlighter-rouge">user</code> mục tìm kiếm theo attribute name, mình đang implement với <a href="https://github.com/activerecord-hackery/ransack#search-matchers">search matchers</a> là <code class="highlighter-rouge">_cont</code>.</p>
 
-<p>Câu query được sinh ra như sau: <br />
-<code class="highlighter-rouge">ruby
-SELECT `users`.* FROM `users` WHERE `users`.`name` LIKE '%xxx%'
-</code></p>
+<p>Câu query được sinh ra như sau:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">SELECT</span> <span class="sb">`users`</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="sb">`users`</span> <span class="no">WHERE</span> <span class="sb">`users`</span><span class="p">.</span><span class="nf">`</span><span class="nb">name</span><span class="sb">` LIKE '%xxx%'
+</span></code></pre></div></div>
 
 <p>Với câu query trên thì các bản ghi có name chứa ký tự <code class="highlighter-rouge">xxx</code> thì sẽ được liệt kê ra.</p>
 
-<p>Kết quả vẫn đúng theo mình nghĩ tới ngày KH vào test thì mong muốn nhập nội dung <code class="highlighter-rouge">xxx</code> cũng ra các bản ghi kiểu:<br />
+<p>Kết quả vẫn đúng theo mình nghĩ tới ngày KH vào test thì mong muốn nhập nội dung <code class="highlighter-rouge">xxx</code> cũng ra các bản ghi kiểu:
 <code class="highlighter-rouge">XXX</code>, <code class="highlighter-rouge">XxX</code>, <code class="highlighter-rouge">xxX</code> …</p>
 
 <p>Ý tưởng: Mình sẽ upper case hoặc lower case ký tự tìm kiếm và tập giá trị tìm kiếm, sau đó mới thực hiện tim kiếm.</p>
@@ -175,34 +174,31 @@ SELECT `users`.* FROM `users` WHERE `users`.`name` LIKE '%xxx%'
 
 <p>Tại user model ta sử dụng <a href="https://github.com/activerecord-hackery/ransack/wiki/using-ransackers">ranksacker</a> để định nghĩa lại giá trị cuả thuộc tính name thành chữ viết hoa toàn bộ.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">ransacker</span> <span class="ss">:name</span> <span class="k">do</span> 
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ransacker</span> <span class="ss">:name</span> <span class="k">do</span> 
   <span class="no">Arel</span><span class="p">.</span><span class="nf">sql</span><span class="p">(</span><span class="s2">"UPPER(name)"</span><span class="p">)</span>
 <span class="k">end</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Tại <code class="highlighter-rouge">config/initializers/ransack.rb</code> chúng ta sẽ định nghĩa thêm một search matchers từ các predicate sẵn có của<br />
-<a href="http://www.rubydoc.info/github/rails/arel/master/Arel/Predications">Arel</a><br />
+<p>Tại <code class="highlighter-rouge">config/initializers/ransack.rb</code> chúng ta sẽ định nghĩa thêm một search matchers từ các predicate sẵn có của
+<a href="http://www.rubydoc.info/github/rails/arel/master/Arel/Predications">Arel</a>
 Ở đây mình sử dụng predicate là <a href="http://www.rubydoc.info/github/rails/arel/master/Arel%2FPredications:matches">matchers</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="no">Ransack</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Ransack</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="p">.</span><span class="nf">add_predicate</span> <span class="s2">"icont"</span><span class="p">,</span> <span class="c1"># Đặt tên cho matcher</span>
     <span class="ss">arel_predicate: </span><span class="s2">"matches"</span><span class="p">,</span> <span class="c1"># Sử dụng base là matchers của Arel</span>
     <span class="ss">formatter: </span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="s2">"%</span><span class="si">#{</span><span class="n">v</span><span class="p">.</span><span class="nf">upcase</span><span class="si">}</span><span class="s2">%"</span> <span class="p">},</span> <span class="c1"># Đây là đoạn string mình truyền vào câu query của Arel matchers.</span>
     <span class="ss">validator: </span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="n">v</span><span class="p">.</span><span class="nf">present?</span> <span class="p">},</span> <span class="c1"># Yêu cầu attributes sử dụng matcher phải có giá trị.</span>
     <span class="ss">type: :string</span> <span class="c1"># Định nghĩa kiểu dữ liệu sử dụng matcher</span>
 <span class="k">end</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Bây giờ ta có thể sử dụng matcher này như bao matchers khác của gem ranksack như sau.<br />
-<code class="highlighter-rouge">ruby
-= search_form_for @q do |f|
-  = f.search_field :name_icont
-  = f.submit "Submit"
-end
-</code></p>
+<p>Bây giờ ta có thể sử dụng matcher này như bao matchers khác của gem ranksack như sau.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">=</span> <span class="n">search_form_for</span> <span class="vi">@q</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">search_field</span> <span class="ss">:name_icont</span>
+  <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="s2">"Submit"</span>
+<span class="k">end</span>
+</code></pre></div></div>
 
 <h2 id="to-be-continued"><code class="highlighter-rouge">To be continued</code></h2>
 
@@ -211,6 +207,9 @@ end
         <hr>
 
         
+        
+            
+            
         
             
             

@@ -154,7 +154,7 @@
   <li><a href="#map-and-set-data-structure" id="markdown-toc-map-and-set-data-structure"><code class="highlighter-rouge">Map and Set data structure</code></a></li>
   <li><a href="#new-built-in-method" id="markdown-toc-new-built-in-method"><code class="highlighter-rouge">New built-in method</code></a></li>
 </ul>
-<p>Mình là backend-developer, tuy nhiên dạo gần đây mình có tập trung nhiều hơn mảng frontend.<br />
+<p>Mình là backend-developer, tuy nhiên dạo gần đây mình có tập trung nhiều hơn mảng frontend.
 Trước làm tay ngang kiểu học mót thì cũng biết được gọi là chút css, javascript, jquery, angularjs các kiểu, tuy nhiên cũng chưa có lần nào học bài bản và  ghi chép lại. Nay mình bắt đầu học về React thì mình cũng có ghi chép lại một phần là để sau này lúc làm có cái lục lại một phần là hy vọng tài liệu của mình có thể giúp ích được một ai đó bắt đầu học từ đầu như mình.</p>
 
 <p>Như mình đã nói ở trên, thì các bạn cũng cần phải có một chút nền tảng về javascript để bắt đầu. Mà không có cũng chẳng sao, không biết đâu thì tìm hiểu học ở đó rồi học tiếp.</p>
@@ -162,15 +162,17 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <p>Đầu tiên sẽ là ECMAScript-6, mình sẽ tìm hiểu những tính năng cơ bản trên bản ES6 này.</p>
 
 <h3 id="const-let-and-block-scope"><code class="highlighter-rouge">Const, let and block-scope</code></h3>
-<p>const và let được sử dụng để khai báo các biến, tuy nhiên điểm khác nhau cần nhớ là:<br />
-- const được sử dụng để khai báo các biến mà tính chất là hằng số, không thể định nghĩa lại.<br />
-- let được sử dụng để khai báo các biết mà có thể ghi đè hay gán lại.<br />
-- block-scope là phạm vi trong khối được xác định bằng cặp dấu {}.</p>
+<p>const và let được sử dụng để khai báo các biến, tuy nhiên điểm khác nhau cần nhớ là:</p>
+<ul>
+  <li>const được sử dụng để khai báo các biến mà tính chất là hằng số, không thể định nghĩa lại.</li>
+  <li>let được sử dụng để khai báo các biết mà có thể ghi đè hay gán lại.</li>
+  <li>block-scope là phạm vi trong khối được xác định bằng cặp dấu {}.</li>
+</ul>
 
 <p>Rõ hơn thì chúng ta xem ví dụ sau.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">XXX</span> <span class="o">=</span> <span class="s2">"xxx"</span>
-<span class="nx">XXX</span> <span class="o">=</span> <span class="s2">"yyy"</span> 
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">XXX</span> <span class="o">=</span> <span class="s2">"xxx"</span>
+<span class="nx">XXX</span> <span class="o">=</span> <span class="s2">"yyy"</span>
 <span class="c1">// Uncaught TypeError: Assignment to constant variable.</span>
 
 <span class="kd">let</span> <span class="nx">XXX</span> <span class="o">=</span> <span class="s2">"xxx"</span>
@@ -191,13 +193,12 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="nx">Value</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">hello</span>
 <span class="nx">Value</span> <span class="mi">3</span> <span class="o">=&gt;</span> <span class="kc">undefined</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="arrow-function"><code class="highlighter-rouge">Arrow function</code></h3>
 <p>Đây là cú pháp mới cho việc định nghĩa function, chúng ta hãy cùng xem các ví dụ sau đây.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// Trước đây chúng ta định nghĩa function như sau.</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Trước đây chúng ta định nghĩa function như sau.</span>
 <span class="kd">function</span> <span class="nx">xxx</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">){</span>
 
 <span class="p">}</span>
@@ -225,12 +226,11 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">v</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">v</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="nx">fives</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">v</span><span class="p">)}</span>
 <span class="p">})</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ở trước ES6 thì mỗi hàm khai báo đều có 1 giá trị <code class="highlighter-rouge">this</code>tách biêt, ta cùng xem ví dụ sau:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="s1">'use strict'</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'use strict'</span>
 <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -242,28 +242,26 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="o">====</span>
 <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span> <span class="c1">// Cần gán reference </span>
+  <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span> <span class="c1">// Cần gán reference</span>
   <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
   <span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Với arrow function thì chúng ta không cần dùng biến tạm hay <code class="highlighter-rouge">.bind</code> nữa mà giá trị this chính là this trong tầm gần nhất với chỗ gọi. (lexical this)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="destructuring-assignments"><code class="highlighter-rouge">Destructuring Assignments</code></h3>
 <p>Đây là kỹ thuật tách các phần tử của array hoặc object thành nhiều biến. Chúng ta cùng xem các ví dụ với array và object sau để hình dung được kỹ thuật này.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="o">=&gt;</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="o">=&gt;</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="o">=&gt;</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span>
@@ -290,13 +288,12 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 
 <span class="kd">let</span> <span class="p">{</span><span class="na">d</span><span class="p">:</span> <span class="p">{</span><span class="na">ee</span><span class="p">:</span> <span class="nx">e</span><span class="p">}}</span> <span class="o">=</span> <span class="nx">xxx</span>
 <span class="o">=&gt;</span> <span class="nx">ee</span> <span class="o">=</span> <span class="mi">4</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="default-parameters"><code class="highlighter-rouge">Default Parameters</code></h3>
 <p>Đây là cú pháp gán giá trị mặc định cho tham số truyền vào. Chúng ta xem các ví dụ sau:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">||</span> <span class="mi">2</span> <span class="c1">// Trước ES6 thì sử dụng thế này</span>
   <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
 <span class="p">}</span>
@@ -304,77 +301,71 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="kd">var</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="c1">// ES6 có thể làm thế này</span>
   <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Việc khai báo giá trị mặc định ngay đầu vào của ES6 này làm chúng ta dễ bao quát tổng quan 1 function hơn.</p>
 
 <h3 id="rest-parameter-and-spread-operator"><code class="highlighter-rouge">Rest parameter and Spread operator</code></h3>
 <p>Rest là kỹ thuật khai báo hàm với tham số không xác định, ngoài các tham số xác định, chúng ta có thể khai bảo các tham số còn lại của function bằng các sử dụng cú pháp <code class="highlighter-rouge">...</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 <span class="p">}</span>
 <span class="nx">xxx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="o">=&gt;</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="o">=&gt;</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="o">=&gt;</span> <span class="nx">other</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Spread là kỹ thuật kết hợp một mảng đã có sẵn thành mảng mới.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="kd">let</span> <span class="nx">yyy</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">xxx</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
 <span class="o">=&gt;</span> <span class="nx">yyy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="template-literals"><code class="highlighter-rouge">Template Literals</code></h3>
 <p>Ở trước ES6 thì chúng ta sử dụng biểu thức cộng để nối string hay đưa biến vào trong string. Hãy xem với kỹ thuật này ES6 làm được những gì nhé.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"xxx"</span>
-<span class="kd">let</span> <span class="nx">hello</span> <span class="o">=</span> <span class="err">`</span><span class="nx">hello</span> <span class="nx">$</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="err">`</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"xxx"</span>
+<span class="kd">let</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s2">`hello </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">`</span>
 
-<span class="kr">const</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">arg1</span><span class="p">}</span> <span class="nx">$</span><span class="p">{</span><span class="nx">arg2</span><span class="p">}</span><span class="err">`</span>
-<span class="kr">const</span> <span class="nx">yyy</span> <span class="o">=</span> <span class="err">`</span><span class="nx">hello</span> <span class="nx">$</span><span class="p">{</span><span class="nx">xxx</span><span class="p">(</span><span class="s2">"Trung"</span><span class="p">,</span> <span class="s2">"Tran"</span><span class="p">)}</span><span class="err">`</span>
+<span class="kd">const</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`</span><span class="p">${</span><span class="nx">arg1</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">arg2</span><span class="p">}</span><span class="s2">`</span>
+<span class="kd">const</span> <span class="nx">yyy</span> <span class="o">=</span> <span class="s2">`hello </span><span class="p">${</span><span class="nx">xxx</span><span class="p">(</span><span class="s2">"Trung"</span><span class="p">,</span> <span class="s2">"Tran"</span><span class="p">)}</span><span class="s2">`</span>
 
-<span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="err">`</span><span class="nx">hello</span> <span class="nx">XXX</span>
-<span class="nx">next</span> <span class="nx">line</span>
-<span class="err">`</span>
-</code></pre>
-</div>
+<span class="kd">let</span> <span class="nx">xxx</span> <span class="o">=</span> <span class="s2">`hello XXX
+next line
+`</span>
+</code></pre></div></div>
 
 <h3 id="object-properties"><code class="highlighter-rouge">Object properties</code></h3>
 <p>ES6 cung cấp cú pháp đơn giản trong việc khởi tạo.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="kd">let</span> <span class="nx">xy</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="import-and-export"><code class="highlighter-rouge">Import and Export</code></h3>
 <p>2 kỹ thuật này được sử dụng để tách các thành phần chung, tái sử dụng resource.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">//  lib/math.js</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">sum</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="p">}</span>
-<span class="kr">export</span> <span class="kd">var</span> <span class="nx">pi</span> <span class="o">=</span> <span class="mf">3.141593</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//  lib/math.js</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">sum</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="p">}</span>
+<span class="k">export</span> <span class="kd">var</span> <span class="nx">pi</span> <span class="o">=</span> <span class="mf">3.141593</span>
 
 <span class="c1">//  someApp.js</span>
-<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">math</span> <span class="nx">from</span> <span class="s2">"lib/math"</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">math</span> <span class="k">from</span> <span class="s2">"lib/math"</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"2π = "</span> <span class="o">+</span> <span class="nx">math</span><span class="p">.</span><span class="nx">sum</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">pi</span><span class="p">,</span> <span class="nx">math</span><span class="p">.</span><span class="nx">pi</span><span class="p">))</span>
 
 <span class="c1">//  otherApp.js</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">pi</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"lib/math"</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">pi</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"lib/math"</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"2π = "</span> <span class="o">+</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">pi</span><span class="p">,</span> <span class="nx">pi</span><span class="p">))</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="classes"><code class="highlighter-rouge">Classes</code></h3>
 <p>Trong lập trình OOP chúng ta đã quen với class. Class trong ES6 có những tính chất gì và được sử dụng như thế nào, chúng ta cùng xem các ví dụ sau đây.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// Define</span>
-<span class="kr">class</span> <span class="nx">Xxx</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Define</span>
+<span class="kd">class</span> <span class="nx">Xxx</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span>
   <span class="p">}</span>
@@ -384,16 +375,16 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 
 <span class="c1">// Inheritance</span>
 <span class="c1">// Muốn kế thừa class nào đó chúng ta sử dụng từ khóa extends</span>
-<span class="kr">class</span> <span class="nx">Yyy</span> <span class="kr">extends</span> <span class="nx">Xxx</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">super</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nx">Yyy</span> <span class="kd">extends</span> <span class="nx">Xxx</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// Static class member</span>
-<span class="kr">class</span> <span class="nx">Xxx</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">Xxx</span> <span class="p">{</span>
   <span class="kr">static</span> <span class="nx">yyy</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="err">`</span><span class="nx">yyy</span><span class="err">`</span>
+    <span class="k">return</span> <span class="s2">`yyy`</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -401,12 +392,12 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 
 <span class="c1">// Getter and Setter</span>
 <span class="c1">// Được sử dụng với mục đích giới hạn quyền đọc ghi đối với class.</span>
-<span class="kr">class</span> <span class="nx">Circle</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">Circle</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">radius</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="o">=</span> <span class="nx">radius</span>
   <span class="p">}</span>
-  <span class="nx">get</span> <span class="nx">area</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="p">}</span>
-  <span class="nx">set</span> <span class="nx">radius</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="o">=</span> <span class="nx">r</span> <span class="p">}</span>
+  <span class="kd">get</span> <span class="nx">area</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="p">}</span>
+  <span class="kd">set</span> <span class="nx">radius</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">_radius</span> <span class="o">=</span> <span class="nx">r</span> <span class="p">}</span>
 <span class="p">}</span>
 <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="c1">// returns: Circle {_radius: 4}</span>
@@ -416,87 +407,83 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="nx">c</span><span class="p">.</span><span class="nx">area</span>
 <span class="c1">// returns: 113.09733552923255</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="iterator"><code class="highlighter-rouge">Iterator</code></h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">value</span> <span class="nx">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kd">let</span> <span class="nx">string</span> <span class="o">=</span> <span class="s2">"Javascript"</span><span class="p">;</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="kr">char</span> <span class="nx">of</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="kr">char</span> <span class="k">of</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kr">char</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="map-and-set-data-structure"><code class="highlighter-rouge">Map and Set data structure</code></h3>
 <p>Array và Object là 2 kiểu cấu trúc dữ liệu chúng ta thường xuyên sử dụng nhất. Tuy nhiên ES6 cung cấp thêm 2 kiểu nữa để linh hoạt sử dụng trong từng trường hợp khác nhau.</p>
 
 <p>Map là kiểu cấu trúc key-value, tương tự như Array tuy nhiên chúng ta có thể định nghĩa thêm index, và chúng ta có thể sử dụng bất kỳ giá trị nào làm index, index này là duy nhất trong Map.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">);</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'Andy'</span><span class="p">);</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'number one'</span><span class="p">);</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="kc">NaN</span><span class="p">,</span> <span class="s1">'No value'</span><span class="p">);</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span> <span class="c1">// Andy. Note John is replaced by Andy.</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// number one</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// No value</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Map</span><span class="p">();</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'Andy'</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'number one'</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="kc">NaN</span><span class="p">,</span> <span class="s1">'No value'</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">);</span> <span class="c1">// Andy. Note John is replaced by Andy.</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// number one</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="kc">NaN</span><span class="p">);</span> <span class="c1">// No value</span>
 
 <span class="c1">// Thêm 1 ví dụ khác</span>
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">);</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Map</span><span class="p">();</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 <span class="nx">map</span><span class="p">.</span><span class="nx">size</span><span class="p">;</span> <span class="c1">// 2. Returns the size of the map.</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span> <span class="c1">// outputs only the keys. </span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span> <span class="c1">// outputs only the keys.</span>
 <span class="nx">map</span><span class="p">.</span><span class="nx">values</span><span class="p">();</span> <span class="c1">// outputs only the values.</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="nx">of</span> <span class="nx">map</span><span class="p">.</span><span class="nx">keys</span><span class="p">())</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">map</span><span class="p">.</span><span class="nx">keys</span><span class="p">())</span> <span class="p">{</span>
    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="nl">Output</span><span class="p">:</span>
 <span class="nx">name</span>
 <span class="nx">id</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">element</span> <span class="nx">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">element</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="nx">Output</span><span class="p">;</span>
 <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">]</span>
 <span class="p">[</span><span class="s1">'id'</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="nx">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="o">+</span><span class="s2">" - "</span><span class="o">+</span><span class="nx">value</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="nl">Output</span><span class="p">:</span>
 <span class="nx">name</span> <span class="o">-</span> <span class="nx">John</span>
 <span class="nx">id</span> <span class="o">-</span> <span class="mi">10</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Set được sử dụng để lưu trữ dữ liệu với đặc điểm là value là duy nhất. Chúng ta cùng xem ví dụ sau:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">sets</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">();</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">sets</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Set</span><span class="p">();</span>
 <span class="nx">sets</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'a'</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">'b'</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">'a'</span><span class="p">);</span>
 <span class="c1">// We are adding duplicate value.</span>
 <span class="nx">sets</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span> <span class="o">===</span> <span class="kc">true</span>
 <span class="nx">sets</span><span class="p">.</span><span class="nx">size</span> <span class="o">===</span> <span class="mi">2</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">element</span> <span class="nx">of</span> <span class="nx">sets</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">element</span> <span class="k">of</span> <span class="nx">sets</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="nl">Output</span><span class="p">:</span>
 <span class="nx">a</span>
 <span class="nx">b</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="new-built-in-method"><code class="highlighter-rouge">New built-in method</code></h3>
 <p>ES6 cung cấp một số method để chúng ta sử dụng thuận tiện hơn và dễ dàng hơn.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// Object assign</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Object assign</span>
 <span class="kd">let</span> <span class="nx">dest</span> <span class="o">=</span> <span class="p">{</span> <span class="na">quux</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
 <span class="kd">let</span> <span class="nx">src1</span> <span class="o">=</span> <span class="p">{</span> <span class="na">foo</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">bar</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
 <span class="kd">let</span> <span class="nx">src2</span> <span class="o">=</span> <span class="p">{</span> <span class="na">foo</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">baz</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
@@ -527,8 +514,7 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="o">-</span><span class="kc">Infinity</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span>
 <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="kc">NaN</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span>
 <span class="nb">Number</span><span class="p">.</span><span class="nb">isFinite</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="o">===</span> <span class="kc">true</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Tạm thời phần đầu về ES6, phần tiếp theo về React mình sẽ cập nhật sau.</p>
 
@@ -537,6 +523,9 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
         <hr>
 
         
+        
+            
+            
         
             
             
@@ -572,6 +561,8 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
     </div>
     <div class="nex">
 
+        
+        <p><strong>Next</strong> <a href="/2018/11/02/learning-react-p2/">Self study javascript, ES6, React P2</a></p>
         
     </div>
 </div>
