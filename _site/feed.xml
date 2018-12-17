@@ -3,11 +3,25 @@
   <channel>
     <title>Trung Tran's Blog</title>
     <description></description>
-    <link>https://otranquangtrung.github.io/</link>
-    <atom:link href="https://otranquangtrung.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 23 Nov 2018 15:20:16 +0700</pubDate>
-    <lastBuildDate>Fri, 23 Nov 2018 15:20:16 +0700</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 17 Dec 2018 21:31:40 +0700</pubDate>
+    <lastBuildDate>Mon, 17 Dec 2018 21:31:40 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Self study javascript, ES6, React P3</title>
+        <description>Tiếp nối phần 2, phần này sẽ tìm hiểu nốt về các function của react. Sang phần sau thì chúng ta sẽ chuyển qua react-redux.
+
+</description>
+        <pubDate>Sun, 02 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/12/02/learning-react-p3/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/02/learning-react-p3/</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
     
       <item>
         <title>Self study javascript, ES6, React P2</title>
@@ -15,8 +29,8 @@
 
 </description>
         <pubDate>Fri, 02 Nov 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/11/02/learning-react-p2/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/11/02/learning-react-p2/</guid>
+        <link>http://localhost:4000/2018/11/02/learning-react-p2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/11/02/learning-react-p2/</guid>
         
         
         <category>javascript</category>
@@ -30,8 +44,8 @@ Trước làm tay ngang kiểu học mót thì cũng biết được gọi là c
 
 </description>
         <pubDate>Tue, 09 Oct 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/10/09/learning-react/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/10/09/learning-react/</guid>
+        <link>http://localhost:4000/2018/10/09/learning-react/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/10/09/learning-react/</guid>
         
         
         <category>javascript</category>
@@ -47,8 +61,8 @@ Trong bài viết này tôi sẽ giới thiệu 5 trick mà tôi thường xuyê
 
 </description>
         <pubDate>Sun, 23 Sep 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/09/23/activerecord-query-trick/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/09/23/activerecord-query-trick/</guid>
+        <link>http://localhost:4000/2018/09/23/activerecord-query-trick/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/09/23/activerecord-query-trick/</guid>
         
         
         <category>RoR</category>
@@ -65,8 +79,8 @@ Tuy nhiên trong một vài trường hợp hiếm khi xảy ra, chúng ta có 1
 
 </description>
         <pubDate>Thu, 16 Aug 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/08/16/manually-preloading-associations-in-rails/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/08/16/manually-preloading-associations-in-rails/</guid>
+        <link>http://localhost:4000/2018/08/16/manually-preloading-associations-in-rails/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/08/16/manually-preloading-associations-in-rails/</guid>
         
         
         <category>RoR</category>
@@ -85,8 +99,8 @@ mình đã hạ quyết tâm học hành cẩn thận kỹ thuật này.
 
 </description>
         <pubDate>Wed, 06 Jun 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/06/06/regular-expression/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/06/06/regular-expression/</guid>
+        <link>http://localhost:4000/2018/06/06/regular-expression/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/06/06/regular-expression/</guid>
         
         
         <category>Common</category>
@@ -106,8 +120,8 @@ diện.
 
 </description>
         <pubDate>Wed, 09 May 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/05/09/important-in-css/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/05/09/important-in-css/</guid>
+        <link>http://localhost:4000/2018/05/09/important-in-css/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/05/09/important-in-css/</guid>
         
         
         <category>Frontend</category>
@@ -123,8 +137,8 @@ Sau đây là một số ghi chép của mình về gem này…
 
 </description>
         <pubDate>Wed, 28 Feb 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/02/28/note-ransack-gem/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/02/28/note-ransack-gem/</guid>
+        <link>http://localhost:4000/2018/02/28/note-ransack-gem/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/02/28/note-ransack-gem/</guid>
         
         
         <category>RoR</category>
@@ -140,8 +154,8 @@ dụng docker vào dự án. Cứ mỗi khoảng thời gian bỏ phí mình l�
 
 </description>
         <pubDate>Thu, 22 Feb 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/02/22/dockerizing-a-ruby-on-rails-application/</guid>
+        <link>http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/02/22/dockerizing-a-ruby-on-rails-application/</guid>
         
         
         <category>Docker</category>
@@ -155,27 +169,11 @@ Làm việc với ngôn ngữ ruby và framework RubyOnRails một thời gian. 
 
 </description>
         <pubDate>Sat, 13 Jan 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
+        <link>http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
         
         
         <category>RoR</category>
-        
-      </item>
-    
-      <item>
-        <title>Hello world!</title>
-        <description>
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello world, my name is Trung!&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Thu, 04 Jan 2018 00:00:00 +0700</pubDate>
-        <link>https://otranquangtrung.github.io/2018/01/04/hello-world/</link>
-        <guid isPermaLink="true">https://otranquangtrung.github.io/2018/01/04/hello-world/</guid>
-        
-        
-        <category>Common</category>
         
       </item>
     

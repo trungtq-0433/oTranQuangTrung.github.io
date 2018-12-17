@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rails notes</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!link rel="stylesheet" href="/css/font-awesome.min.css ">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/draft/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-109981126-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+  <div class="wrapper">
+    <a href="/" class="brand">Trung Tran's Blog</a>
+    <small>Back-end Dev Engineer</small>
+    <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+    <nav id="headerNav">
+      <ul>
+        <li>
+          
+          <a href="/">
+          
+            <i class="fa fa-home"></i>Home
+          </a>
+        </li>
+
+        
+          
+          <li>
+            
+            <a href="/archive/">
+            
+              <i class="fa fa-archive"></i>Archives
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/category/">
+            
+              <i class="fa fa-th-list"></i>Categories
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/about/">
+            
+              <i class="fa fa-play"></i>About
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li>
+            
+            <a href="/our-wedding/">
+            
+              <i class="fa fa-heart"></i>Our Wedding
+            </a>
+          </li>
+          
+        
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Rails notes</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>tqtrung09
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#javascript" title="Category: javascript" rel="category">javascript</a>
+    
+  
+
+</span>
+
+
+            </div>
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#extend-object" id="markdown-toc-extend-object"><code class="highlighter-rouge">Extend object</code></a></li>
+  <li><a href="#memoize-dbmemcache-results-in-instance-variable-dynamically" id="markdown-toc-memoize-dbmemcache-results-in-instance-variable-dynamically">memoize db/memcache results in instance variable dynamically</a></li>
+  <li><a href="#usage" id="markdown-toc-usage">usage</a></li>
+</ul>
+
+<p>Dưới đây là tổng hợp một số note mình tìm hiểu thấy hay về ngôn ngữ ruby và framework rails.</p>
+
+<h3 id="extend-object"><code class="highlighter-rouge">Extend object</code></h3>
+<p>Được hiểu đây là cách thêm code từ một Module khác.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Ispeak</span>
+  <span class="k">def</span> <span class="nf">says</span>
+    <span class="s2">"greetings aliens!"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Ieat</span>
+  <span class="k">def</span> <span class="nf">eats</span>
+    <span class="s2">"spinach"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">Inhabitant</span>
+  <span class="k">def</span> <span class="nf">says</span>
+    <span class="s2">"I'm strong to the finish"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Human</span>
+  <span class="kp">extend</span> <span class="no">Ispeak</span> <span class="c1"># add class methods from Ispeak</span>
+  <span class="kp">include</span> <span class="no">Inhabitant</span> <span class="c1"># add instance methods from Inhabitant</span>
+<span class="k">end</span>
+
+<span class="no">Human</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Ieat</span> <span class="c1"># add class methods from Ieat</span>
+
+<span class="nb">puts</span> <span class="no">Human</span><span class="p">.</span><span class="nf">says</span> <span class="c1"># -&gt; greetings aliens!</span>
+<span class="nb">puts</span> <span class="no">Human</span><span class="p">.</span><span class="nf">eats</span> <span class="c1"># -&gt; spinach</span>
+
+<span class="n">popeye</span> <span class="o">=</span> <span class="no">Human</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="nb">puts</span> <span class="n">popeye</span><span class="p">.</span><span class="nf">says</span> <span class="c1"># -&gt; I'm strong to the finish</span>
+</code></pre></div></div>
+
+<p>Sau đây là một ứng dụng về validate model trong case user registration.
+Chúng ta không muốn viết vào model vì nó còn vướng tới contex create, update. Và trong ngữ cảnh được tạo ra từ FactoryBot thì cũng không muốn nằm trong phạm vi.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># app/models/user/registration_context.rb</span>
+<span class="k">module</span> <span class="nn">User::RegistrationContext</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">extended</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="n">model</span>
+      <span class="n">validates</span> <span class="ss">:terms_of_service_accepted</span><span class="p">,</span> <span class="ss">acceptance: </span><span class="kp">true</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="nb">attr_accessor</span> <span class="ss">:terms_of_service_accepted</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">extend</span><span class="p">(</span><span class="no">User</span><span class="o">::</span><span class="no">RegistrationContext</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">terms_of_service_accepted</span> <span class="o">=</span> <span class="s2">"0"</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">valid?</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">errors</span><span class="p">.</span><span class="nf">messages</span><span class="p">[</span><span class="ss">:terms_of_service_accepted</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"must be accepted"</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<p>=================</p>
+
+<p>Gem Whenever
+Đối với việc sử dụng rbenv thì cần set như dưới để chạy đc trên development</p>
+
+<p>env :PATH, ENV[‘PATH’]
+env :GEM_PATH, ENV[‘GEM_PATH’]
+env :GEM_HOME, ENV[‘GEM_HOME’]</p>
+
+<p>=================</p>
+<h1 id="memoize-dbmemcache-results-in-instance-variable-dynamically">memoize db/memcache results in instance variable dynamically</h1>
+<p>def memoize_results(key)
+  return instance_variable_get(key) if instance_variable_defined?(key)
+  instance_variable_set key, yield
+end</p>
+
+<h1 id="usage">usage</h1>
+<p>MY_CONSTANT = [:active, :inactive]
+MY_CONSTANT.each { |key|
+  define_method(“#{key}_users”) do
+    memoize_results(“@#{key}_users”) do
+      User.send(key).all # assumes that user responds to active, inactive(via scope/filter etc..)
+    end
+  end
+}</p>
+
+<p>==================</p>
+
+<p>https://ieftimov.com/variable-hoisting-ruby
+https://gist.github.com/oTranQuangTrung/e8e2b9ef27df08e045dbafdf4d7cdeba?fbclid=IwAR0YvCeCDtHW-fz0RAiIJtxuVSxRUWBVW2Ỉ8D8KM1qVz41ZLh5_oMK_quo</p>
+
+<p>========================================================</p>
+
+<p>1.
+val1 = true and false  # hint: output of this statement in IRB is NOT value of val1!
+val2 = true &amp;&amp; false</p>
+
+<p>and and or  operator have lower precedence  than =
+whereas, &amp;&amp; and  || higher precedence than =</p>
+
+<p>(val1 = true) and false    # results in val1 being equal to true
+val2 = (true &amp;&amp; false)     # results in val2 being equal to false</p>
+
+<p>2.
+What is the difference between calling super and calling super()?
+A call to super invokes the parent method with the same arguments that were passed to the child method. An error will therefore occur if the arguments passed to the child method don’t match what the parent is expecting.</p>
+
+<p>A call to super() invokes the parent method without any arguments, as presumably expected. As always, being explicit in your code is a good thing.</p>
+
+<p>3.
+== – Checks if the value of two operands are equal (often overridden to provide a class-specific definition of equality).</p>
+
+<p>=== – Specifically used to test equality within the when clause of a case statement (also often overridden to provide meaningful class-specific semantics in case statements).</p>
+
+<p>eql? – Checks if the value and type of two operands are the same (as opposed to the == operator which compares values but ignores types). For example, 1 == 1.0 evaluates to true, whereas 1.eql?(1.0) evaluates to false.</p>
+
+<p>equal? – Compares the identity of two objects; i.e., returns true iff both operands have the same object id (i.e., if they both refer to the same object). Note that this will return false when comparing two identical copies of the same object.</p>
+
+<p>4.</p>
+
+<p>include: mixes in specified module methods as instance methods in the target class
+extend: mixes in specified module methods as class methods in the target class</p>
+
+<p>5.
+Array#each method iterates over the elements of the array and executes the provided block each time. However, it returns the original array unaffected.
+Array#map will return a new array of elements containing the values returned by the block it is provided. It also does not affect the original array</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>upcased = [“one”, “two”, “three”].map {</td>
+      <td>n</td>
+      <td>puts n.upcase } ??</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>6.
+The :: is a unary operator that allows: constants, instance methods and class methods defined within a class or module, to be accessed from anywhere outside the class or module.
+Remember: in Ruby, classes and methods may be considered constants too.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">MR_COUNT</span> <span class="o">=</span> <span class="mi">0</span>        <span class="c1"># constant defined on main Object class</span>
+<span class="k">module</span> <span class="nn">Foo</span>
+  <span class="no">MR_COUNT</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="o">::</span><span class="no">MR_COUNT</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># set global count to 1</span>
+  <span class="no">MR_COUNT</span> <span class="o">=</span> <span class="mi">2</span>      <span class="c1"># set local count to 2</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="no">MR_COUNT</span>       <span class="c1"># this is the global constant</span>
+<span class="nb">puts</span> <span class="no">Foo</span><span class="o">::</span><span class="no">MR_COUNT</span>  <span class="c1"># this is the local "Foo" constant</span>
+</code></pre></div></div>
+
+<p>7.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># wants a proc, a lambda, AND a block</span>
+<span class="k">def</span> <span class="nf">three_ways</span><span class="p">(</span><span class="nb">proc</span><span class="p">,</span> <span class="nb">lambda</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="nb">proc</span><span class="p">.</span><span class="nf">call</span>
+  <span class="nb">lambda</span><span class="p">.</span><span class="nf">call</span>
+  <span class="k">yield</span> <span class="c1"># like block.call</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="nb">proc</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="nb">lambda</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">block</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="n">anonymous</span> <span class="o">=</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">"I'm a Proc for sure."</span> <span class="p">}</span>
+<span class="n">nameless</span>  <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">"But what about me?"</span> <span class="p">}</span>
+
+<span class="n">three_ways</span><span class="p">(</span><span class="n">anonymous</span><span class="p">,</span> <span class="n">nameless</span><span class="p">)</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s2">"I'm a block, but could it be???"</span>
+<span class="k">end</span>
+ <span class="c1">#=&gt; I'm a Proc for sure.</span>
+ <span class="c1">#=&gt; But what about me?</span>
+ <span class="c1">#=&gt; I'm a block, but could it be???</span>
+ <span class="c1">#=&gt; #&lt;Proc:0x00089d64&gt; #&lt;Proc:0x00089c74&gt; #&lt;Proc:0x00089b34&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Lambda check argument</td>
+          <td>Proc is not</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>1 method, return in lambda then continue run to the end method.</li>
+  <li>1 method, return in proc then end method.</li>
+</ul>
+
+<p>Everything method default receive {}</p>
+
+<p>8.
+It’s dangerous to convert user supplied parameters to symbols, since Symbol objects in Ruby are not garbage collected. An attacker could send a series of requests with random keys that would be turned into symbols, quickly exhausting your server’s available memory and taking down your site.
+Using slice or using string insted symbol</p>
+
+<p>9.
+TEST:</p>
+<ul>
+  <li>Tim bug</li>
+  <li>design code</li>
+  <li>Phat hien diem yeu cau truc code
+=&gt; test setup nhieu va phuc tap -&gt; code thuc hien qua nhieu viec
+=&gt; Code ko tot -&gt; test kho.</li>
+</ul>
+
+<p>1 object can test:</p>
+<ul>
+  <li>incomming message: pubic method object</li>
+  <li>outgoing message: Nhung ham public ma object khac goi toi.</li>
+</ul>
+
+<p>Outgoing messages gồm 2 loại:</p>
+<ul>
+  <li>
+    <p>Query messages: là những method không có hiệu ứng phụ (ghi file, ghi vào DB, gọi api bên ngoài …), những method này đơn thuần chủ trả về giá trị và không thực hiện những nhiệm vụ đặc biệt.</p>
+  </li>
+  <li>
+    <p>Command messawafages: là những method có hiệu ứng phụ. Sending object sẽ phải chịu trách nhiệm test việc gọi những method này. Sending object cần chứng minh là những message này được gọi một cách chính xác. Những test như thế này được gọi là test behavior (test hành vi). Test behavior thường bao gồm việc test xem message được gọi bao nhiêu lần, với những tham số gì thì message mới được gửi đúng.</p>
+  </li>
+</ul>
+
+<p>10.
+Mock &amp; Stub?
+A stub is only a method with a canned response, it doesn’t care about behavior.
+=&gt; allow(stub).to receive(:flip).and_return(“ruby-flipped.jpg”)
+A mock expects methods to be called, if they are not called the test will fail</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">it</span> <span class="s2">"calls the flip method with the correct arguments"</span> <span class="k">do</span>
+  <span class="n">mock</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="s2">"mini_magick"</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">mock</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:flip</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="s2">"ruby.jpg"</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s2">"ruby-flipped.jpg"</span><span class="p">)</span>
+  <span class="n">img</span> <span class="o">=</span> <span class="no">ImageFlipper</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">mock</span><span class="p">)</span>
+  <span class="n">img</span><span class="p">.</span><span class="nf">flip</span><span class="p">(</span><span class="s2">"ruby.jpg"</span><span class="p">)</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>11.
+1970-01-01 =&gt; Unix time start</p>
+
+<p>12.
+Date in mysql UTC+0. User.where(updated_at: Date.current.beginning_of_day..Date.current.end_of_day)</p>
+
+<p>13.
+where.not message_converted: true   =&gt; get false
+where.message_converted: [nil, false]  =&gt; get false and null</p>
+
+<p>14.
+Assest file: image-url</p>
+
+<p>15.
+public, protect, private
+protect duoc goi tu cac class ke thua bang self.method</p>
+
+<ol>
+  <li>Binary search
+    <ul>
+      <li>Mang phai duoc sap xep</li>
+      <li>Tim midindex = (end + start) / 2
+Check gia tri can tim o phia ben nao, co bang midindex ko?</li>
+      <li>startIndex = midIndex + 1 và midIndex = (endIndex + startIndex) / 2</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">find</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">low</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">high</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="nf">size</span>
+<span class="k">while</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span>
+<span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+  <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="nf">eql?</span> <span class="n">find</span>
+    <span class="k">return</span> <span class="n">mid</span>
+  <span class="k">elsif</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">find</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="k">else</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span><span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Bubble Sort
+a = [2,9,5,7,1,8,4,5]</li>
+</ol>
+
+<p>length = a.size</p>
+
+<p>(length - 1).time do |i|
+  (length - 1 - i).time do |j|
+    if a[j] &gt; a[i]
+    tmp = a[j]
+    a[i] = a[j]
+    a[j] = tmp
+    end
+  end
+end</p>
+
+<ol>
+  <li>Polymorphis
+user -&gt; image
+product -&gt; image</li>
+</ol>
+
+<p>image: id, imageable_id, imageable_type
+belongs_to :imageable, polymorphic: true
+has_many :images, as: :imageable</p>
+
+<ol>
+  <li>
+    <p>Single Table Inheritance
+De tuy bien hon
+must :type attributes</p>
+  </li>
+  <li>
+    <p>optimistis &amp; permistis
+optimistis: :lock_version se tang len 1 khi co update instance. data type phải là integer và có default: 0
+permistis: .lock! de khoa instance, check bang viec instance da duoc save hay chua?</p>
+  </li>
+  <li>
+    <p>A.includes(:xxx)
+Su dung 2 query, 1 query A. 2 query xxx voi dk A.id
+joins: 1 query</p>
+  </li>
+  <li>
+    <p>ACID
+Trong 1 transaction
+Atomic: tat ca cac action cung success or fail.
+Consistency: Sau khi transaction, DB phai duoc giu dc tinh nhat quan, ko co chuyen truong integer luu gia tri text
+Isolate: 1 transaction nam trong 1 moi truong doc lap, khong co chuyen 2 transaction cung tac dong len 1 data
+Durable: Dam bao backup sau khi xay ra su co.</p>
+  </li>
+  <li>
+    <p>SOLID
+single responsibility: 1 class chi chua 1 chuc nang
+open-close: Mo rong class, khong modify class. (extend, include)
+liskov: các object của class con có thể thay thế class cha mà không làm thay đổi tính đúng đắn của chương trình.
+  1 class cha tên Vịt. Các class VịtBầu, VịtXiêm có thể kế thừa class này, chương trình chạy bình thường. Tuy nhiên nếu ta viết class VịtChạyPin, cần pin mới chạy được. Khi class này kế thừa class Vịt, vì không có pin không chạy được, sẽ gây lỗi. Đó là 1 trường hợp vi phạm nguyên lý này.</p>
+  </li>
+</ol>
+
+<p>interface segregation: Chia nho interface
+dependency inversion: cac module nen phu thuoc vao abstractions
+  interface chính là đuôi tròn, implementation là bóng đèn tròn và bóng đèn huỳnh quang. Ta có thể swap dễ dàng giữa 2 loại bóng vì ổ điện chỉ quan tâm tới interface (đuôi tròn), không quan tâm tới implementation.</p>
+
+<ol>
+  <li>DI (dependency injection)
+DI: priciples
+IoC: pattern (delegate)
+DI: Cach thuc hien</li>
+</ol>
+
+<ul>
+  <li>constructor inject: cac dependency inject thong qua constructor class. (thong dung)</li>
+  <li>Setter Injection</li>
+  <li>Interface Injection (it sd)</li>
+</ul>
+
+<p>xxx = XXX.new(YYY.new, ZZZ.new)</p>
+
+        </article>
+        <hr>
+
+        
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/draft/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/draft/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//tqtrung09.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p class="description">
+       © Copyright 2017 All rights reserved. 
+    </p>
+    <p class="contact">
+      Contact me at: 
+      <a href="https://github.com/oTranQuangTrung" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+      <a href="mailto:tqtrung09@gmail.com" target="_blank" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>   
+      <a href="https://www.facebook.com/tqtrung09" target="_blank" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  
+      <a href="https://www.linkedin.com/in/tqtrung09" target="_blank" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+    </p>
+  </div>
+</footer>
+
+    <div class="back-to-top">
+  <a href="#top" data-scroll>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 1000, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>
