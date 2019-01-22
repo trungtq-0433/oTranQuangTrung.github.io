@@ -5,9 +5,23 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Dec 2018 21:31:40 +0700</pubDate>
-    <lastBuildDate>Mon, 17 Dec 2018 21:31:40 +0700</lastBuildDate>
+    <pubDate>Tue, 22 Jan 2019 16:41:03 +0700</pubDate>
+    <lastBuildDate>Tue, 22 Jan 2019 16:41:03 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Self study javascript, ES6, React P4</title>
+        <description>Phần này chúng ta sẽ phân tích các thành phần của redux.
+
+</description>
+        <pubDate>Mon, 03 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/2018/12/03/learning-react-p4/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/03/learning-react-p4/</guid>
+        
+        
+        <category>javascript</category>
+        
+      </item>
     
       <item>
         <title>Self study javascript, ES6, React P3</title>
@@ -159,21 +173,6 @@ dụng docker vào dự án. Cứ mỗi khoảng thời gian bỏ phí mình l�
         
         
         <category>Docker</category>
-        
-      </item>
-    
-      <item>
-        <title>Awesome methods in Ruby on rails</title>
-        <description>
-Làm việc với ngôn ngữ ruby và framework RubyOnRails một thời gian. Tôi nhận thấy những đoạn code xử lý ngày đầu vào nghề có vấn đề và thấy mình cần phải cải tiến…
-
-</description>
-        <pubDate>Sat, 13 Jan 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/01/13/awesome-methods-in-ruby-on-rails/</guid>
-        
-        
-        <category>RoR</category>
         
       </item>
     

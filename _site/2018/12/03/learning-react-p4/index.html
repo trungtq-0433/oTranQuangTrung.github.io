@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Self study javascript, ES6, React P4</title>
+    <meta name="description" content="Phần này chúng ta sẽ phân tích các thành phần của redux.">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!link rel="stylesheet" href="/css/font-awesome.min.css ">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2018/12/03/learning-react-p4/">
+    <link rel="alternate" type="application/rss+xml" title="Trung Tran's Blog" href="http://localhost:4000/feed.xml ">
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-109981126-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+  <div class="wrapper">
+    <a href="/" class="brand">Trung Tran's Blog</a>
+    <small>Back-end Dev Engineer</small>
+    <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+    <nav id="headerNav">
+      <ul>
+        <li>
+          
+          <a href="/">
+          
+            <i class="fa fa-home"></i>Home
+          </a>
+        </li>
+
+        
+          
+          <li>
+            
+            <a href="/archive/">
+            
+              <i class="fa fa-archive"></i>Archives
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/category/">
+            
+              <i class="fa fa-th-list"></i>Categories
+            </a>
+          </li>
+          
+        
+          
+          <li>
+            
+            <a href="/about/">
+            
+              <i class="fa fa-play"></i>About
+            </a>
+          </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li>
+            
+            <a href="/our-wedding/">
+            
+              <i class="fa fa-heart"></i>Our Wedding
+            </a>
+          </li>
+          
+        
+          
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Self study javascript, ES6, React P4</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2018-12-03
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>tqtrung09
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#javascript" title="Category: javascript" rel="category">javascript</a>
+    
+  
+
+</span>
+
+
+            </div>
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#install" id="markdown-toc-install"><code class="highlighter-rouge">Install</code></a></li>
+  <li><a href="#overview" id="markdown-toc-overview"><code class="highlighter-rouge">Overview</code></a></li>
+  <li><a href="#store" id="markdown-toc-store"><code class="highlighter-rouge">Store</code></a></li>
+  <li><a href="#action" id="markdown-toc-action"><code class="highlighter-rouge">Action</code></a></li>
+  <li><a href="#reducer" id="markdown-toc-reducer"><code class="highlighter-rouge">Reducer</code></a></li>
+  <li><a href="#mapstatetoprops" id="markdown-toc-mapstatetoprops"><code class="highlighter-rouge">mapStateToProps</code></a></li>
+  <li><a href="#mapdispatchtoprops" id="markdown-toc-mapdispatchtoprops"><code class="highlighter-rouge">mapDispatchToProps</code></a></li>
+  <li><a href="#connect" id="markdown-toc-connect"><code class="highlighter-rouge">connect()</code></a></li>
+</ul>
+<p>Phần này chúng ta sẽ phân tích các thành phần của redux.</p>
+
+<h3 id="install"><code class="highlighter-rouge">Install</code></h3>
+<p><a href="https://github.com/reduxjs/react-redux">React-Redux</a> is the official React binding for Redux.
+React-Redux version 6 requires React 16.4 or later.
+To use React-Redux with your React app:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install --save redux
+npm install --save react-redux
+</code></pre></div></div>
+<h3 id="overview"><code class="highlighter-rouge">Overview</code></h3>
+<p><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/44e53712-498d-400f-8967-8ed0dbdb90a1/new-redux-data-flow-large-opt.png" alt="" />
+Để hiểu về Data flow trên ta xem ví dụ dưới đây trước khi đi vào các khái niệm cụ thể.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createStore</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'redux'</span><span class="p">;</span>
+
+<span class="c1">// Khởi tạo state</span>
+<span class="kd">var</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">status</span> <span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// REDUCER</span>
+<span class="kd">var</span> <span class="nx">myReducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">'TOGGLE_STATUS'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">newState</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">state</span><span class="p">}</span>
+    <span class="nx">newState</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">newState</span><span class="p">;</span> <span class="c1">// Trả về state mới để lưu vào store.</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// STORE</span>
+<span class="kd">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">myReducer</span><span class="p">);</span> <span class="c1">// Khởi tạo store.</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Default:'</span><span class="p">,</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="p">());</span>
+
+<span class="c1">// ACTION</span>
+<span class="kd">var</span> <span class="nx">action</span> <span class="o">=</span> <span class="p">{</span> <span class="na">type</span> <span class="p">:</span> <span class="s1">'TOGGLE_STATUS'</span><span class="p">};</span>
+
+<span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// Gửi action tới reducer để thực hiện action</span>
+
+<span class="c1">// VIEW</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'TOGGLE_STATUS'</span><span class="p">,</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="p">());</span>
+</code></pre></div></div>
+<p><img src="https://images.viblo.asia/2762ed06-128a-4c95-8d69-683ef3b1970f.png" alt="" /></p>
+
+<p>Có 4 thành phần chính chúng ta cần tìm hiểu và cần nhớ trong lifecycle của redux: Action, Reducer, Store, View.</p>
+
+<h3 id="store"><code class="highlighter-rouge">Store</code></h3>
+<p>Store Là nơi quản lý state, có thể truy cập để lấy state ra, update state hiện có, và listener để nhận biết xem có thay đổi gì không, và cập nhật qua views.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-redux"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createStore</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'redux'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TrackList</span> <span class="k">from</span> <span class="s1">'./components/TrackList'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">actions</span> <span class="k">from</span> <span class="s1">'./actions'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">rootReducer</span> <span class="k">from</span> <span class="s1">'../reducers/index'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"root"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">rootReducer</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">tracks</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'Em cua ngay hom qua'</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+<span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">actions</span><span class="p">.</span><span class="nx">setTracks</span><span class="p">(</span><span class="nx">tracks</span><span class="p">));</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">TrackList</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;,</span>
+  <span class="nx">rootElement</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Redux cung cấp cho chúng ta:
+<code class="highlighter-rouge">createStore</code> để khởi tạo store.</p>
+
+<p><code class="highlighter-rouge">&lt;Provider /&gt;</code> được sử dụng để gói tất cả component vào trong này.
+Mục đích là để cho tất cả function của các component con đều có thể truy cập store, store được truyền vào như 1 property.</p>
+
+<h3 id="action"><code class="highlighter-rouge">Action</code></h3>
+
+<p>Là nơi mang các thông tin dùng để gửi từ ứng dụng đến Store. Action là những đối tượng mô tả cách chúng ta muốn thay đổi state. Bạn có thể hình dung action như là những API cho state của bạn. Theo đó, action bản chất không gọi bất cứ thứ gì. Một action chỉ đơn giản là một object mô tả về cách chúng ta muốn thay đổi state.</p>
+
+<p>1) Action Type:
+  Chúng ta cần 1 file để chưa constant, các constant này sử dụng để giải quyết việc xác định sử dụng action nào. Action type được sử dụng ở cả action và reducer.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/core/constants.js</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">TRACKS_SET</span><span class="p">:</span> <span class="s1">'TRACKS_SET'</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>2) Action Creators:
+  Action creator sẽ trả về một object với type và payload. Type là một trong số những constant ActionTypes mà chúng ta đã tạo ở trên. Payload có thể là bất cứ thứ gì, nó sẽ được sử dụng để thay đổi global state của application.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/actions/tracks.js</span>
+
+<span class="k">import</span> <span class="p">{</span><span class="nx">ActionTypes</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'../core/constants'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">setTracks</span><span class="p">(</span><span class="nx">tracks</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">ActionTypes</span><span class="p">.</span><span class="nx">TRACKS_SET</span><span class="p">,</span>
+    <span class="nx">tracks</span> <span class="c1">// Tương đương với tracks: tracks</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></div>
+<p>Action creator sẽ nhận vào input là list tracks, cái mà chúng ta sẽ set vào global state. Action creator này sẽ trả về một object chứa action type và payload là list mà chúng ta đã truyền vào.</p>
+
+<p>Để giữ cho folder structure gọn gàng sau này có nhiều action, chúng ta sẽ tạo một file index.js trong folder actions để chứa tất cả các action creator, sau đó chỉ cần import 1 file index.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">setTracks</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'./track'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="p">{</span>
+  <span class="nx">setTracks</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h3 id="reducer"><code class="highlighter-rouge">Reducer</code></h3>
+<p>Action tự bản thân nó không thể làm nên được điều gì ngoài việc định nghĩa. Reducer là những action handler, nó hoạt động kết nối giữa action và store và biến thành những thay đổi trong state.Nếu chúng ta dispatch một action là setTracks vào trong store, chúng ta có thể có một reducer nhận action đó và update tracks mới vào trong state.
+Nói một cách đơn giản nó nhận vào type và payload action trả về, và từ đó biến state cũ thành state mới.
+Lưu ý rằng thay vì thay đổi state trước đó thì chúng ta sẽ trả về một object state mới. State trong redux phải là immutable.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">ActionTypes</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'../core/constants'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ActionTypes</span><span class="p">.</span><span class="nx">TRACKS_SET</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">setTracks</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setTracks</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span><span class="nx">tracks</span><span class="p">}</span> <span class="o">=</span> <span class="nx">action</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">[...</span><span class="nx">state</span><span class="p">,</span> <span class="p">...</span><span class="nx">tracks</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Cũng giống như cách chúng ta làm với action creator, chúng ta sẽ tạo một file index.js trong folder reducers để chứa hết tất cả reducer, và cung cấp ra cho các thành phần khác của application sử dụng.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">combineReducers</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'redux'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">track</span> <span class="k">from</span> <span class="s1">'./track'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="nx">track</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Khi sử dụng combineReducers, bạn có thể sử dụng multiple reducer mỗi reducer sẽ trả về một substate.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Nếu không sử dụng nó bạn sẽ phải access list tracks trong global state như thế này.</span>
+<span class="nx">state</span><span class="p">.</span><span class="nx">tracks</span>
+
+<span class="c1">// Nhưng với combineReducers, bạn sẽ get thẳng từ subset của state như sau.</span>
+<span class="nx">state</span><span class="p">.</span><span class="nx">track</span><span class="p">.</span><span class="nx">tracks</span>
+
+</code></pre></div></div>
+
+<p>Tiếp theo là các method được redux cung cấp để hỗ trợ việc implement.</p>
+
+<h3 id="mapstatetoprops"><code class="highlighter-rouge">mapStateToProps</code></h3>
+<p><strong>Không phải component nào cũng cần toàn bộ global store, chúng ta cần chỉ định state nào cần lấy cho mỗi component.</strong>
+Hàm này (mapState for short) được thực thi mỗi khi store state có thay đổi, để trả về substate của global state, cái mà component cần.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mapStateToProps</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">ownProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span><span class="na">xxx</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">xxx</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">state</code> là global store state.</p>
+
+<p><code class="highlighter-rouge">ownProps</code> là tham số optional. Đây là props được truyền vào từ component cha.</p>
+
+<p>Hàm này phải trả về 1 object và là tham số đầu tiên của <code class="highlighter-rouge">connect()</code> function.</p>
+
+<h3 id="mapdispatchtoprops"><code class="highlighter-rouge">mapDispatchToProps</code></h3>
+<p>Hàm này (mapDispatch for short) là tham số thứ 2 được truyền vào <code class="highlighter-rouge">connect()</code> function với nhiệm vụ map hàm dispatch() của store trở thành 1 thuộc tính của props của component đó.</p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="s1">'INCREMENT'</span> <span class="p">})</span>
+<span class="kd">const</span> <span class="nx">decrement</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="s1">'DECREMENT'</span> <span class="p">})</span>
+<span class="kd">const</span> <span class="nx">reset</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="s1">'RESET'</span> <span class="p">})</span>
+
+<span class="kd">const</span> <span class="nx">mapDispatchToProps</span> <span class="o">=</span> <span class="nx">dispatch</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="c1">// dispatching actions returned by action creators</span>
+    <span class="na">increment</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">increment</span><span class="p">()),</span>
+    <span class="na">decrement</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">decrement</span><span class="p">()),</span>
+    <span class="na">reset</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">reset</span><span class="p">()),</span>
+
+    <span class="na">onClick</span><span class="p">:</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">trackClick</span><span class="p">(</span><span class="nx">event</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Sau khi maps vào props của component thì chúng ta có thể gọi trực tiếp các dispatch để thực thi action.</span>
+</code></pre></div></div>
+
+<h3 id="connect"><code class="highlighter-rouge">connect()</code></h3>
+<p><strong>Connect function được sử dụng để connect React component tới Redux store.</strong></p>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">?,</span> <span class="nx">mapDispatchToProps</span><span class="p">?,</span> <span class="nx">mergeProps</span><span class="p">?,</span> <span class="nx">options</span><span class="p">?)</span>
+</code></pre></div></div>
+
+<p>Connect chấp nhận 4 parameters khác nhau, tất cả đều là optional.</p>
+<ul>
+  <li>mapStateToProps?: Function</li>
+  <li>mapDispatchToProps?: Function or Object</li>
+  <li>mergeProps?: Function</li>
+  <li>options?: Object</li>
+</ul>
+
+<div class="language-react highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">,</span> <span class="nx">mapDispatchToProps</span><span class="p">)(</span><span class="nx">TrackList</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>helper function <code class="highlighter-rouge">connect()</code> nhận tham số là 1 function làm nhiệm vụ mapping global state vào props của component. kết quả trả về của function <code class="highlighter-rouge">connect</code> là một function (kiểu hiểu nôm na là hàm <code class="highlighter-rouge">connect</code> sẽ trả về 1 function), function đó lại nhận vào 1 tham số khác là <code class="highlighter-rouge">TrackList</code>. Sau đó đem tất cả mọi thứ trả về cho component cha, component cha sẽ có thể truy xuất store, trong khi TrackList sẽ chỉ là component hiển thị dữ liệu.</p>
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>Previous</strong> <a href="/2018/12/02/learning-react-p3/">Self study javascript, ES6, React P3</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2018/12/03/learning-react-p4/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2018/12/03/learning-react-p4/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//tqtrung09.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p class="description">
+       © Copyright 2017 All rights reserved. 
+    </p>
+    <p class="contact">
+      Contact me at: 
+      <a href="https://github.com/oTranQuangTrung" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+      <a href="mailto:tqtrung09@gmail.com" target="_blank" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>   
+      <a href="https://www.facebook.com/tqtrung09" target="_blank" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  
+      <a href="https://www.linkedin.com/in/tqtrung09" target="_blank" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+    </p>
+  </div>
+</footer>
+
+    <div class="back-to-top">
+  <a href="#top" data-scroll>
+    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+  </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 1000, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>

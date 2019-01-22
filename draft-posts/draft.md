@@ -13,6 +13,48 @@ Dưới đây là tổng hợp một số note mình tìm hiểu thấy hay về
 
 
 
+https://apidock.com/rails/ActionView/Helpers/FormHelper/check_box
+https://stackoverflow.com/questions/8055138/mysql-sort-order-by-array-value
+
+### `Reserved mysql keyword`
+use backticks around key this
+https://stackoverflow.com/questions/15712070/error-in-your-sql-syntax-near-key
+
+
+:null => false tells your database not to accept NULL values.
+
+:default => 0 does two things:
+
+Tell your database to use '0' as the default value when NULL or nothing is specified in a query.
+Tell rails to use '0' as a default value when creating a new object.
+Point 2 makes sure that when you save your new object, you actually have a valid value in place.
+
+To answer your question: If you don't want NULL values in your database, set :null => false, otherwise just use the
+:default parameter. Mind you, '0' and NULL are not the same things.
+
+Not having NULL values might be important for indexing purposes or if you need to provide direct database access to a
+third party.
+
+
+### call method
+```ruby
+class GetSearchResult
+  def self.call(params)
+    new(params).call
+  end
+
+  def initialize(params)
+    @params = params
+  end
+
+  def call
+    # ... code gì thì code đi ...
+  end
+end
+```
+
+
+
 
 
 ### `Extend object`
@@ -318,7 +360,9 @@ Durable: Dam bao backup sau khi xay ra su co.
 
 23. SOLID
 single responsibility: 1 class chi chua 1 chuc nang
-open-close: Mo rong class, khong modify class. (extend, include)
+open-close: Mo rong class, khong modify class. (extend, include, kế thừa)
+  Open với sự mở rộng, Close với sự thay đổi class.
+  Thay đổi ống kính máy ảnh, chứ ko sửa ống kính.
 liskov: các object của class con có thể thay thế class cha mà không làm thay đổi tính đúng đắn của chương trình.
   1 class cha tên Vịt. Các class VịtBầu, VịtXiêm có thể kế thừa class này, chương trình chạy bình thường. Tuy nhiên nếu ta viết class VịtChạyPin, cần pin mới chạy được. Khi class này kế thừa class Vịt, vì không có pin không chạy được, sẽ gây lỗi. Đó là 1 trường hợp vi phạm nguyên lý này.
 
@@ -337,3 +381,65 @@ DI: Cach thuc hien
 - Interface Injection (it sd)
 
 xxx = XXX.new(YYY.new, ZZZ.new)
+
+Test dễ vỡ do nó phụ thuộc vào các object khác ngoài object cần test và nó chạy lâu vì nó phải chạy cả những đoạn code mà nó không cần quan tâm (code từ A.new và FileCleaner).
+Kể cả khi stub những method kia thì đoạn code trên vẫn có vấn đề. Stub có thể cải thiện test nhưng không thế sửa được những lỗ hổng trong những đoạn code trên.
+Hãy để tôi nhắc lại: Họ không bao giờ nghĩ rằng tôi sử dụng lại code của họ
+
+
+25. Services Hosting
+Shared Hosting, VPS, Dedicated Server và Cloud Server
+
+26. Pattern Type
+Delegate
+Decorate
+Form Object
+Service Object
+
+Query Object: https://www.gonzedge.com/blog/2016/01/26/query-objects-in-the-rails-world-a-different-approach.html
+Adapter Pattern: https://ttuan.github.io/2018/06/15/Adapter-pattern/
+
+27. Indexing Mysql
+https://viblo.asia/p/mysql-indexing-PDOkqWxAGjx
+Index của chúng ta gồm ba cột, last_name, first_name, dob. Bạn nghĩ sao về hai truy vấn sau đây.
+
+Nhìn vào hình trên, chúng ta có thể thấy. Key được cấu tạo từ ba thành phần: last_name, first_name và dob. Chúng được sắp xếp theo thứ tự last_name, rồi mới đến first_name và dob. Do vậy, nếu tìm kiếm theo first_name, thì không thể sử dụng được key, do phép so sánh bắt đầu từ last_name.
+
+```sql
+select_type - Loại của câu SELECT. Có thể có các giá trị sau. (SIMPLE, SUBQUERY)
+table - Table name
+type - Đây là nơi chỉ ra đâu là nơi thiếu index
+  system: Ko có, hoặc chỉ có 1 dòng đã được đánh index khớp với điều kiện tìm kiếm. (chỉ đọc duy nhất 1 lần là ra kết quả)
+  index: Toàn bộ cây chỉ mục đã đc duyệt
+  all: Toàn bộ records được duyệt
+
+```
+
+
+
+28. Require, Require_relative
+Gem tự động load code chính nó, tùy những gem ko set require true thì mình sẽ phải set require.
+
+require là sẽ load file với đường dẫn tuyệt đối.
+require_relative là sẽ tính khởi đầu tại thư mục hiện tại gọi
+
+29.
+orders (id)
+locations (id, order_id, city, type"0, 1")
+bidding (id, order_id, price)
+
+Select all bidding, each distance.
+orders 1-2 locations
+
+| from | to | bidding|
+
+30. Khi nào sử dụng include methods, khi nào nên sử dụng kế thừa class.
+Khi thằng con có thể đại diện cho thằng cha. Ví dụ
+Animal:
+  Trên cạn
+    Lợn (đi, nói, bơi)
+  Dưới nước:
+    Cá (nói, bơi)
+
+Thằng Lợn không extend từ thằng Cá được, bởi vì nó không có các đặc tính đại diện cho loài dưới nước. (Vì không thể thở dưới nước.)
+
