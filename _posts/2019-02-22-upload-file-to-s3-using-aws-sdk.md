@@ -9,7 +9,8 @@ author: tqtrung09
 {:toc}
 
 ### Requirement
-Cần upload file lên S3, chúng ta cần làm th?
+Cần upload file lên S3, chúng ta cần làm thế nào?
+
 
 
 
