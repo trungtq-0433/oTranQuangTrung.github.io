@@ -1,6 +1,19 @@
+---
+layout: post
+title:  "Upload file to s3 using aws-sdk"
+categories: rails
+author: tqtrung09
+---
+
+* content
+{:toc}
 
 ### Requirement
-Cần upload file lên S3 
+Cần upload file lên S3, chúng ta cần làm th?
+
+
+
+
 ### Implement
 Có nhiều gem hỗ trợ việc tương tác với AWS như [fog-aws](https://github.com/fog/fog-aws) tuy nhiên mình sử dụng gem [aws-sdk-ruby](https://github.com/aws/aws-sdk-ruby)
 Không biết phải mê tín không nhưng mình thấy xài đồ của official xịn xò hơn, như tốc độ upload file lên s3 của `aws-sdk-ruby` nhanh hơn `fog-aws` khoảng 1-2s.
