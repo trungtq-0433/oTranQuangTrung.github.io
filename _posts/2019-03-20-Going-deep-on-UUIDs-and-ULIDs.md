@@ -73,3 +73,6 @@ Cấu trúc của ULID bao gồm 128 bit. 48 bit đầu được sử dụng đ�
 - Vì sử dụng 48 bit để lưu timestamp nên có thể sắp xếp.
 - Đẹp hơn UUID là cái chắc
 
+
+> https://www.honeybadger.io/blog/uuids-and-ulids/
+
