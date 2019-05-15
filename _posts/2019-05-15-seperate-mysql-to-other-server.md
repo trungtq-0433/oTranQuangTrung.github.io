@@ -5,7 +5,7 @@
   - db_pw: Database password
   - db_name: Database name
 ### Setup
-##### I. On mysql_server.
+#### I. On mysql_server.
 **1. Install Mysql**
 ```
   sudo apt-get install mysql-server mysql-client libmysqlclient-dev
@@ -69,7 +69,7 @@ If you want to knows other privilege, you can refer [privilege document](https:/
   update user set Host='<new_host_ip>' where user='<db_user>';
 ```
 
-##### II. On remote
+#### II. On remote
 On remote:
 ```
 mysql -u<db_user> -h<mysql_server's ip> -p<db_pw>
