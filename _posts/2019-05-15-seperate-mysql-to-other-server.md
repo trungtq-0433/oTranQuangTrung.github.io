@@ -4,6 +4,7 @@
   - db_user: Database username
   - db_pw: Database password
   - db_name: Database name
+  - new_server: Other server
 ### Setup
 #### I. On mysql_server.
 **1. Install Mysql**
@@ -65,8 +66,8 @@ If you want to knows other privilege, you can refer [privilege document](https:/
 3.2. Update grant privilege.
 ```sql
   mysql -uroot -p
-  update db set Host='<new_host_ip>' where Db='<db_name>';
-  update user set Host='<new_host_ip>' where user='<db_user>';
+  update db set Host='<new_server's ip>' where Db='<db_name>';
+  update user set Host='<new_server's ip>' where user='<db_user>';
 ```
 
 #### II. On remote
