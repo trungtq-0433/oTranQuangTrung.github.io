@@ -11,10 +11,12 @@ ssh-keygen -t rsa -C "yyy@yyy.com"
 
 Remember set name for SSH KEY. Example:
 
+```
 ~/.ssh/id_rsa_xxx
 ~/.ssh/id_rsa_xxx.pub
 ~/.ssh/id_rsa_yyy
 ~/.ssh/id_rsa_yyy.pub
+```
 
 #### 2. Add 2 Public SSH key (*.pub) to 2 github account [setting page](https://github.com/settings/keys).
 
