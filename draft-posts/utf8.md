@@ -13,3 +13,7 @@ Thông thường space gõ từ bàn phím không xử lý gì đặc biệt th�
 Thế nên trong String ruby có hàm `unicode_normalize` để chuyển đổi string về cùng 1 dạng chuẩn hóa.
 
 `"　".unicode_normalize(:nfkd)`
+
+
+Encoding: UTF-8, có rất nhiều loại khác nữa.
+Unicode Normalize: C
