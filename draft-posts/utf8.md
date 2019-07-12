@@ -17,3 +17,26 @@ Thế nên trong String ruby có hàm `unicode_normalize` để chuyển đổi 
 
 Encoding: UTF-8, có rất nhiều loại khác nữa.
 Unicode Normalize: C
+
+NFKD và NFKC khác nhau ở chỗ followed by Canonical Composition
+Có nghĩa là nếu sử dụng chuản followed by Canonical Composition thì sẽ có 1 bước xử lý để đảm bảo string kết quả có "tương đương" với string đầu vào hay không?
+
+```ruby 
+ String.new.force_encoding(str.encoding).tap do |res|
+ ...
+ end
+```
+
+Tùy từng hoàn cảnh ta có cách sử dụng cho thích hợp.
+
+
+Chúng ta hãy theo dõi bảng so sánh sau để hiểu rõ đoạn trên:
+http://unicode.org/reports/tr15/
+
+http://unicode.org/reports/tr15/images/UAX15-NormFig3.jpg
+
+http://unicode.org/reports/tr15/images/UAX15-NormFig4.jpg
+
+http://unicode.org/reports/tr15/images/UAX15-NormFig5.jpg
+
+http://unicode.org/reports/tr15/images/UAX15-NormFig6.jpg
