@@ -1,6 +1,7 @@
 ### Overview
 Trong dự án của mình có 1 vấn đề liên quan đến việc xử lý ký tự whitespace. 
 Điều đầu tiên mình nghĩ đến là `strip` method. 
+
 Test1:
 ```ruby
 "   xxx xxx    ".strip
@@ -22,23 +23,30 @@ Test2 ta có thể thấy hàm strip hoạt động không đúng. Chúng ta cù
 ** UTF8 ** là phương thức Encoding rất phổ biến để miêu tả bảng mã Unicode trên bộ nhớ.
 
 Ex1:
+```
 " "
 Name: Space
 Unicode number: U+0020
 Block: Basic Latin
 ﻿The Basic Latin Unicode block is the first block of the Unicode standard, and the only block which is encoded in one byte in UTF-8.
+```
 
 Ex2:
+```
 "　"
 Name: Ideographic Space
 Unicode number: U+3000
 Block: CJK Symbols and Punctuation
 ﻿CJK Symbols and Punctuation is a Unicode block containing symbols and punctuation in the unified Chinese, Japanese and Korean script.
+```
 
 Trở lại vấn đề `strip` ban đầu. Tại sao `strip` không hoạt động ở test2?
+
 Theo ý kiến của mình: Nguyên nhân có thể là do logic hàm `strip` trong ruby lúc check ký tự whitespace không thể handle được case whitespace với code U+3000.
+
 Thông thường space gõ từ bàn phím không xử lý gì đặc biệt thì nó sẽ có code U+0020.
-Đoạn này mình có đọc code của ruby, tuy nhiên nó viết bằng `C` nên mình cũng chẳng hiểu gì, đoán bừa vậy.
+
+Đoạn này mình có xem code của ruby, tuy nhiên nó viết bằng `C` nên mình cũng chẳng hiểu gì, đoán bừa vậy.
 
 ### Unicode Normalization Forms là gì?
 => Là các hình thức chuẩn hóa của Unicode text.
@@ -59,22 +67,31 @@ Vậy có mấy loại?
 
 Để hiểu hơn chúng ta xem các ví dụ sau:
 
-** Singletons **
+**Singletons**
+
 ![[Singletons](http://unicode.org/reports/tr15/#Singletons_Figure)](http://unicode.org/reports/tr15/images/UAX15-NormFig3.jpg)
 
-** Canonical Composites **
+
+**Canonical Composites**
+
 ![](http://unicode.org/reports/tr15/images/UAX15-NormFig4.jpg)
 
-** Compatibility Composites **
+
+**Compatibility Composites**
+
 ![](http://unicode.org/reports/tr15/images/UAX15-NormFig6.jpg)
 
+
 Qua kiến thức về normalize nói trên, vậy vấn đề `strip` ban đầu xử lý như thế nào?
+
 Trong `String` ruby có 1 hàm là `unicode_normalize`. Được sử dụng để convert 1 string sang normalize khác.
+
 Sử dụng `unicode_normalize` như thế nào?
 ```ruby
 "　xxx".unicode_normalize(:nfkc).strip
 => "xxx"
 ```
+
 ### Extend
 Ngoài ra chúng ta cũng có thể sử dụng regex để giải quyết bài toán này.
 ```ruby
