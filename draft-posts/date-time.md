@@ -3,5 +3,7 @@ Query ngày trong rails với trường có data type là datetime.
 - Tiếp theo đầu truyền vào thì chúng ta truyền kiểu DateTime để có cả TimeZone. Lúc vào DB thì rails sẽ tự convert về giờ UTC.
 
 ```
-where "DATE(created_at) = DATE(?)", Time.current)
+where created_at: Time.current.beginning_of_day..Time.current.end_of_day)
 ```
+Không truyền Date, DateTime trực tiếp trong validates model
+Chuyển xuống hàm rồi gọ
