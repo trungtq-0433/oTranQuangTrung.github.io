@@ -6,4 +6,7 @@ Query ngày trong rails với trường có data type là datetime.
 where created_at: Time.current.beginning_of_day..Time.current.end_of_day)
 ```
 Không truyền Date, DateTime trực tiếp trong validates model
-Chuyển xuống hàm rồi gọ
+Chuyển xuống hàm rồi gọi
+
+Không đặt Time ở constant.
+Được sử dụng T
