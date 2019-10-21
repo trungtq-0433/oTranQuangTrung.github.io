@@ -9,4 +9,5 @@ Không truyền Date, DateTime trực tiếp trong validates model
 Chuyển xuống hàm rồi gọi
 
 Không đặt Time ở constant.
+
 Được sử dụng T
