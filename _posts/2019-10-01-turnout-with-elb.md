@@ -32,6 +32,8 @@ Turnout.configure do |config|
   # Thư mục app root
   config.app_root = '.'
   # Nơi chứa file maintenance
+  # Chỗ này theo kinh nghiệm của mình thì nên đặt ở thư mục shared của capistrano. 
+  # Để đảm bảo file không bị mất đi khi mình deploy trong qúa trình b
   config.named_maintenance_file_paths = {default: config.app_root.join('tmp', 'maintenance.yml').to_s}
   # File view cho maintenance mode
   config.maintenance_pages_path = config.app_root.join('public').to_s
